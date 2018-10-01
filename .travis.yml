@@ -12,7 +12,7 @@ env:
 deploy:
   # Maven snapshots from develop branch
   - provider: script
-    script: echo hello snapshot
+    script: mvn deploy -Dmaven.test.skip -s .travis.settings.xml -P deploy-snapshots
     skip_cleanup: true
     on:
       branch: develop
@@ -22,7 +22,7 @@ deploy:
 
   # Maven releases from master branch & tag
   - provider: script
-    script: echo hello release
+    script: mvn deploy -Dmaven.test.skip -s .travis.settings.xml -P deploy-releases
     skip_cleanup: true
     on:
       branch: master
@@ -35,7 +35,7 @@ deploy:
     api_key: "${GITHUB_KEY}"
     skip_cleanup: true
     file_glob: true
-    file: ${DEPLOY_BIN}
+    file: "${DEPLOY_BIN}"
     on:
       branch: master
       tags: true
