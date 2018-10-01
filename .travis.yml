@@ -12,14 +12,10 @@ env:
     - DEPLOY_JDK=oraclejdk8
     - DEPLOY_REPO=nbbrd/sandbox
 
-before_install:
-  - shopt -s expand_aliases
-  - alias mvn_deploy='echo hello'
-
 deploy:
   # Maven snapshots from develop branch
   - provider: script
-    script: mvn_deploy
+    script: echo hello snapshot
     skip_cleanup: true
     on:
       branch: develop
@@ -28,7 +24,7 @@ deploy:
 
   # Maven releases from master branch
   - provider: script
-    script: mvn_deploy
+    script: echo hello release
     skip_cleanup: true
     on:
       branch: master
