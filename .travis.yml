@@ -19,6 +19,7 @@ deploy:
     skip_cleanup: true
     on:
       branch: develop
+      tags: false
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
 
@@ -28,6 +29,7 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+      tags: false
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
 
@@ -40,3 +42,5 @@ deploy:
     on:
       branch: master
       tags: true
+      repo: "${DEPLOY_REPO}"
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
