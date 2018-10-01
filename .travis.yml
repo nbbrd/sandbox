@@ -13,13 +13,12 @@ env:
     - DEPLOY_REPO=nbbrd/sandbox
 
 before_deploy:
-  - echo $TRAVIS_JDK_VERSION
   - alias mvn_deploy='echo hello'
 
 deploy:
   # Maven snapshots from develop branch
   - provider: script
-    script: mvn_deploy snapshots
+    script: mvn_deploy
     skip_cleanup: true
     on:
       branch: develop
@@ -28,7 +27,7 @@ deploy:
 
   # Maven releases from master branch
   - provider: script
-    script: mvn_deploy releases
+    script: mvn_deploy
     skip_cleanup: true
     on:
       branch: master
