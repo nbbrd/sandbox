@@ -7,23 +7,27 @@ cache:
   directories:
     - $HOME/.m2
 
+env:
+  - MAIN_JDK=oraclejdk8
+  - MAIN_REPO=nbbrd/sandbox
+
 deploy:
- # Maven snapshots from develop & jdk8
- - provider: script
+  # Maven snapshots from develop branch
+  - provider: script
     script: echo hello snapshots
     skip_cleanup: true
     on:
-      repo: nbbrd/sandbox
       branch: develop
-      jdk: oraclejdk8
+      repo: $MAIN_REPO
+      jdk: $MAIN_JDK
       condition: $TRAVIS_PULL_REQUEST = "false"
 
- # Maven releases from master & jdk8
- - provider: script
+  # Maven releases from master branch
+  - provider: script
     script: echo hello releases
     skip_cleanup: true
     on:
-      repo: nbbrd/sandbox
       branch: master
-      jdk: oraclejdk8
+      repo: $MAIN_REPO
+      jdk: $MAIN_JDK
       condition: $TRAVIS_PULL_REQUEST = "false"
