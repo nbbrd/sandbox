@@ -13,8 +13,8 @@ env:
     - DEPLOY_REPO=nbbrd/sandbox
 
 before_deploy:
-  - "echo 'ready?'"
-  - "alias mvn_deploy='echo hello'"
+  - shopt -s expand_aliases
+  - alias mvn_deploy='echo hello'
 
 deploy:
   # Maven snapshots from develop branch
