@@ -8,8 +8,9 @@ cache:
     - $HOME/.m2
 
 env:
-  - MAIN_JDK=oraclejdk8
-  - MAIN_REPO=nbbrd/sandbox
+  global:
+    - DEPLOY_JDK=oraclejdk8
+    - DEPLOY_REPO=nbbrd/sandbox
 
 deploy:
   # Maven snapshots from develop branch
@@ -18,8 +19,8 @@ deploy:
     skip_cleanup: true
     on:
       branch: develop
-      repo: $MAIN_REPO
-      jdk: $MAIN_JDK
+      repo: $DEPLOY_REPO
+      jdk: $DEPLOY_JDK
       condition: $TRAVIS_PULL_REQUEST = "false"
 
   # Maven releases from master branch
@@ -28,6 +29,6 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
-      repo: $MAIN_REPO
-      jdk: $MAIN_JDK
+      repo: $DEPLOY_REPO
+      jdk: $DEPLOY_JDK
       condition: $TRAVIS_PULL_REQUEST = "false"
