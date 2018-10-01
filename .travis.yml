@@ -3,14 +3,11 @@ jdk:
   - oraclejdk8
   - openjdk11
 
-cache:
-  directories:
-    - $HOME/.m2
-
 env:
   global:
     - DEPLOY_JDK=oraclejdk8
     - DEPLOY_REPO=nbbrd/sandbox
+    - DEPLOY_BIN=target/*bin.jar
 
 deploy:
   # Maven snapshots from develop branch
@@ -38,9 +35,13 @@ deploy:
     api_key: "${GITHUB_KEY}"
     skip_cleanup: true
     file_glob: true
-    file: "target/*bin.jar"
+    file: ${DEPLOY_BIN}
     on:
       branch: master
       tags: true
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
+
+cache:
+  directories:
+    - $HOME/.m2
