@@ -12,7 +12,7 @@ env:
     - DEPLOY_JDK=oraclejdk8
     - DEPLOY_REPO=nbbrd/sandbox
 
-before_deploy:
+before_install:
   - shopt -s expand_aliases
   - alias mvn_deploy='echo hello'
 
