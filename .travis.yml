@@ -20,7 +20,7 @@ deploy:
     on:
       branch: develop
       repo: "${DEPLOY_REPO}"
-      jdk: "${DEPLOY_JDK}"
+      jdk: oraclejdk8
       condition: $TRAVIS_PULL_REQUEST = "false"
 
   # Maven releases from master branch
@@ -30,5 +30,5 @@ deploy:
     on:
       branch: master
       repo: "${DEPLOY_REPO}"
-      jdk: "${DEPLOY_JDK}"
+      jdk: oraclejdk8
       condition: $TRAVIS_PULL_REQUEST = "false"
