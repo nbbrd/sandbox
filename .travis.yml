@@ -19,8 +19,8 @@ deploy:
     skip_cleanup: true
     on:
       branch: develop
-      repo: $DEPLOY_REPO
-      jdk: $DEPLOY_JDK
+      repo: "${DEPLOY_REPO}"
+      jdk: "${DEPLOY_JDK}"
       condition: $TRAVIS_PULL_REQUEST = "false"
 
   # Maven releases from master branch
@@ -29,6 +29,6 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
-      repo: $DEPLOY_REPO
-      jdk: $DEPLOY_JDK
+      repo: "${DEPLOY_REPO}"
+      jdk: "${DEPLOY_JDK}"
       condition: $TRAVIS_PULL_REQUEST = "false"
