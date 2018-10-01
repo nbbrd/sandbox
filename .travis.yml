@@ -12,6 +12,11 @@ env:
     - DEPLOY_JDK=oraclejdk8
     - DEPLOY_REPO=nbbrd/sandbox
 
+before_deploy:
+  - echo "TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST"
+  - echo "TRAVIS_JDK_VERSION: $TRAVIS_JDK_VERSION"
+  - alias mvn_deploy='mvn deploy -Dmaven.test.skip -s .travis.settings.xml'
+
 deploy:
   # Maven snapshots from develop branch
   - provider: script
@@ -20,8 +25,7 @@ deploy:
     on:
       branch: develop
       repo: "${DEPLOY_REPO}"
-      jdk: oraclejdk8
-      condition: $TRAVIS_PULL_REQUEST = "false"
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
 
   # Maven releases from master branch
   - provider: script
@@ -30,5 +34,4 @@ deploy:
     on:
       branch: master
       repo: "${DEPLOY_REPO}"
-      jdk: oraclejdk8
-      condition: $TRAVIS_PULL_REQUEST = "false"
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
