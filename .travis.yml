@@ -20,13 +20,13 @@ deploy:
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
 
-  # Maven releases from master branch
+  # Maven releases from master branch & tag
   - provider: script
     script: echo hello release
     skip_cleanup: true
     on:
       branch: master
-      tags: false
+      tags: true
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
 
