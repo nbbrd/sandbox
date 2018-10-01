@@ -20,24 +20,22 @@ deploy:
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
 
-  # Maven releases from master branch & tag
+  # Maven releases from tags
   - provider: script
     script: mvn deploy -Dmaven.test.skip -s .travis.settings.xml -P deploy-releases
     skip_cleanup: true
     on:
-      branch: master
       tags: true
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
 
-  # Github releases from master branch & tag
+  # Github releases from tags
   - provider: releases
     api_key: "${GITHUB_KEY}"
     skip_cleanup: true
     file_glob: true
     file: "${DEPLOY_BIN}"
     on:
-      branch: master
       tags: true
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
