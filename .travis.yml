@@ -7,10 +7,20 @@ cache:
   directories:
     - $HOME/.m2
 
-# some comments
 deploy:
-  - provider: script
-    script: echo hello world
+ # Maven snapshots from develop & jdk8
+ - provider: script
+    script: echo hello snapshots
+    skip_cleanup: true
+    on:
+      repo: nbbrd/sandbox
+      branch: develop
+      jdk: oraclejdk8
+      condition: $TRAVIS_PULL_REQUEST = "false"
+
+ # Maven releases from master & jdk8
+ - provider: script
+    script: echo hello releases
     skip_cleanup: true
     on:
       repo: nbbrd/sandbox
