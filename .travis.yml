@@ -30,3 +30,13 @@ deploy:
       branch: master
       repo: "${DEPLOY_REPO}"
       condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
+
+  # Github releases from master branch & tag
+  - provider: releases
+    api_key: "${GITHUB_KEY}"
+    skip_cleanup: true
+    file_glob: true
+    file: "target/*bin.jar"
+    on:
+      branch: master
+      tags: true
