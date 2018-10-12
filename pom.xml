@@ -11,7 +11,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         
-        <maven-shade-plugin.version>3.1.0</maven-shade-plugin.version>
+        <maven-shade-plugin.version>3.2.0</maven-shade-plugin.version>
         <project.mainClass>be.nbb.rd.sandbox.Main</project.mainClass>
     </properties>
     
