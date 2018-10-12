@@ -14,7 +14,7 @@
         <maven-shade-plugin.version>3.2.0</maven-shade-plugin.version>
         <project.mainClass>be.nbb.rd.sandbox.Main</project.mainClass>
         
-        <commons-lang.version>2.4</commons-lang.version>
+        <commons-lang.version>2.6</commons-lang.version>
     </properties>
     
     <dependencies>
