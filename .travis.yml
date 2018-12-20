@@ -9,7 +9,7 @@ env:
     - DEPLOY_REPO=nbbrd/sandbox
     - DEPLOY_BIN=target/*bin.jar
     
-before_script:
+before_install:
   - mvn org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout -q
 
 deploy:
