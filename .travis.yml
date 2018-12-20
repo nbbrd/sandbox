@@ -11,6 +11,8 @@ env:
     
 before_script:
   - shopt -s expand_aliases
+  - VERSION="$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)"
+  - echo $VERSION
   - alias mvn_project_version='mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout'
   - mvn_project_version
 
