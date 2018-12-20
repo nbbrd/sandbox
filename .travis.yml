@@ -10,7 +10,7 @@ env:
     - DEPLOY_BIN=target/*bin.jar
     
 before_install:
-  - mvn org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version -DforceStdout -q
+  - mvn org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version | egrep -v "(^\[INFO\])"
 
 deploy:
   # Maven snapshots from develop branch
