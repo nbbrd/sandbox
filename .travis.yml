@@ -9,7 +9,7 @@ env:
     - DEPLOY_REPO=nbbrd/sandbox
     - DEPLOY_BIN=target/*bin.jar
     
-before_deploy:
+before_script:
   - echo hello_world
   - alias projectVersion='mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout'
   - projectVersion
