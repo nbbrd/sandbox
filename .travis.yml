@@ -10,9 +10,9 @@ env:
     - DEPLOY_BIN=target/*bin.jar
     
 before_script:
-  - echo hello_world
-  - alias projectVersion='mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout'
-  - projectVersion
+  - shopt -s expand_aliases
+  - alias mvn_project_version='mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout'
+  - mvn_project_version
 
 deploy:
   # Maven snapshots from develop branch
