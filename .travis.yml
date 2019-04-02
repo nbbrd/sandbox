@@ -1,11 +1,11 @@
 language: java
 jdk:
-  - oraclejdk8
   - openjdk11
+  - oraclejdk8
 
 env:
   global:
-    - DEPLOY_JDK=oraclejdk8
+    - DEPLOY_JDK=openjdk11
     - DEPLOY_REPO=nbbrd/sandbox
     - DEPLOY_BIN=target/*bin.jar
     
