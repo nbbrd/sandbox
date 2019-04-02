@@ -178,6 +178,9 @@ project.properties.setProperty('project.fileversion', fileversion)
                     <fileSets>
                         <fileSet>
                             <directory>${project.binaries}</directory>
+                            <excludes>
+                                <exclude>*.sha256</exclude>
+                            </excludes>
                         </fileSet>
                     </fileSets>
                     <csvSummary>false</csvSummary>
