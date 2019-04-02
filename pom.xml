@@ -20,12 +20,14 @@
         <launch4j-maven-plugin.version>1.7.23</launch4j-maven-plugin.version>
         <gmavenplus-plugin.version>1.6</gmavenplus-plugin.version>
         <groovy-all.version>2.4.4</groovy-all.version>
+        <checksum-maven-plugin.version>1.8</checksum-maven-plugin.version>
 
         <!-- other -->
         <jdemetra.version>2.2.2</jdemetra.version>
         <picocli.version>4.0.0-alpha-1</picocli.version>
         <project.mainClass>be.nbb.rd.sandbox.Main</project.mainClass>
         <project.copyright>National Bank of Belgium</project.copyright>
+        <project.binaries>${project.build.directory}/binaries</project.binaries>
     </properties>
     
     <dependencies>
@@ -59,7 +61,7 @@
                 <version>${maven-compiler-plugin.version}</version>
             </plugin>
 
-            <!-- Put project version in manifest in order to make it available at runtime -->
+            <!-- Generates a all-in-one executable jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -81,6 +83,7 @@
                     </transformers>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <shadedClassifierName>bin</shadedClassifierName>
+                    <outputDirectory>${project.binaries}</outputDirectory>
                 </configuration>
             </plugin>
             
@@ -131,8 +134,8 @@ project.properties.setProperty('project.fileversion', fileversion)
                         </goals>
                         <configuration>
                             <headerType>console</headerType>
-                            <outfile>${project.build.directory}/${project.build.finalName}.exe</outfile>
-                            <jar>${project.build.directory}/${project.build.finalName}-bin.jar</jar>
+                            <outfile>${project.binaries}/${project.build.finalName}.exe</outfile>
+                            <jar>${project.binaries}/${project.build.finalName}-bin.jar</jar>
                             <downloadUrl>https://adoptopenjdk.net/</downloadUrl>
                             <classPath>
                                 <mainClass>${project.mainClass}</mainClass>
@@ -154,6 +157,31 @@ project.properties.setProperty('project.fileversion', fileversion)
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            
+            <!-- Generates SHA256 on binaries -->
+            <plugin>
+                <groupId>net.nicoulaj.maven.plugins</groupId>
+                <artifactId>checksum-maven-plugin</artifactId>
+                <version>${checksum-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>files</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <algorithms>
+                        <algorithm>SHA-256</algorithm>
+                    </algorithms>
+                    <fileSets>
+                        <fileSet>
+                            <directory>${project.binaries}</directory>
+                        </fileSet>
+                    </fileSets>
+                    <csvSummary>false</csvSummary>
+                </configuration>
             </plugin>
         </plugins>
     </build>

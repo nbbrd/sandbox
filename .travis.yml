@@ -7,10 +7,10 @@ env:
   global:
     - DEPLOY_JDK=openjdk11
     - DEPLOY_REPO=nbbrd/sandbox
-    - DEPLOY_BIN=target/*bin.jar
+    - DEPLOY_BIN=target/binaries/*
     
-before_install:
-  - mvn org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version | egrep -v "(^\[INFO\])"
+#before_install:
+#  - mvn org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version | egrep -v "(^\[INFO\])"
 
 deploy:
   # Maven snapshots from develop branch
