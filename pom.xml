@@ -17,24 +17,20 @@
 
         <!-- other -->
         <project.mainClass>be.nbb.rd.sandbox.Main</project.mainClass>
-        <commons-lang.version>2.6</commons-lang.version>
+        <jdemetra.version>2.2.2</jdemetra.version>
+        <picocli.version>4.0.0-alpha-1</picocli.version>
     </properties>
     
     <dependencies>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons-lang.version}</version>
-        </dependency>
-        <dependency>
             <groupId>eu.europa.ec.joinup.sat</groupId>
             <artifactId>demetra-tstoolkit</artifactId>
-            <version>2.2.1</version>
+            <version>${jdemetra.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>${picocli.version}</version>
         </dependency>
     </dependencies>
     

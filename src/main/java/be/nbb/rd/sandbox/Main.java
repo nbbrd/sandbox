@@ -14,16 +14,28 @@
  * See the Licence for the specific language governing permissions and 
  * limitations under the Licence.
  */
-
 package be.nbb.rd.sandbox;
+
+import java.util.concurrent.Callable;
+import picocli.CommandLine;
 
 /**
  *
  * @author Philippe Charles
  */
-public class Main {
+@CommandLine.Command(name = "hello")
+public final class Main implements Callable<Void> {
+
+    @CommandLine.Parameters(arity = "1")
+    private String name;
+
+    @Override
+    public Void call() throws Exception {
+        System.out.println("Hello " + name);
+        return null;
+    }
 
     public static void main(String[] args) {
-        
+        CommandLine.call(new Main(), args);
     }
 }
