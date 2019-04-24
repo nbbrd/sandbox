@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <groupId>be.nbb.rd</groupId>
     <artifactId>sandbox</artifactId>
     <version>1.0.0-SNAPSHOT</version>
@@ -8,64 +9,46 @@
 
     <name>Sandbox</name>
     <description>Sandbox application</description>
+    
+    <url>https://github.com/nbbrd/sandbox</url>
+    <licenses>
+        <license>
+            <name>European Union Public Licence (EUPL)</name>
+            <url>https://joinup.ec.europa.eu/page/eupl-text-11-12</url>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>National Bank of Belgium</name>
+        <url>https://www.nbb.be</url>
+    </organization>
 
     <properties>
-        <!-- build -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-shade-plugin.version>3.2.0</maven-shade-plugin.version>
-        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-        <launch4j-maven-plugin.version>1.7.23</launch4j-maven-plugin.version>
-        <gmavenplus-plugin.version>1.6</gmavenplus-plugin.version>
-        <groovy-all.version>2.4.4</groovy-all.version>
-        <checksum-maven-plugin.version>1.8</checksum-maven-plugin.version>
-
-        <!-- other -->
-        <jdemetra.version>2.2.2</jdemetra.version>
-        <picocli.version>4.0.0-alpha-1</picocli.version>
-        <project.mainClass>be.nbb.rd.sandbox.Main</project.mainClass>
-        <project.copyright>National Bank of Belgium</project.copyright>
-        <project.binaries>${project.build.directory}/binaries</project.binaries>
+        <project.x.mainClass>be.nbb.rd.sandbox.Main</project.x.mainClass>
+        <project.x.binaries>${project.build.directory}/binaries</project.x.binaries>
+        <project.x.headerType>console</project.x.headerType>
     </properties>
     
     <dependencies>
         <dependency>
             <groupId>eu.europa.ec.joinup.sat</groupId>
             <artifactId>demetra-tstoolkit</artifactId>
-            <version>${jdemetra.version}</version>
+            <version>2.2.2</version>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>
             <artifactId>picocli</artifactId>
-            <version>${picocli.version}</version>
+            <version>4.0.0-alpha-1</version>
         </dependency>
     </dependencies>
     
-    <repositories>
-        <repository>
-            <id>oss-jfrog-artifactory-releases</id>
-            <url>https://oss.jfrog.org/artifactory/oss-release-local</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-            </plugin>
-
             <!-- Generates a all-in-one executable jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>${maven-shade-plugin.version}</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -78,25 +61,25 @@
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>${project.mainClass}</mainClass>
+                            <mainClass>${project.x.mainClass}</mainClass>
                         </transformer>
                     </transformers>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <shadedClassifierName>bin</shadedClassifierName>
-                    <outputDirectory>${project.binaries}</outputDirectory>
+                    <outputDirectory>${project.x.binaries}</outputDirectory>
                 </configuration>
             </plugin>
             
-            <!-- Generates ${project.fileversion} from project version -->
+            <!-- Generates ${project.x.fileversion} from project version -->
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>${gmavenplus-plugin.version}</version>
+                <version>1.6</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.codehaus.groovy</groupId>
                         <artifactId>groovy-all</artifactId>
-                        <version>${groovy-all.version}</version>
+                        <version>2.4.4</version>
                         <scope>runtime</scope>
                     </dependency>
                 </dependencies>
@@ -112,7 +95,7 @@
                                 <script>
                                     <![CDATA[
 fileversion = "${project.version}".replace("-SNAPSHOT", "") + ".0"
-project.properties.setProperty('project.fileversion', fileversion)
+project.properties.setProperty('project.x.fileversion', fileversion)
 ]]>
                                 </script>
                             </scripts>
@@ -125,7 +108,7 @@ project.properties.setProperty('project.fileversion', fileversion)
             <plugin>
                 <groupId>com.akathist.maven.plugins.launch4j</groupId>
                 <artifactId>launch4j-maven-plugin</artifactId>
-                <version>${launch4j-maven-plugin.version}</version>
+                <version>1.7.23</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -133,22 +116,22 @@ project.properties.setProperty('project.fileversion', fileversion)
                             <goal>launch4j</goal>
                         </goals>
                         <configuration>
-                            <headerType>console</headerType>
-                            <outfile>${project.binaries}/${project.build.finalName}.exe</outfile>
-                            <jar>${project.binaries}/${project.build.finalName}-bin.jar</jar>
+                            <headerType>${project.x.headerType}</headerType>
+                            <outfile>${project.x.binaries}/${project.build.finalName}.exe</outfile>
+                            <jar>${project.x.binaries}/${project.build.finalName}-bin.jar</jar>
                             <downloadUrl>https://adoptopenjdk.net/</downloadUrl>
                             <classPath>
-                                <mainClass>${project.mainClass}</mainClass>
+                                <mainClass>${project.x.mainClass}</mainClass>
                             </classPath>
                             <jre>
                                 <minVersion>${maven.compiler.target}</minVersion>
                             </jre>
                             <versionInfo>
-                                <fileVersion>${project.fileversion}</fileVersion>
+                                <fileVersion>${project.x.fileversion}</fileVersion>
                                 <txtFileVersion>${project.version}</txtFileVersion>
                                 <fileDescription>${project.description}</fileDescription>
-                                <copyright>${project.copyright}</copyright>
-                                <productVersion>${project.fileversion}</productVersion>
+                                <copyright>${organization.name}</copyright>
+                                <productVersion>${project.x.fileversion}</productVersion>
                                 <txtProductVersion>${project.version}</txtProductVersion>
                                 <productName>${project.name}</productName>
                                 <internalName>${project.name}</internalName>
@@ -163,7 +146,7 @@ project.properties.setProperty('project.fileversion', fileversion)
             <plugin>
                 <groupId>net.nicoulaj.maven.plugins</groupId>
                 <artifactId>checksum-maven-plugin</artifactId>
-                <version>${checksum-maven-plugin.version}</version>
+                <version>1.8</version>
                 <executions>
                     <execution>
                         <goals>
@@ -177,7 +160,7 @@ project.properties.setProperty('project.fileversion', fileversion)
                     </algorithms>
                     <fileSets>
                         <fileSet>
-                            <directory>${project.binaries}</directory>
+                            <directory>${project.x.binaries}</directory>
                             <excludes>
                                 <exclude>*.sha256</exclude>
                             </excludes>
@@ -190,24 +173,44 @@ project.properties.setProperty('project.fileversion', fileversion)
     </build>
     
     <profiles>
+        <!-- Base build java8 -->
+        <profile>
+            <id>base-java8</id>
+            <activation>
+                <property>
+                    <name>!skipBaseJava8</name>
+                </property>
+            </activation>
+            <properties>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.source>1.8</maven.compiler.source>                
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.8.0</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.1.0</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+                
         <!-- Enforce Java8 API -->
         <profile>
             <id>enforce-java8-api</id>
             <activation>
                 <jdk>11</jdk>
             </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>${maven-compiler-plugin.version}</version>
-                        <configuration>
-                            <release>8</release>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <properties>
+                <maven.compiler.release>8</maven.compiler.release>
+            </properties>
         </profile>
         
         <!-- Deploy SNAPSHOTS -->
@@ -242,4 +245,14 @@ project.properties.setProperty('project.fileversion', fileversion)
             </build>
         </profile>
     </profiles>
+    
+    <repositories>
+        <repository>
+            <id>oss-jfrog-artifactory-releases</id>
+            <url>https://oss.jfrog.org/artifactory/oss-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
