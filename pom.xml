@@ -206,13 +206,13 @@ project.properties.setProperty('project.x.fileversion', fileversion)
         <profile>
             <id>enforce-java8-api</id>
             <activation>
-                <jdk>11</jdk>
+                <jdk>[11,)</jdk>
             </activation>
             <properties>
                 <maven.compiler.release>8</maven.compiler.release>
             </properties>
         </profile>
-        
+
         <!-- Deploy SNAPSHOTS -->
         <profile>
             <id>deploy-snapshots</id>
