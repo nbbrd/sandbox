@@ -16,8 +16,8 @@
  */
 package be.nbb.rd.sandbox;
 
+import internal.picocli.CommandLine;
 import java.util.concurrent.Callable;
-import picocli.CommandLine;
 
 /**
  *
