@@ -30,11 +30,6 @@
     </properties>
     
     <dependencies>
-        <dependency>
-            <groupId>info.picocli</groupId>
-            <artifactId>picocli</artifactId>
-            <version>4.0.0-alpha-1</version>
-        </dependency>
     </dependencies>
     
     <build>
@@ -258,6 +253,97 @@ project.properties.setProperty('project.x.fileversion', fileversion)
                             </execution>
                         </executions>
                     </plugin>        
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Repack single-file-lib -->
+        <profile>
+            <id>repack-single-file-lib</id>
+            <activation>
+                <property>
+                    <name>!skipRepackSingleFileLib</name>
+                </property>
+            </activation>
+            <properties>
+                <repack.basedir>${project.build.directory}/repack</repack.basedir>
+                <repack.prefix>internal</repack.prefix>
+                <repack.pacdir>${repack.basedir}/${repack.prefix}</repack.pacdir>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Step 1: unpack source code -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>3.1.1</version>
+                        <executions>
+                            <execution>
+                                <id>repack-step1</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>info.picocli</groupId>
+                                            <artifactId>picocli</artifactId>
+                                            <version>4.0.0-alpha-1</version>
+                                            <classifier>sources</classifier>
+                                            <includes>**/CommandLine.java</includes>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <outputDirectory>${repack.basedir}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Step 2: move files to right folder and replace package declaration & imports -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>repack-step2</id>
+                                <phase>initialize</phase>
+                                <configuration>
+                                    <target>
+                                        <move todir="${repack.pacdir}">
+                                            <fileset dir="${repack.basedir}" />
+                                        </move>
+                                        <replaceregexp byline="true" match="(package|import|import static) picocli" replace="\1 ${repack.prefix}.picocli">
+                                            <fileset dir="${repack.pacdir}"/>
+                                        </replaceregexp>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Step 3: add repacked folder as source folder -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>repack-step3</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${repack.basedir}</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
