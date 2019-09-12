@@ -99,6 +99,8 @@
                             </classPath>
                             <jre>
                                 <minVersion>${maven.compiler.target}</minVersion>
+                                <path>%JAVA_HOME%</path>
+                                <bundledJreAsFallback>true</bundledJreAsFallback>
                             </jre>
                             <versionInfo>
                                 <fileVersion>${project.x.majorVersion}.${project.x.minorVersion}.${project.x.incrementalVersion}.${project.x.buildNumber}</fileVersion>
