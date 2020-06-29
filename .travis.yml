@@ -10,11 +10,17 @@ jobs:
     - os: linux
     - os: osx
       jdk: openjdk11
-    - os: windows
+    - name: "Windows + JDK8"
+      os: windows
       language: bash
       install:
         - choco install jdk8
         - choco install maven
+      script:
+        - java -Xmx32m -version
+        - javac -J-Xmx32m -version
+        - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        - mvn test -B
   allow_failures:
     - jdk: openjdk-ea
 
