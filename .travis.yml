@@ -5,19 +5,21 @@ jdk:
   - openjdk11
   - openjdk-ea
 
-matrix:
+jobs:
+  include:
+    - os: linux
+    - os: osx
+    - os: windows
   allow_failures:
     - jdk: openjdk-ea
 
 env:
   global:
+    - DEPLOY_OS=linux
     - DEPLOY_JDK=openjdk11
     - DEPLOY_REPO=nbbrd/sandbox
     - DEPLOY_BIN=target/binaries/*
     
-#before_install:
-#  - mvn org.apache.maven.plugins:maven-help-plugin:3.1.1:evaluate -Dexpression=project.version | egrep -v "(^\[INFO\])"
-
 deploy:
   # Maven snapshots from develop branch
   - provider: script
@@ -27,7 +29,7 @@ deploy:
       branch: develop
       tags: false
       repo: "${DEPLOY_REPO}"
-      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
 
   # Maven releases from tags
   - provider: script
@@ -36,7 +38,7 @@ deploy:
     on:
       tags: true
       repo: "${DEPLOY_REPO}"
-      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
 
   # Github releases from tags
   - provider: releases
@@ -48,7 +50,7 @@ deploy:
     on:
       tags: true
       repo: "${DEPLOY_REPO}"
-      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
 
 cache:
   directories:
