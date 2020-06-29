@@ -9,7 +9,12 @@ jobs:
   include:
     - os: linux
     - os: osx
+      jdk: openjdk11
     - os: windows
+      language: bash
+      install:
+        - choco install jdk8
+        - choco install maven
   allow_failures:
     - jdk: openjdk-ea
 
