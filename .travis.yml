@@ -35,8 +35,9 @@ jobs:
       script:
         - java -Xmx32m -version
         - javac -J-Xmx32m -version
-        - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-        - mvn test -B
+        - echo $PATH
+        - mvn.bat install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        - mvn.bat test -B
         
   allow_failures:
     - jdk: openjdk-ea
