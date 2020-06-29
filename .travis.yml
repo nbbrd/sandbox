@@ -4,17 +4,17 @@ language: java
 jobs:
   include:
     - stage: Test
-      name: "Linux + OpenJdk8"
+      name: "Linux + OpenJDK8"
       os: linux
       jdk: openjdk8
       
     - stage: Test
-      name: "Linux + OpenJdk11"
+      name: "Linux + OpenJDK11"
       os: linux
       jdk: openjdk11
       
     - stage: Test
-      name: "Linux + OpenJdk-EA"
+      name: "Linux + OpenJDK-EA"
       os: linux
       jdk: openjdk-ea
       
@@ -30,7 +30,7 @@ jobs:
       install:
         - choco install jdk8
         - choco install maven
-        - refreshenv
+        - cmd.exe //c "RefreshEnv.cmd"
       script:
         - java -Xmx32m -version
         - javac -J-Xmx32m -version
