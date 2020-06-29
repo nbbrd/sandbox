@@ -1,16 +1,30 @@
 dist: xenial
 language: java
-jdk:
-  - openjdk8
-  - openjdk11
-  - openjdk-ea
 
 jobs:
   include:
-    - os: linux
-    - os: osx
+    - stage: Test
+      name: "Linux + OpenJdk8"
+      os: linux
+      jdk: openjdk8
+      
+    - stage: Test
+      name: "Linux + OpenJdk11"
+      os: linux
       jdk: openjdk11
-    - name: "Windows + JDK8"
+      
+    - stage: Test
+      name: "Linux + OpenJdk-EA"
+      os: linux
+      jdk: openjdk-ea
+      
+    - stage: Test
+      name: "macOS + OpenJDK11"
+      os: osx
+      jdk: openjdk11
+      
+    - stage: Test
+      name: "Windows + JDK8"
       os: windows
       language: shell
       install:
@@ -22,6 +36,7 @@ jobs:
         - javac -J-Xmx32m -version
         - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
         - mvn test -B
+        
   allow_failures:
     - jdk: openjdk-ea
 
