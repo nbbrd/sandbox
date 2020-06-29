@@ -16,6 +16,7 @@ jobs:
       install:
         - choco install jdk8
         - choco install maven
+        - refreshenv
       script:
         - java -Xmx32m -version
         - javac -J-Xmx32m -version
