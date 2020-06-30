@@ -8,7 +8,7 @@ env:
     - DEPLOY_REPO=nbbrd/sandbox
     - DEPLOY_BIN=target/binaries/*
 
-_win_amd64_java: &_win_amd64_java
+_java_windows_amd64: &_java_windows_amd64
   os: windows
   language: shell
   install:
@@ -21,35 +21,38 @@ _win_amd64_java: &_win_amd64_java
     - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
     - mvn test -B
 
+_java_linux_arm64: &_java_linux_arm64
+  os: linux
+  arch: arm64
+  addons:
+    apt:
+      packages: maven
+
 jobs:
   include:
     - name: "linux-amd64-openjdk8"
-      os: linux
       jdk: openjdk8
+      os: linux
       
     - name: "linux-amd64-openjdk11"
-      os: linux
       jdk: openjdk11
+      os: linux
       
     - name: "linux-amd64-openjdk-ea"
-      os: linux
       jdk: openjdk-ea
+      os: linux
 
     - name: "linux-arm64-openjdk11"
-      os: linux
-      arch: arm64
       jdk: openjdk11
-      addons:
-        apt:
-          packages: maven
+      <<: *_java_linux_arm64
     
     - name: "macos-amd64-openjdk11"
-      os: osx
       jdk: openjdk11
+      os: osx
       
     - name: "windows-amd64-openjdk11"
       env: TRAVIS_JDK_VERSION=openjdk11
-      <<: *_win_amd64_java
+      <<: *_java_windows_amd64
       
   allow_failures:
     - jdk: openjdk-ea
