@@ -30,16 +30,14 @@ jobs:
       install:
         - choco install openjdk11
         - choco install maven
-        - cmd.exe //c "RefreshEnv.cmd"
+        # fix1: refresh $PATH
         - eval $(powershell -NonInteractive -Command 'write("export PATH=`"" + ([Environment]::GetEnvironmentVariable("PATH","Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH","User")).replace("\","/").replace("C:","/c").replace(";",":") + ":`$PATH`"")')
-        - export M2_HOME=/c/ProgramData/chocolatey/lib/maven
+        # fix2: get $M2_HOME and append it to $PATH
+        - eval $(powershell -NonInteractive -Command 'write("export M2_HOME=`"" + ([Environment]::GetEnvironmentVariable("M2_HOME","Machine")).replace("\","/").replace("C:","/c").replace(";",":") + "`"")')
         - export PATH=${M2_HOME}/bin:${PATH}
       script:
         - java -Xmx32m -version
         - javac -J-Xmx32m -version
-        - echo $PATH
-        - echo $M2_HOME
-        - ls -l $M2_HOME
         - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
         - mvn test -B
         
