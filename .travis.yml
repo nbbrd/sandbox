@@ -36,6 +36,8 @@ jobs:
         - java -Xmx32m -version
         - javac -J-Xmx32m -version
         - echo $PATH
+        - echo $M2_HOME
+        - echo %M2_HOME%
         - mvn.bat install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
         - mvn.bat test -B
         
