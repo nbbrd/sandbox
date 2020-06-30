@@ -39,9 +39,8 @@ jobs:
         - javac -J-Xmx32m -version
         - echo $PATH
         - echo $M2_HOME
-        - echo %M2_HOME%
-        - mvn.bat install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-        - mvn.bat test -B
+        - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        - mvn test -B
         
   allow_failures:
     - jdk: openjdk-ea
