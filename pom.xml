@@ -26,7 +26,6 @@
     <properties>
         <project.x.mainClass>be.nbb.rd.sandbox.Main</project.x.mainClass>
         <project.x.binaries>${project.build.directory}/binaries</project.x.binaries>
-        <project.x.headerType>console</project.x.headerType>
     </properties>
     
     <dependencies>
@@ -58,64 +57,6 @@
                     <shadedClassifierName>bin</shadedClassifierName>
                     <outputDirectory>${project.x.binaries}</outputDirectory>
                 </configuration>
-            </plugin>
-            
-            <!-- Parse version into different properties -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>parse-version</goal>
-                        </goals>
-                        <configuration>
-                            <propertyPrefix>project.x</propertyPrefix>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <!-- Generates a Windows exe -->
-            <plugin>
-                <groupId>com.akathist.maven.plugins.launch4j</groupId>
-                <artifactId>launch4j-maven-plugin</artifactId>
-                <version>1.7.25</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>launch4j</goal>
-                        </goals>
-                        <configuration>
-                            <headerType>${project.x.headerType}</headerType>
-                            <outfile>${project.x.binaries}/${project.build.finalName}.exe</outfile>
-                            <jar>${project.x.binaries}/${project.build.finalName}-bin.jar</jar>
-                            <downloadUrl>https://adoptopenjdk.net/</downloadUrl>
-                            <classPath>
-                                <mainClass>${project.x.mainClass}</mainClass>
-                            </classPath>
-                            <jre>
-                                <minVersion>${maven.compiler.target}</minVersion>
-                                <path>%JAVA_HOME%</path>
-                                <bundledJreAsFallback>true</bundledJreAsFallback>
-                            </jre>
-                            <versionInfo>
-                                <fileVersion>${project.x.majorVersion}.${project.x.minorVersion}.${project.x.incrementalVersion}.${project.x.buildNumber}</fileVersion>
-                                <txtFileVersion>${project.version}</txtFileVersion>
-                                <fileDescription>${project.description}</fileDescription>
-                                <copyright>${project.organization.name}</copyright>
-                                <productVersion>${project.x.majorVersion}.${project.x.minorVersion}.${project.x.incrementalVersion}.${project.x.buildNumber}</productVersion>
-                                <txtProductVersion>${project.version}</txtProductVersion>
-                                <productName>${project.name}</productName>
-                                <internalName>${project.name}</internalName>
-                                <originalFilename>${project.name}.exe</originalFilename>
-                            </versionInfo>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             
             <!-- Generates SHA256 on binaries -->
