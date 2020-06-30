@@ -34,14 +34,23 @@ jobs:
     - name: "linux-amd64-openjdk-ea"
       os: linux
       jdk: openjdk-ea
-      
-    - name: "osx-amd64-openjdk11"
+
+    - name: "linux-arm64-openjdk11"
+      os: linux
+      arch: arm64
+      jdk: openjdk11
+      addons:
+        apt:
+          packages: maven
+    
+    - name: "macos-amd64-openjdk11"
       os: osx
       jdk: openjdk11
       
-    - name: "win-amd64-openjdk11"
+    - name: "windows-amd64-openjdk11"
       env: TRAVIS_JDK_VERSION=openjdk11
       <<: *_win_amd64_java
+      
   allow_failures:
     - jdk: openjdk-ea
     
