@@ -30,9 +30,9 @@ jobs:
       install:
         - choco install openjdk11
         - choco install maven
-        - setx M2_HOME C:\\ProgramData\\chocolatey\\lib\\maven
         - cmd.exe //c "RefreshEnv.cmd"
         - eval $(powershell -NonInteractive -Command 'write("export PATH=`"" + ([Environment]::GetEnvironmentVariable("PATH","Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH","User")).replace("\","/").replace("C:","/c").replace(";",":") + ":`$PATH`"")')
+        - export PATH=$PATH:/c/ProgramData/chocolatey/lib/maven
       script:
         - java -Xmx32m -version
         - javac -J-Xmx32m -version
