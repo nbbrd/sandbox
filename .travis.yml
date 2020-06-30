@@ -12,8 +12,8 @@ _win_amd64_java: &_win_amd64_java
   os: windows
   language: shell
   install:
-    - choco install $JDK maven
-    # fix1: refresh $PATH, get $M2_HOME and append it to $PATH
+    - choco install $TRAVIS_JDK_VERSION maven
+    # fix: refresh $PATH, get $M2_HOME and append it to $PATH
     - eval $(powershell -NonInteractive -Command 'write("export PATH=`"" + ([Environment]::GetEnvironmentVariable("PATH","Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH","User")).replace("\","/").replace("C:","/c").replace(";",":") + ":`$PATH`"")')
     - eval $(powershell -NonInteractive -Command 'write("export M2_HOME=`"" + ([Environment]::GetEnvironmentVariable("M2_HOME","Machine")).replace("\","/").replace("C:","/c").replace(";",":") + "`"")')
     - export PATH=${M2_HOME}/bin:${PATH}
@@ -39,10 +39,9 @@ jobs:
       os: osx
       jdk: openjdk11
       
-    - name: "win-openjdk11"
-      env: JDK=openjdk11
+    - name: "win-amd64-openjdk11"
+      env: TRAVIS_JDK_VERSION=openjdk11
       <<: *_win_amd64_java
-        
   allow_failures:
     - jdk: openjdk-ea
     
