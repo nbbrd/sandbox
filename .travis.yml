@@ -32,7 +32,8 @@ jobs:
         - choco install maven
         - cmd.exe //c "RefreshEnv.cmd"
         - eval $(powershell -NonInteractive -Command 'write("export PATH=`"" + ([Environment]::GetEnvironmentVariable("PATH","Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH","User")).replace("\","/").replace("C:","/c").replace(";",":") + ":`$PATH`"")')
-        - export PATH=$PATH:/c/ProgramData/chocolatey/lib/maven
+        - export M2_HOME=/c/ProgramData/chocolatey/lib/maven
+        - export PATH=${M2_HOME}/bin:${PATH}
       script:
         - java -Xmx32m -version
         - javac -J-Xmx32m -version
