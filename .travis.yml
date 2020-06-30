@@ -1,55 +1,50 @@
 dist: xenial
 language: java
 
-jobs:
-  include:
-    - stage: Test
-      name: "Linux + OpenJDK8"
-      os: linux
-      jdk: openjdk8
-      
-    - stage: Test
-      name: "Linux + OpenJDK11"
-      os: linux
-      jdk: openjdk11
-      
-    - stage: Test
-      name: "Linux + OpenJDK-EA"
-      os: linux
-      jdk: openjdk-ea
-      
-    - stage: Test
-      name: "macOS + OpenJDK11"
-      os: osx
-      jdk: openjdk11
-      
-    - stage: Test
-      name: "Windows + OpenJDK11"
-      os: windows
-      language: shell
-      install:
-        - choco install openjdk11
-        - choco install maven
-        # fix1: refresh $PATH
-        - eval $(powershell -NonInteractive -Command 'write("export PATH=`"" + ([Environment]::GetEnvironmentVariable("PATH","Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH","User")).replace("\","/").replace("C:","/c").replace(";",":") + ":`$PATH`"")')
-        # fix2: get $M2_HOME and append it to $PATH
-        - eval $(powershell -NonInteractive -Command 'write("export M2_HOME=`"" + ([Environment]::GetEnvironmentVariable("M2_HOME","Machine")).replace("\","/").replace("C:","/c").replace(";",":") + "`"")')
-        - export PATH=${M2_HOME}/bin:${PATH}
-      script:
-        - java -Xmx32m -version
-        - javac -J-Xmx32m -version
-        - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-        - mvn test -B
-        
-  allow_failures:
-    - jdk: openjdk-ea
-
 env:
   global:
     - DEPLOY_OS=linux
     - DEPLOY_JDK=openjdk11
     - DEPLOY_REPO=nbbrd/sandbox
     - DEPLOY_BIN=target/binaries/*
+
+_win_amd64_java: &_win_amd64_java
+  os: windows
+  language: shell
+  install:
+    - choco install $JDK maven
+    # fix1: refresh $PATH, get $M2_HOME and append it to $PATH
+    - eval $(powershell -NonInteractive -Command 'write("export PATH=`"" + ([Environment]::GetEnvironmentVariable("PATH","Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH","User")).replace("\","/").replace("C:","/c").replace(";",":") + ":`$PATH`"")')
+    - eval $(powershell -NonInteractive -Command 'write("export M2_HOME=`"" + ([Environment]::GetEnvironmentVariable("M2_HOME","Machine")).replace("\","/").replace("C:","/c").replace(";",":") + "`"")')
+    - export PATH=${M2_HOME}/bin:${PATH}
+  script:
+    - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+    - mvn test -B
+
+jobs:
+  include:
+    - name: "linux-amd64-openjdk8"
+      os: linux
+      jdk: openjdk8
+      
+    - name: "linux-amd64-openjdk11"
+      os: linux
+      jdk: openjdk11
+      
+    - name: "linux-amd64-openjdk-ea"
+      os: linux
+      jdk: openjdk-ea
+      
+    - name: "osx-amd64-openjdk11"
+      os: osx
+      jdk: openjdk11
+      
+    - name: "win-openjdk11"
+      env: JDK=openjdk11
+      <<: *_win_amd64_java
+        
+  allow_failures:
+    - jdk: openjdk-ea
     
 deploy:
   # Maven snapshots from develop branch
