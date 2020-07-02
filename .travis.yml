@@ -8,6 +8,9 @@ env:
     - DEPLOY_REPO=nbbrd/sandbox
     - DEPLOY_BIN=target/binaries/*
 
+services:
+  - xvfb
+
 _java_windows_amd64: &_java_windows_amd64
   os: windows
   language: shell
@@ -26,7 +29,9 @@ _java_linux_arm64: &_java_linux_arm64
   arch: arm64
   addons:
     apt:
-      packages: maven
+      packages: 
+        - maven
+        - xvfb
 
 jobs:
   include:
