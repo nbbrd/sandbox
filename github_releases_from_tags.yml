@@ -1,0 +1,12 @@
+deploy:
+  # Github releases from tags
+  - provider: releases
+    api_key: "${GITHUB_KEY}"
+    skip_cleanup: true
+    draft: true
+    file_glob: true
+    file: "${DEPLOY_BIN}"
+    on:
+      tags: true
+      repo: "${DEPLOY_REPO}"
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
