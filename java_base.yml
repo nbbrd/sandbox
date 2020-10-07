@@ -1,0 +1,4 @@
+# Setup base Java config
+os: linux
+dist: bionic
+language: java
