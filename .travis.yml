@@ -1,5 +1,7 @@
-dist: bionic
-language: java
+import:
+  - java_base.yml
+  - java_linux_arm64.yml
+  - java_windows_amd64.yml
 
 env:
   global:
@@ -10,10 +12,6 @@ env:
 
 services:
   - xvfb
-
-import:
-  - java_linux_arm64.yml
-  - java_windows_amd64.yml
 
 jobs:
   include:
