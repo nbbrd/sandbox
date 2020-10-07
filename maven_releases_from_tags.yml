@@ -2,7 +2,6 @@ deploy:
   # Maven releases from tags
   - provider: script
     script: mvn deploy -Dmaven.test.skip -s .travis.settings.xml -P deploy-releases
-    skip_cleanup: true
     on:
       tags: true
       repo: "${DEPLOY_REPO}"

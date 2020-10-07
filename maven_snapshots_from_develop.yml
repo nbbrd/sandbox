@@ -2,7 +2,6 @@ deploy:
   # Maven snapshots from develop branch
   - provider: script
     script: mvn deploy -Dmaven.test.skip -s .travis.settings.xml -P deploy-snapshots
-    skip_cleanup: true
     on:
       branch: develop
       tags: false

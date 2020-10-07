@@ -2,7 +2,6 @@ deploy:
   # Github releases from tags
   - provider: releases
     api_key: "${GITHUB_KEY}"
-    skip_cleanup: true
     draft: true
     file_glob: true
     file: "${DEPLOY_BIN}"
