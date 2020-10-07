@@ -1,0 +1,9 @@
+deploy:
+  # Maven releases from tags
+  - provider: script
+    script: mvn deploy -Dmaven.test.skip -s .travis.settings.xml -P deploy-releases
+    skip_cleanup: true
+    on:
+      tags: true
+      repo: "${DEPLOY_REPO}"
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
