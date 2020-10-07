@@ -2,6 +2,9 @@ import:
   - java_base.yml
   - java_linux_arm64.yml
   - java_windows_amd64.yml
+  - maven_snapshots_from_develop.yml
+  - maven_releases_from_tags.yml
+  - github_releases_from_tags.yml
 
 env:
   global:
@@ -42,38 +45,6 @@ jobs:
   allow_failures:
     - jdk: openjdk-ea
     
-deploy:
-  # Maven snapshots from develop branch
-  - provider: script
-    script: mvn deploy -Dmaven.test.skip -s .travis.settings.xml -P deploy-snapshots
-    skip_cleanup: true
-    on:
-      branch: develop
-      tags: false
-      repo: "${DEPLOY_REPO}"
-      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
-
-  # Maven releases from tags
-  - provider: script
-    script: mvn deploy -Dmaven.test.skip -s .travis.settings.xml -P deploy-releases
-    skip_cleanup: true
-    on:
-      tags: true
-      repo: "${DEPLOY_REPO}"
-      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
-
-  # Github releases from tags
-  - provider: releases
-    api_key: "${GITHUB_KEY}"
-    skip_cleanup: true
-    draft: true
-    file_glob: true
-    file: "${DEPLOY_BIN}"
-    on:
-      tags: true
-      repo: "${DEPLOY_REPO}"
-      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
-
 cache:
   directories:
     - $HOME/.m2
