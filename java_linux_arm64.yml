@@ -1,0 +1,9 @@
+# Setup Java on Linux arm64
+_java_linux_arm64: &_java_linux_arm64
+  os: linux
+  arch: arm64
+  addons:
+    apt:
+      packages: 
+        - maven
+        - xvfb
