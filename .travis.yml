@@ -3,8 +3,7 @@ import:
 
 env:
   global:
-    - DEPLOY_OS=linux
-    - DEPLOY_JDK=openjdk11
+    - DEPLOY_JOB_NAME=linux-amd64-openjdk11
     - DEPLOY_REPO=nbbrd/sandbox
     - DEPLOY_BIN=target/binaries/*
 

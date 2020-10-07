@@ -6,4 +6,4 @@ deploy:
       branch: develop
       tags: false
       repo: "${DEPLOY_REPO}"
-      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JDK_VERSION == $DEPLOY_JDK && $TRAVIS_OS_NAME == $DEPLOY_OS
+      condition: $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_JOB_NAME == $DEPLOY_JOB_NAME
