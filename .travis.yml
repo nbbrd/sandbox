@@ -1,5 +1,6 @@
+version: ~> 1.0
 import:
-  - java8_library_with_binaries.yml
+  - nbbrd/travis-ci:config/java8_library_with_binaries.yml@main
 
 env:
   global:

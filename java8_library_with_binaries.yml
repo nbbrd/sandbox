@@ -1,3 +1,0 @@
-import:
-  - java8_library.yml
-  - github_releases_from_tags.yml
