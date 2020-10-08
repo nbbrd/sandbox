@@ -6,7 +6,7 @@ env:
   global:
     - DEPLOY_JOB_NAME=linux-amd64-openjdk11
     - DEPLOY_REPO=nbbrd/sandbox
-    - DEPLOY_BIN=target/binaries/*
+#    - DEPLOY_BIN=target/binaries/*
 
 services:
   - xvfb
