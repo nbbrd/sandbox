@@ -230,7 +230,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.8</version>
+                        <version>3.0.0</version>
                         <executions>
                             <execution>
                                 <id>repack-step2</id>
@@ -240,7 +240,7 @@
                                         <move todir="${repack.pacdir}">
                                             <fileset dir="${repack.basedir}" />
                                         </move>
-                                        <replaceregexp byline="true" match="(package|import|import static) picocli" replace="\1 ${repack.prefix}.picocli">
+                                        <replaceregexp byline="true" match="(package|import|import static) picocli" replace=" ${repack.prefix}.picocli">
                                             <fileset dir="${repack.pacdir}"/>
                                         </replaceregexp>
                                     </target>
