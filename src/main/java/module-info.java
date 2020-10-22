@@ -16,4 +16,5 @@
  */
 
 module nbbrd.sandbox {
+    requires info.picocli;
 }
