@@ -7,16 +7,22 @@ on:
     branches: [ develop ]
 
 jobs:
-  build:
+  build-and-test-job:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         java: [8, 11]
-    name: Build Java ${{ matrix.java }} on ${{ runner.os }}
+    name: Build Java ${{ matrix.java }} 
     
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-java@v1
-      with:
-        java-version: ${{ matrix.java }}
-    - run: mvn -B package --file pom.xml
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - run: mvn -B package --file pom.xml
+    
