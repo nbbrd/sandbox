@@ -1,19 +1,24 @@
-name: Java CI with Maven
+name: Maven JDK8+
 
-on:
-  push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
+on: [push, pull_request]
 
 jobs:
   build-and-test-job:
-    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        java: [8, 11, '>11']
-        os: [ubuntu-latest]
+        java: [8, 11]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        experimental: [false]
+        include:
+          - java: '>11'
+            os: ubuntu-latest
+            experimental: true
+    
     name: JDK:${{ matrix.java }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
