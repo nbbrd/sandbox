@@ -8,11 +8,12 @@ on:
 
 jobs:
   build-and-test-job:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         java: [8, 11]
-    name: Build and test with Java ${{ matrix.java }} on ${{ matrix.os }}
+        os: [ubuntu-latest]
+    name: Build&test with Java ${{ matrix.java }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Java 
