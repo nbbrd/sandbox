@@ -1,4 +1,4 @@
-name: Maven JDK8+
+name: Maven Java8+
 
 on: [push, pull_request]
 
