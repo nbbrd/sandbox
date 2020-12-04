@@ -38,6 +38,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
-          gzip: false
+          gzip: folder
           files: target/binaries/
     
