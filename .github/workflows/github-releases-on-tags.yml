@@ -34,10 +34,11 @@ jobs:
         run: mvn -B package --file pom.xml -DskipTests=true
 
       - name: Create release and upload assets
-        uses: meeDamian/github-release@2.0
+        uses: svenstaro/upload-release-action@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          draft: true
-          gzip: folders
-          files: target/binaries/
-    
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/binaries/*
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
+      
