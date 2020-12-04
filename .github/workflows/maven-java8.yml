@@ -1,9 +1,9 @@
 name: Maven Java8+
 
 on: 
+  pull_request:
   push:
     tags-ignore: ['v*']
-  pull_request:
 
 jobs:
   build-and-test-job:
