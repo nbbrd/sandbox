@@ -1,15 +1,17 @@
-name: GitHub releases on tags
+name: GitHub release on tag
 
 on:
   push:
     tags: ['v*']
 
 jobs:
-  release-job:
+  github-release-job:
     strategy:
       matrix:
         java: [11]
         os: [ubuntu-latest]
+    env:
+      DEPLOY_BIN: target/binaries/*
     
     name: JDK:${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -37,7 +39,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/binaries/*
+          file: ${{ env.DEPLOY_BIN }}
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
