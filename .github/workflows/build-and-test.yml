@@ -1,4 +1,4 @@
-name: Maven Java8+
+name: Build and test
 
 on: [push, pull_request]
 
