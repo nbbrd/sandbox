@@ -2,8 +2,7 @@ name: GitHub releases on tags
 
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ['v*']
 
 jobs:
   release-job:
@@ -31,21 +30,13 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
           
-      - name: Build
+      - name: Build with Maven
         run: mvn -B package --file pom.xml -DskipTests=true
-        
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create release and upload assets
+        uses: meeDamian/github-release@2.0
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
-        
-      - uses: AButler/upload-release-assets@v2.0
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          files: 'target/binaries/*'
-          release-tag: ${{ github.ref }}
+          files: target/binaries/
+    
