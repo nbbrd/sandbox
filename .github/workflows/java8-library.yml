@@ -44,7 +44,7 @@ jobs:
 
   github-release-job:
     needs: build-and-test-job
-    if: github.repository == env.DEPLOY_REPO && startsWith(github.ref, 'refs/tags/v')
+    if: github.repository == ${{ env.DEPLOY_REPO }} && startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
         java: [11]
@@ -83,7 +83,7 @@ jobs:
 
   maven-release-job:
     needs: build-and-test-job
-    if: github.repository == env.DEPLOY_REPO && startsWith(github.ref, 'refs/tags/v')
+    if: github.repository == ${{ env.DEPLOY_REPO }} && startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
         java: [11]
@@ -116,7 +116,7 @@ jobs:
 
   maven-snapshot-job:
     needs: build-and-test-job
-    if: github.repository == env.DEPLOY_REPO && github.ref == 'refs/heads/develop'
+    if: github.repository == ${{ env.DEPLOY_REPO }} && github.ref == 'refs/heads/develop'
     strategy:
       matrix:
         java: [11]
