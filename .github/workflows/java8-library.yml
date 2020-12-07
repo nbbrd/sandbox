@@ -1,4 +1,4 @@
-name: Java 8+ library
+name: Java8+ library
 
 on: [push, pull_request]
 
@@ -11,7 +11,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         experimental: [false]
         include:
-          - java: '>11'
+          - java: '>11-ea'
             os: ubuntu-latest
             experimental: true
 
@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
+        run: java -version
 
       - name: Setup Maven cache
         uses: actions/cache@v1
