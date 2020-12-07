@@ -27,7 +27,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
-        run: java -version
 
       - name: Setup Maven cache
         uses: actions/cache@v1
