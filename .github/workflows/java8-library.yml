@@ -11,11 +11,11 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         experimental: [false]
         include:
-          - java: '>11-ea'
+          - java: '>11'
             os: ubuntu-latest
             experimental: true
 
-    name: JDK:${{ matrix.java }} on ${{ matrix.os }}
+    name: JDK${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
 
