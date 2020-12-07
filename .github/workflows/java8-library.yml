@@ -1,4 +1,4 @@
-name: Java8+ library
+name: Java8+ with Maven
 
 on: [ push, pull_request ]
 
@@ -80,7 +80,7 @@ jobs:
           file_glob: true
 
       - name: Deploy with Maven
-        run: mvn -B deploy -Dmaven.test.skip -s ci.settings.xml -P deploy-releases
+        run: test -f ci.settings.xml && mvn -B deploy -Dmaven.test.skip -s ci.settings.xml -P deploy-releases
         env:
           CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
           CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
