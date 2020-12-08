@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>be.nbb.rd</groupId>
     <artifactId>sandbox</artifactId>
     <version>1.0.0-SNAPSHOT</version>
@@ -9,7 +10,7 @@
 
     <name>Sandbox</name>
     <description>Sandbox application</description>
-    
+
     <url>https://github.com/nbbrd/sandbox</url>
     <licenses>
         <license>
@@ -27,7 +28,7 @@
         <project.x.mainClass>be.nbb.rd.sandbox.Main</project.x.mainClass>
         <project.x.binaries>${project.basedir}/binaries</project.x.binaries>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>info.picocli</groupId>
@@ -35,7 +36,7 @@
             <version>4.5.2</version>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <!-- Clean binaries directory -->
@@ -65,9 +66,20 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>module-info.class</exclude>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                     <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <mainClass>${project.x.mainClass}</mainClass>
                         </transformer>
                     </transformers>
@@ -76,7 +88,7 @@
                     <outputDirectory>${project.x.binaries}</outputDirectory>
                 </configuration>
             </plugin>
-            
+
             <!-- Generates SHA256 on binaries -->
             <plugin>
                 <groupId>net.nicoulaj.maven.plugins</groupId>
@@ -106,7 +118,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <profiles>
         <!-- Base Java8 build -->
         <profile>
@@ -119,7 +131,7 @@
             <properties>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
                 <maven.compiler.target>1.8</maven.compiler.target>
-                <maven.compiler.source>1.8</maven.compiler.source>                
+                <maven.compiler.source>1.8</maven.compiler.source>
             </properties>
             <build>
                 <plugins>
@@ -136,7 +148,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <!-- Run Java8 build with JPMS on JD9+ -->
             <id>java8-with-jpms</id>
@@ -175,7 +187,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <!-- Run Java8 build without JPMS on JDK8 -->
             <id>java8-without-jpms</id>
@@ -197,7 +209,7 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>        
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -234,7 +246,7 @@
             </build>
         </profile>
     </profiles>
-    
+
     <repositories>
         <repository>
             <id>oss-jfrog-artifactory-releases</id>
