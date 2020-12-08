@@ -68,13 +68,12 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml -DskipTests=true
 
-      - name: Create release and upload assets
+      - name: Create draft release and upload assets
         uses: xresloader/upload-to-github-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: 'binaries/*.jar;binaries/*.sha256'
-          tag_name: ${{ github.ref }}
+          file: 'binaries/*'
 
       - name: Deploy with Maven
         run: test -f ci.settings.xml && mvn -B deploy -Dmaven.test.skip -s ci.settings.xml -P deploy-releases
