@@ -69,13 +69,11 @@ jobs:
         run: mvn -B package --file pom.xml -DskipTests=true
 
       - name: Create release and upload assets
-        uses: svenstaro/upload-release-action@v2
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file_glob: true
           file: 'binaries/*'
-          tag: ${{ github.ref }}
-          overwrite: true
 
       - name: Deploy with Maven
         run: test -f ci.settings.xml && mvn -B deploy -Dmaven.test.skip -s ci.settings.xml -P deploy-releases
