@@ -73,7 +73,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: 'binaries/*'
+          file: 'binaries/*.jar;binaries/*.sha256'
+          tag_name: ${{ github.ref }}
 
       - name: Deploy with Maven
         run: test -f ci.settings.xml && mvn -B deploy -Dmaven.test.skip -s ci.settings.xml -P deploy-releases
