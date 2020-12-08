@@ -40,13 +40,11 @@ jobs:
 
   release-job:
     needs: build-and-test-job
-    if: github.repository == 'nbbrd/sandbox' && startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
         java: [ 11 ]
         os: [ ubuntu-latest ]
-    env:
-      DEPLOY_BIN: target/binaries/*
 
     name: Release on tag
     runs-on: ${{ matrix.os }}
@@ -74,7 +72,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ env.DEPLOY_BIN }}
+          file: binaries/*
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true

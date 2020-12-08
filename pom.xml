@@ -25,7 +25,7 @@
 
     <properties>
         <project.x.mainClass>be.nbb.rd.sandbox.Main</project.x.mainClass>
-        <project.x.binaries>${project.build.directory}/binaries</project.x.binaries>
+        <project.x.binaries>${project.basedir}/binaries</project.x.binaries>
     </properties>
     
     <dependencies>
@@ -38,6 +38,19 @@
     
     <build>
         <plugins>
+            <!-- Clean binaries directory -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.x.binaries}</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
             <!-- Generates a all-in-one executable jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
