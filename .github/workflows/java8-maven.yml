@@ -37,8 +37,10 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build and test with Maven
-        run: mvn -B package --file pom.xml
+      - name: Build and (headless) test with Maven
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: mvn -B package --file pom.xml
 
   release-job:
     needs: build-and-test-job
