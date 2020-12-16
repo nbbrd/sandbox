@@ -26,7 +26,7 @@
 
     <properties>
         <project.x.mainClass>be.nbb.rd.sandbox.Main</project.x.mainClass>
-        <project.x.binaries>${project.basedir}/binaries2</project.x.binaries>
+        <project.x.binaries>${project.basedir}/binaries</project.x.binaries>
     </properties>
 
     <dependencies>
