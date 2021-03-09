@@ -36,6 +36,7 @@
 
     <properties>
         <project.x.mainClass>be.nbb.rd.sandbox.Main</project.x.mainClass>
+        <project.x.fileName>${project.artifactId}</project.x.fileName>
         <project.x.binaries>${project.basedir}/binaries</project.x.binaries>
     </properties>
 
@@ -95,8 +96,35 @@
                     </transformers>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <shadedClassifierName>bin</shadedClassifierName>
-                    <outputDirectory>${project.x.binaries}</outputDirectory>
+                    <shadedArtifactId>${project.x.fileName}</shadedArtifactId>
                 </configuration>
+            </plugin>
+
+            <!-- Copies files to binaries -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.x.binaries}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>*-bin.jar</include>
+                                        <include>*-bin.jar.asc</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Generates SHA256 on binaries -->
@@ -106,7 +134,7 @@
                 <version>1.9</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>files</goal>
                         </goals>
@@ -121,6 +149,7 @@
                             <directory>${project.x.binaries}</directory>
                             <excludes>
                                 <exclude>*.sha256</exclude>
+                                <exclude>*.asc</exclude>
                             </excludes>
                         </fileSet>
                     </fileSets>
