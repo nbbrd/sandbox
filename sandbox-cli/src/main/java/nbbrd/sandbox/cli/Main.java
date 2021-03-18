@@ -14,8 +14,9 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  */
-package be.nbb.rd.sandbox;
+package nbbrd.sandbox.cli;
 
+import nbbrd.sandbox.impl.SomeServiceImpl;
 import picocli.CommandLine;
 
 import java.util.concurrent.Callable;
@@ -30,8 +31,8 @@ public final class Main implements Callable<Void> {
     private String name;
 
     @Override
-    public Void call() throws Exception {
-        System.out.println("Hello " + name);
+    public Void call() {
+        new SomeServiceImpl().say("Hello " + name);
         return null;
     }
 
