@@ -8,12 +8,6 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>sandbox-api</module>
-        <module>sandbox-impl</module>
-        <module>sandbox-cli</module>
-    </modules>
-
     <name>sandbox</name>
     <description>Sandbox application</description>
     <url>https://github.com/nbbrd/sandbox</url>
@@ -40,7 +34,25 @@
         <url>http://github.com/nbbrd/sandbox/tree/master</url>
     </scm>
 
+    <modules>
+        <module>sandbox-api</module>
+        <module>sandbox-impl</module>
+    </modules>
+
     <profiles>
+        <!-- Non-deployable modules -->
+        <profile>
+            <id>non-deployable-modules</id>
+            <activation>
+                <property>
+                    <name>!nonDeployableModules</name>
+                </property>
+            </activation>
+            <modules>
+                <module>sandbox-cli</module>
+            </modules>
+        </profile>
+
         <!-- Base Java8 build -->
         <profile>
             <id>base-java8</id>
