@@ -16,8 +16,8 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <project.x.mainClass>be.nbb.rd.sandbox.Main</project.x.mainClass>
-        <project.x.fileName>${project.artifactId}</project.x.fileName>
+        <project.x.mainClass>nbbrd.sandbox.cli.Main</project.x.mainClass>
+        <project.x.fileName>sandbox</project.x.fileName>
         <project.x.binaries>${project.basedir}/../binaries</project.x.binaries>
     </properties>
 
@@ -54,6 +54,21 @@
                 </configuration>
             </plugin>
 
+            <!-- Generates manifest for executable jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <mainClass>${project.x.mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
             <!-- Generates a all-in-one executable jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -81,13 +96,10 @@
                         <transformer
                                 implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                         <transformer
-                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>${project.x.mainClass}</mainClass>
-                        </transformer>
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
                     </transformers>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <shadedClassifierName>bin</shadedClassifierName>
-                    <shadedArtifactId>${project.x.fileName}</shadedArtifactId>
                 </configuration>
             </plugin>
 
@@ -113,6 +125,30 @@
                                     </includes>
                                 </resource>
                             </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Renames binaries -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <move todir="${project.x.binaries}">
+                                    <fileset dir="${project.x.binaries}">
+                                        <include name="**/${project.artifactId}-*"/>
+                                    </fileset>
+                                    <mapper type="glob" from="${project.artifactId}-*" to="${project.x.fileName}-*"/>
+                                </move>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
