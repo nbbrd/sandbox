@@ -21,6 +21,11 @@
             <artifactId>sandbox-api</artifactId>
             <version>1.13.2-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.lalyos</groupId>
+            <artifactId>jfiglet</artifactId>
+            <version>0.0.8</version>
+        </dependency>
     </dependencies>
 
 </project>

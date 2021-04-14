@@ -17,7 +17,7 @@
 
     <properties>
         <project.x.mainClass>nbbrd.sandbox.cli.Main</project.x.mainClass>
-        <project.x.fileName>sandbox</project.x.fileName>
+        <project.x.fileName>hello</project.x.fileName>
         <project.x.binaries>${project.basedir}/../binaries</project.x.binaries>
     </properties>
 
