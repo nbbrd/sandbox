@@ -196,6 +196,25 @@
             </build>
         </profile>
 
+        <!-- Gitflow automation -->
+        <profile>
+            <id>gitflow-automation</id>
+            <activation>
+                <property>
+                    <name>!skipGitflowAutomation</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.amashchenko.maven.plugin</groupId>
+                        <artifactId>gitflow-maven-plugin</artifactId>
+                        <version>1.16.0</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <!-- Base deploy -->
         <profile>
             <id>base-deploy</id>
