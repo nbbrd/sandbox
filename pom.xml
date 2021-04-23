@@ -186,6 +186,7 @@
                                         <CheckMavenCentral
                                                 implementation="org.kordamp.maven.enforcer.checker.CheckMavenCentral">
                                             <release>false</release>
+                                            <strict>false</strict>
                                         </CheckMavenCentral>
                                     </rules>
                                 </configuration>
@@ -309,4 +310,12 @@
             </build>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/nbbrd/sandbox</url>
+        </repository>
+    </repositories>
 </project>
