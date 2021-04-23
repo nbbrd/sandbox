@@ -294,8 +294,9 @@
             <id>release-deploy</id>
             <distributionManagement>
                 <repository>
-                    <id>local-folder</id>
-                    <url>file:${basedir}/../releases</url>
+                    <id>github</id>
+                    <name>GitHub Packages</name>
+                    <url>https://maven.pkg.github.com/nbbrd/sandbox</url>
                 </repository>
             </distributionManagement>
             <build>
