@@ -221,6 +221,46 @@
             </build>
         </profile>
 
+        <!-- Enforce semver check -->
+        <profile>
+            <id>enforce-semver</id>
+            <activation>
+                <property>
+                    <name>!skipEnforceSemver</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.siom79.japicmp</groupId>
+                        <artifactId>japicmp-maven-plugin</artifactId>
+                        <version>0.15.3</version>
+                        <configuration>
+                            <parameter>
+                                <breakBuildBasedOnSemanticVersioning>true</breakBuildBasedOnSemanticVersioning>
+                                <overrideCompatibilityChangeParameters>
+                                    <overrideCompatibilityChangeParameter>
+                                        <compatibilityChange>METHOD_NEW_DEFAULT</compatibilityChange>
+                                        <binaryCompatible>true</binaryCompatible>
+                                        <sourceCompatible>true</sourceCompatible>
+                                        <semanticVersionLevel>PATCH</semanticVersionLevel>
+                                    </overrideCompatibilityChangeParameter>
+                                </overrideCompatibilityChangeParameters>
+                            </parameter>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>cmp</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <!-- Base deploy -->
         <profile>
             <id>base-deploy</id>
@@ -313,7 +353,7 @@
 
     <repositories>
         <repository>
-            <id>github</id>
+            <id>github-packages</id>
             <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/nbbrd/sandbox</url>
         </repository>

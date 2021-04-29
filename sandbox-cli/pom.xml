@@ -41,6 +41,15 @@
 
     <build>
         <plugins>
+            <!-- skip semver check -->
+            <plugin>
+                <groupId>com.github.siom79.japicmp</groupId>
+                <artifactId>japicmp-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
             <!-- Clean binaries directory -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
