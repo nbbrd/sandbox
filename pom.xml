@@ -249,12 +249,12 @@
                             </parameter>
                         </configuration>
                         <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>cmp</goal>
-                                </goals>
-                            </execution>
+<!--                            <execution>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>cmp</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
                         </executions>
                     </plugin>
                 </plugins>
