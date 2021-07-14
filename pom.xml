@@ -374,7 +374,8 @@
                             <release>
                                 <github>
                                     <owner>nbbrd</owner>
-                                    <overwrite>true</overwrite>
+                                    <overwrite>false</overwrite>
+                                    <update>true</update>
                                     <skipTag>true</skipTag>
                                     <draft>true</draft>
                                     <branch>master</branch>
