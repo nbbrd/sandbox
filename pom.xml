@@ -5,7 +5,7 @@
 
     <groupId>com.github.nbbrd.sandbox</groupId>
     <artifactId>sandbox-parent</artifactId>
-    <version>1.16.2</version>
+    <version>1.16.3</version>
     <packaging>pom</packaging>
 
     <name>sandbox</name>
@@ -377,6 +377,7 @@
                                     <overwrite>true</overwrite>
                                     <skipTag>true</skipTag>
                                     <draft>true</draft>
+                                    <branch>master</branch>
                                 </github>
                             </release>
                         </jreleaser>
