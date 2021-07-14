@@ -192,6 +192,27 @@
                     <csvSummary>false</csvSummary>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.jreleaser</groupId>
+                <artifactId>jreleaser-maven-plugin</artifactId>
+                <configuration>
+                    <jreleaser>
+                        <distributions>
+                            <distribution>
+                                <type>SINGLE_JAR</type>
+                                <artifacts>
+                                    <artifact>
+                                        <path>
+                                            ${project.x.binaries}/${project.x.fileName}-${project.version}-bin.jar
+                                        </path>
+                                    </artifact>
+                                </artifacts>
+                            </distribution>
+                        </distributions>
+                    </jreleaser>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

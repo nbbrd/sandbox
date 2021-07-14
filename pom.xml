@@ -249,12 +249,12 @@
                             </parameter>
                         </configuration>
                         <executions>
-<!--                            <execution>-->
-<!--                                <phase>verify</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>cmp</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
+                            <!--                            <execution>-->
+                            <!--                                <phase>verify</phase>-->
+                            <!--                                <goals>-->
+                            <!--                                    <goal>cmp</goal>-->
+                            <!--                                </goals>-->
+                            <!--                            </execution>-->
                         </executions>
                     </plugin>
                 </plugins>
@@ -361,4 +361,28 @@
             </build>
         </profile>
     </profiles>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jreleaser</groupId>
+                    <artifactId>jreleaser-maven-plugin</artifactId>
+                    <version>0.5.0</version>
+                    <configuration>
+                        <jreleaser>
+                            <release>
+                                <github>
+                                    <owner>nbbrd</owner>
+                                    <overwrite>true</overwrite>
+                                    <skipTag>true</skipTag>
+                                    <draft>true</draft>
+                                </github>
+                            </release>
+                        </jreleaser>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
