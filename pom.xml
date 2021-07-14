@@ -5,7 +5,7 @@
 
     <groupId>com.github.nbbrd.sandbox</groupId>
     <artifactId>sandbox-parent</artifactId>
-    <version>1.16.3</version>
+    <version>1.16.4</version>
     <packaging>pom</packaging>
 
     <name>sandbox</name>
@@ -374,10 +374,14 @@
                             <release>
                                 <github>
                                     <owner>nbbrd</owner>
-                                    <overwrite>true</overwrite>
+                                    <overwrite>false</overwrite>
+                                    <update>true</update>
                                     <skipTag>true</skipTag>
                                     <draft>true</draft>
                                     <branch>master</branch>
+                                    <changelog>
+                                        <external>${project.basedir}/CHANGELOG.md</external>
+                                    </changelog>
                                 </github>
                             </release>
                         </jreleaser>
