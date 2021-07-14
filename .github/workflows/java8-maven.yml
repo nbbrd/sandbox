@@ -125,6 +125,6 @@ jobs:
           SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
       - name: Deploy assets with Maven
-        run: mvn -B -ntp jreleaser:full-release
+        run: mvn -B -ntp jreleaser:full-release -Djreleaser.dryrun=true
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
