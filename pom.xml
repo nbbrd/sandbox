@@ -361,9 +361,8 @@
             <id>release-deploy</id>
             <distributionManagement>
                 <repository>
-                    <id>github</id>
-                    <name>GitHub Packages</name>
-                    <url>https://maven.pkg.github.com/nbbrd/sandbox</url>
+                    <id>local-folder</id>
+                    <url>file:${basedir}/../releases</url>
                 </repository>
             </distributionManagement>
             <build>
@@ -376,12 +375,4 @@
             </build>
         </profile>
     </profiles>
-
-    <repositories>
-        <repository>
-            <id>github-packages</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/nbbrd/sandbox</url>
-        </repository>
-    </repositories>
 </project>
