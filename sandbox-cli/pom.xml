@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>1.16.4</version>
+        <version>1.16.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,12 +25,12 @@
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-api</artifactId>
-            <version>1.16.4</version>
+            <version>1.16.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-impl</artifactId>
-            <version>1.16.4</version>
+            <version>1.16.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>
