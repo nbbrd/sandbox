@@ -377,6 +377,7 @@
                                     <overwrite>true</overwrite>
                                     <skipTag>true</skipTag>
                                     <draft>true</draft>
+                                    <branch>master</branch>
                                 </github>
                             </release>
                         </jreleaser>
