@@ -5,7 +5,7 @@
 
     <groupId>com.github.nbbrd.sandbox</groupId>
     <artifactId>sandbox-parent</artifactId>
-    <version>1.15.0</version>
+    <version>1.16.0</version>
     <packaging>pom</packaging>
 
     <name>sandbox</name>
@@ -186,6 +186,7 @@
                                         <CheckMavenCentral
                                                 implementation="org.kordamp.maven.enforcer.checker.CheckMavenCentral">
                                             <release>false</release>
+                                            <strict>false</strict>
                                         </CheckMavenCentral>
                                     </rules>
                                 </configuration>
@@ -220,6 +221,46 @@
             </build>
         </profile>
 
+        <!-- Enforce semver check -->
+        <profile>
+            <id>enforce-semver</id>
+            <activation>
+                <property>
+                    <name>!skipEnforceSemver</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.siom79.japicmp</groupId>
+                        <artifactId>japicmp-maven-plugin</artifactId>
+                        <version>0.15.3</version>
+                        <configuration>
+                            <parameter>
+                                <breakBuildBasedOnSemanticVersioning>true</breakBuildBasedOnSemanticVersioning>
+                                <overrideCompatibilityChangeParameters>
+                                    <overrideCompatibilityChangeParameter>
+                                        <compatibilityChange>METHOD_NEW_DEFAULT</compatibilityChange>
+                                        <binaryCompatible>true</binaryCompatible>
+                                        <sourceCompatible>true</sourceCompatible>
+                                        <semanticVersionLevel>PATCH</semanticVersionLevel>
+                                    </overrideCompatibilityChangeParameter>
+                                </overrideCompatibilityChangeParameters>
+                            </parameter>
+                        </configuration>
+                        <executions>
+                            <!--                            <execution>-->
+                            <!--                                <phase>verify</phase>-->
+                            <!--                                <goals>-->
+                            <!--                                    <goal>cmp</goal>-->
+                            <!--                                </goals>-->
+                            <!--                            </execution>-->
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <!-- Base deploy -->
         <profile>
             <id>base-deploy</id>
@@ -241,7 +282,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.2.0</version>
+                        <version>3.3.0</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -262,6 +303,18 @@
                             <execution>
                                 <goals>
                                     <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.simplify4u.plugins</groupId>
+                        <artifactId>pgpverify-maven-plugin</artifactId>
+                        <version>1.14.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -294,9 +347,8 @@
             <id>release-deploy</id>
             <distributionManagement>
                 <repository>
-                    <id>github</id>
-                    <name>GitHub Packages</name>
-                    <url>https://maven.pkg.github.com/nbbrd/sandbox</url>
+                    <id>local-folder</id>
+                    <url>file:${basedir}/../releases</url>
                 </repository>
             </distributionManagement>
             <build>
@@ -309,4 +361,28 @@
             </build>
         </profile>
     </profiles>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jreleaser</groupId>
+                    <artifactId>jreleaser-maven-plugin</artifactId>
+                    <version>0.5.0</version>
+                    <configuration>
+                        <jreleaser>
+                            <release>
+                                <github>
+                                    <owner>nbbrd</owner>
+                                    <overwrite>true</overwrite>
+                                    <skipTag>true</skipTag>
+                                    <draft>true</draft>
+                                </github>
+                            </release>
+                        </jreleaser>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

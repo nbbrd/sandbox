@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>1.15.0</version>
+        <version>1.16.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,12 +25,12 @@
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-api</artifactId>
-            <version>1.15.0</version>
+            <version>1.16.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-impl</artifactId>
-            <version>1.15.0</version>
+            <version>1.16.0</version>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>
@@ -41,6 +41,15 @@
 
     <build>
         <plugins>
+            <!-- skip semver check -->
+            <plugin>
+                <groupId>com.github.siom79.japicmp</groupId>
+                <artifactId>japicmp-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
             <!-- Clean binaries directory -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -158,7 +167,7 @@
             <plugin>
                 <groupId>net.nicoulaj.maven.plugins</groupId>
                 <artifactId>checksum-maven-plugin</artifactId>
-                <version>1.9</version>
+                <version>1.11</version>
                 <executions>
                     <execution>
                         <phase>install</phase>
@@ -181,6 +190,27 @@
                         </fileSet>
                     </fileSets>
                     <csvSummary>false</csvSummary>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jreleaser</groupId>
+                <artifactId>jreleaser-maven-plugin</artifactId>
+                <configuration>
+                    <jreleaser>
+                        <distributions>
+                            <distribution>
+                                <type>SINGLE_JAR</type>
+                                <artifacts>
+                                    <artifact>
+                                        <path>
+                                            ${project.x.binaries}/${project.x.fileName}-${project.version}-bin.jar
+                                        </path>
+                                    </artifact>
+                                </artifacts>
+                            </distribution>
+                        </distributions>
+                    </jreleaser>
                 </configuration>
             </plugin>
         </plugins>
