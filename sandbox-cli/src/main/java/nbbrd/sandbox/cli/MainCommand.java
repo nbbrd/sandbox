@@ -16,6 +16,7 @@
  */
 package nbbrd.sandbox.cli;
 
+import nbbrd.sandbox.About;
 import nbbrd.sandbox.impl.SomeServiceImpl;
 import picocli.CommandLine;
 
@@ -24,8 +25,18 @@ import java.util.concurrent.Callable;
 /**
  * @author Philippe Charles
  */
-@CommandLine.Command(name = "hello")
-public final class Main implements Callable<Void> {
+@CommandLine.Command(
+        name = About.NAME,
+        versionProvider = MainCommand.ManifestVersionProvider.class,
+        scope = CommandLine.ScopeType.INHERIT,
+        sortOptions = false,
+        mixinStandardHelpOptions = true
+)
+public final class MainCommand implements Callable<Void> {
+
+    public static void main(String[] args) {
+        new CommandLine(new MainCommand()).execute(args);
+    }
 
     @CommandLine.Parameters(arity = "1")
     private String name;
@@ -36,7 +47,15 @@ public final class Main implements Callable<Void> {
         return null;
     }
 
-    public static void main(String[] args) {
-        new CommandLine(new Main()).execute(args);
+    public static final class ManifestVersionProvider implements CommandLine.IVersionProvider {
+
+        @Override
+        public String[] getVersion() {
+            return new String[]{
+                    "@|bold " + About.NAME + " " + About.VERSION + "|@",
+                    "JVM: ${java.version} (${java.vendor} ${java.vm.name} ${java.vm.version})",
+                    "OS: ${os.name} ${os.version} ${os.arch}"
+            };
+        }
     }
 }

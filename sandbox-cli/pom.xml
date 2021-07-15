@@ -16,7 +16,7 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <project.x.mainClass>nbbrd.sandbox.cli.Main</project.x.mainClass>
+        <project.x.mainClass>nbbrd.sandbox.cli.MainCommand</project.x.mainClass>
         <project.x.fileName>hello-nbbrd</project.x.fileName>
         <project.x.binaries>${project.basedir}/../binaries</project.x.binaries>
     </properties>
