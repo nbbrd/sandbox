@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>1.17.2</version>
+        <version>1.17.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,12 +25,12 @@
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-api</artifactId>
-            <version>1.17.2</version>
+            <version>1.17.3</version>
         </dependency>
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-impl</artifactId>
-            <version>1.17.2</version>
+            <version>1.17.3</version>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>
@@ -195,6 +195,9 @@
                                         </changelog>
                                     </github>
                                 </release>
+                                <checksum>
+                                    <individual>true</individual>
+                                </checksum>
                                 <signing>
                                     <active>ALWAYS</active>
                                     <!-- Fix default value -->
@@ -215,8 +218,11 @@
                                 </distributions>
                                 <packagers>
                                     <scoop>
-                                        <active>ALWAYS</active>
+                                        <active>RELEASE</active>
                                     </scoop>
+                                    <brew>
+                                        <active>RELEASE</active>
+                                    </brew>
                                 </packagers>
                             </jreleaser>
                         </configuration>

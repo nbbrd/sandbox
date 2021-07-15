@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.17.3] - 2021-07-15
+
+## Added
+- Add distribution to Homebrew
+
+## Modified
+- Set checksums as individual files
+
 ## [1.17.2] - 2021-07-15
 
 ### Fixed
@@ -35,7 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix logic in maven deploy script
 
-[Unreleased]: https://github.com/nbbrd/sandbox/compare/v1.17.2...HEAD
+[Unreleased]: https://github.com/nbbrd/sandbox/compare/v1.17.3...HEAD
+[1.17.3]: https://github.com/nbbrd/sandbox/compare/v1.17.2...v1.17.3
 [1.17.2]: https://github.com/nbbrd/sandbox/compare/v1.17.1...v1.17.2
 [1.17.1]: https://github.com/nbbrd/sandbox/compare/v1.16.7...v1.17.1
 [1.16.7]: https://github.com/nbbrd/sandbox/compare/v1.15.0...v1.16.7
