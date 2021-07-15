@@ -220,6 +220,9 @@
                                     <scoop>
                                         <active>RELEASE</active>
                                     </scoop>
+                                    <brew>
+                                        <active>RELEASE</active>
+                                    </brew>
                                 </packagers>
                             </jreleaser>
                         </configuration>
