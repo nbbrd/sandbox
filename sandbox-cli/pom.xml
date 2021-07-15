@@ -17,7 +17,7 @@
 
     <properties>
         <project.x.mainClass>nbbrd.sandbox.cli.Main</project.x.mainClass>
-        <project.x.fileName>hello</project.x.fileName>
+        <project.x.fileName>hello-nbbrd</project.x.fileName>
         <project.x.binaries>${project.basedir}/../binaries</project.x.binaries>
     </properties>
 
@@ -188,6 +188,7 @@
                                     <github>
                                         <skipTag>true</skipTag>
                                         <draft>true</draft>
+                                        <!-- Fix default value -->
                                         <branch>master</branch>
                                         <changelog>
                                             <external>${project.basedir}/../CHANGELOG.md</external>
@@ -196,10 +197,12 @@
                                 </release>
                                 <signing>
                                     <active>ALWAYS</active>
+                                    <!-- Fix default value -->
                                     <armored>true</armored>
                                 </signing>
                                 <distributions>
-                                    <distribution>
+                                    <!-- Name is here ! -->
+                                    <hello-nbbrd>
                                         <type>SINGLE_JAR</type>
                                         <artifacts>
                                             <artifact>
@@ -208,7 +211,7 @@
                                                 </path>
                                             </artifact>
                                         </artifacts>
-                                    </distribution>
+                                    </hello-nbbrd>
                                 </distributions>
                                 <packagers>
                                     <scoop>
