@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add semver check (disabled by default)
 - Add basic check of PGP signatures
-- Add experimental deployment of assets with JReleaser
 
 ### Changed
 - Remove deployment to GitHub packages
+- Release assets with JReleaser
 
 ## [1.15.0] - 2021-04-23
 

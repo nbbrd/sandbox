@@ -162,36 +162,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Generates SHA256 on binaries -->
-            <plugin>
-                <groupId>net.nicoulaj.maven.plugins</groupId>
-                <artifactId>checksum-maven-plugin</artifactId>
-                <version>1.11</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>files</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <algorithms>
-                        <algorithm>SHA-256</algorithm>
-                    </algorithms>
-                    <fileSets>
-                        <fileSet>
-                            <directory>${project.x.binaries}</directory>
-                            <excludes>
-                                <exclude>*.sha256</exclude>
-                                <exclude>*.asc</exclude>
-                            </excludes>
-                        </fileSet>
-                    </fileSets>
-                    <csvSummary>false</csvSummary>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -247,5 +217,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>
