@@ -81,6 +81,11 @@ jobs:
           SIGN_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
+      - name: Dryrun release assets with Maven
+        run: mvn -B -ntp install -DskipTests=true -P full-release -Djreleaser.dryrun=true
+        env:
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   release-job:
     needs: build-and-test-job
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
@@ -118,13 +123,7 @@ jobs:
           SIGN_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
-      - name: Build assets with Maven
-        run: mvn -B -ntp install -DskipTests=true -P base-deploy
-        env:
-          SIGN_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-          SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-
-      - name: Deploy assets with Maven
-        run: mvn -B -ntp jreleaser:full-release
+      - name: Release assets with Maven
+        run: mvn -B -ntp install -DskipTests=true -P full-release
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
