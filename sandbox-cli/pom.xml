@@ -224,6 +224,9 @@
                                         </changelog>
                                     </github>
                                 </release>
+                                <signing>
+                                    <active>ALWAYS</active>
+                                </signing>
                                 <distributions>
                                     <distribution>
                                         <type>SINGLE_JAR</type>
