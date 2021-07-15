@@ -195,6 +195,9 @@
                                         </changelog>
                                     </github>
                                 </release>
+                                <checksum>
+                                    <individual>true</individual>
+                                </checksum>
                                 <signing>
                                     <active>ALWAYS</active>
                                     <!-- Fix default value -->
@@ -215,7 +218,7 @@
                                 </distributions>
                                 <packagers>
                                     <scoop>
-                                        <active>ALWAYS</active>
+                                        <active>RELEASE</active>
                                     </scoop>
                                 </packagers>
                             </jreleaser>
