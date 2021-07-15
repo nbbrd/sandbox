@@ -192,28 +192,56 @@
                     <csvSummary>false</csvSummary>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.jreleaser</groupId>
-                <artifactId>jreleaser-maven-plugin</artifactId>
-                <configuration>
-                    <jreleaser>
-                        <distributions>
-                            <distribution>
-                                <type>SINGLE_JAR</type>
-                                <artifacts>
-                                    <artifact>
-                                        <path>
-                                            ${project.x.binaries}/${project.x.fileName}-${project.version}-bin.jar
-                                        </path>
-                                    </artifact>
-                                </artifacts>
-                            </distribution>
-                        </distributions>
-                    </jreleaser>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>full-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jreleaser</groupId>
+                        <artifactId>jreleaser-maven-plugin</artifactId>
+                        <version>0.5.0</version>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>full-release</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <jreleaser>
+                                <release>
+                                    <github>
+                                        <skipTag>true</skipTag>
+                                        <draft>true</draft>
+                                        <branch>master</branch>
+                                        <changelog>
+                                            <external>${project.basedir}/../CHANGELOG.md</external>
+                                        </changelog>
+                                    </github>
+                                </release>
+                                <distributions>
+                                    <distribution>
+                                        <type>SINGLE_JAR</type>
+                                        <artifacts>
+                                            <artifact>
+                                                <path>
+                                                    ${project.x.binaries}/${project.x.fileName}-${project.version}-bin.jar
+                                                </path>
+                                            </artifact>
+                                        </artifacts>
+                                    </distribution>
+                                </distributions>
+                            </jreleaser>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

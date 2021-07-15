@@ -361,33 +361,4 @@
             </build>
         </profile>
     </profiles>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.jreleaser</groupId>
-                    <artifactId>jreleaser-maven-plugin</artifactId>
-                    <version>0.5.0</version>
-                    <configuration>
-                        <jreleaser>
-                            <release>
-                                <github>
-                                    <owner>nbbrd</owner>
-                                    <overwrite>false</overwrite>
-                                    <update>true</update>
-                                    <skipTag>true</skipTag>
-                                    <draft>true</draft>
-                                    <branch>master</branch>
-                                    <changelog>
-                                        <external>${project.basedir}/CHANGELOG.md</external>
-                                    </changelog>
-                                </github>
-                            </release>
-                        </jreleaser>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 </project>
