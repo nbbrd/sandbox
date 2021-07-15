@@ -6,12 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.17.2] - 2021-07-15
+
+### Fixed
+- Fix distribution name
+
+## [1.17.1] - 2021-07-15
+
 ### Added
 - Enable semver check by using jitpack.io
 - Add distribution to Scoop
-
-### Changed
-### Fixed
 
 ## [1.16.7] - 2021-07-15
 
@@ -31,6 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix logic in maven deploy script
 
-[Unreleased]: https://github.com/nbbrd/sandbox/compare/v1.16.7...HEAD
+[Unreleased]: https://github.com/nbbrd/sandbox/compare/v1.17.2...HEAD
+[1.17.2]: https://github.com/nbbrd/sandbox/compare/v1.17.1...v1.17.2
+[1.17.1]: https://github.com/nbbrd/sandbox/compare/v1.16.7...v1.17.1
 [1.16.7]: https://github.com/nbbrd/sandbox/compare/v1.15.0...v1.16.7
 [1.15.0]: https://github.com/nbbrd/sandbox/releases/tag/v1.15.0

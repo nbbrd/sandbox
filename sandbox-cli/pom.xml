@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>1.17.1</version>
+        <version>1.17.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,7 +17,7 @@
 
     <properties>
         <project.x.mainClass>nbbrd.sandbox.cli.Main</project.x.mainClass>
-        <project.x.fileName>hello</project.x.fileName>
+        <project.x.fileName>hello-nbbrd</project.x.fileName>
         <project.x.binaries>${project.basedir}/../binaries</project.x.binaries>
     </properties>
 
@@ -25,12 +25,12 @@
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-api</artifactId>
-            <version>1.17.1</version>
+            <version>1.17.2</version>
         </dependency>
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-impl</artifactId>
-            <version>1.17.1</version>
+            <version>1.17.2</version>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>
@@ -188,6 +188,7 @@
                                     <github>
                                         <skipTag>true</skipTag>
                                         <draft>true</draft>
+                                        <!-- Fix default value -->
                                         <branch>master</branch>
                                         <changelog>
                                             <external>${project.basedir}/../CHANGELOG.md</external>
@@ -196,10 +197,12 @@
                                 </release>
                                 <signing>
                                     <active>ALWAYS</active>
+                                    <!-- Fix default value -->
                                     <armored>true</armored>
                                 </signing>
                                 <distributions>
-                                    <distribution>
+                                    <!-- Name is here ! -->
+                                    <hello-nbbrd>
                                         <type>SINGLE_JAR</type>
                                         <artifacts>
                                             <artifact>
@@ -208,7 +211,7 @@
                                                 </path>
                                             </artifact>
                                         </artifacts>
-                                    </distribution>
+                                    </hello-nbbrd>
                                 </distributions>
                                 <packagers>
                                     <scoop>
