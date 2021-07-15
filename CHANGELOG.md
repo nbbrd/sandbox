@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+### Changed
+### Fixed
+
+## [1.16.7] - 2021-07-15
+
+### Added
 - Add semver check (disabled by default)
 - Add basic check of PGP signatures
 
@@ -22,5 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix logic in maven deploy script
 
-[Unreleased]: https://github.com/nbbrd/sandbox/compare/v1.15.0...HEAD
+[Unreleased]: https://github.com/nbbrd/sandbox/compare/v1.16.7...HEAD
+[1.16.7]: https://github.com/nbbrd/sandbox/releases/tag/v1.16.7
 [1.15.0]: https://github.com/nbbrd/sandbox/releases/tag/v1.15.0
