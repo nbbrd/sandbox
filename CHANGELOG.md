@@ -31,5 +31,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix logic in maven deploy script
 
 [Unreleased]: https://github.com/nbbrd/sandbox/compare/v1.16.7...HEAD
-[1.16.7]: https://github.com/nbbrd/sandbox/releases/tag/v1.16.7
+[1.16.7]: https://github.com/nbbrd/sandbox/compare/v1.15.0...v1.16.7
 [1.15.0]: https://github.com/nbbrd/sandbox/releases/tag/v1.15.0
