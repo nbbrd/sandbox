@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>1.16.5</version>
+        <version>1.16.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,12 +25,12 @@
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-api</artifactId>
-            <version>1.16.5</version>
+            <version>1.16.6</version>
         </dependency>
         <dependency>
             <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-impl</artifactId>
-            <version>1.16.5</version>
+            <version>1.16.6</version>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>
@@ -162,36 +162,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Generates SHA256 on binaries -->
-            <plugin>
-                <groupId>net.nicoulaj.maven.plugins</groupId>
-                <artifactId>checksum-maven-plugin</artifactId>
-                <version>1.11</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>files</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <algorithms>
-                        <algorithm>SHA-256</algorithm>
-                    </algorithms>
-                    <fileSets>
-                        <fileSet>
-                            <directory>${project.x.binaries}</directory>
-                            <excludes>
-                                <exclude>*.sha256</exclude>
-                                <exclude>*.asc</exclude>
-                            </excludes>
-                        </fileSet>
-                    </fileSets>
-                    <csvSummary>false</csvSummary>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -224,6 +194,10 @@
                                         </changelog>
                                     </github>
                                 </release>
+                                <signing>
+                                    <active>ALWAYS</active>
+                                    <armored>true</armored>
+                                </signing>
                                 <distributions>
                                     <distribution>
                                         <type>SINGLE_JAR</type>
@@ -243,5 +217,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>
