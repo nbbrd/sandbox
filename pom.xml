@@ -249,12 +249,12 @@
                             </parameter>
                         </configuration>
                         <executions>
-                            <!--                            <execution>-->
-                            <!--                                <phase>verify</phase>-->
-                            <!--                                <goals>-->
-                            <!--                                    <goal>cmp</goal>-->
-                            <!--                                </goals>-->
-                            <!--                            </execution>-->
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>cmp</goal>
+                                </goals>
+                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
@@ -361,4 +361,11 @@
             </build>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>
