@@ -18,7 +18,6 @@
     <properties>
         <project.x.mainClass>nbbrd.sandbox.cli.MainCommand</project.x.mainClass>
         <project.x.fileName>hello-nbbrd</project.x.fileName>
-        <project.x.binaries>${project.basedir}/../binaries</project.x.binaries>
     </properties>
 
     <dependencies>
@@ -47,19 +46,6 @@
                 <artifactId>japicmp-maven-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
-                </configuration>
-            </plugin>
-
-            <!-- Clean binaries directory -->
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${project.x.binaries}</directory>
-                        </fileset>
-                    </filesets>
                 </configuration>
             </plugin>
 
@@ -111,57 +97,6 @@
                     <shadedClassifierName>bin</shadedClassifierName>
                 </configuration>
             </plugin>
-
-            <!-- Copies files to binaries -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.x.binaries}</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.build.directory}</directory>
-                                    <includes>
-                                        <include>*-bin.jar</include>
-                                        <include>*-bin.jar.asc</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Renames binaries -->
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <move todir="${project.x.binaries}">
-                                    <fileset dir="${project.x.binaries}">
-                                        <include name="**/${project.artifactId}-*"/>
-                                    </fileset>
-                                    <mapper type="glob" from="${project.artifactId}-*" to="${project.x.fileName}-*"/>
-                                </move>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -210,8 +145,11 @@
                                         <artifacts>
                                             <artifact>
                                                 <path>
-                                                    ${project.x.binaries}/${project.x.fileName}-${project.version}-bin.jar
+                                                    ${project.build.directory}/${project.artifactId}-${project.version}-bin.jar
                                                 </path>
+                                                <transform>
+                                                    ${project.build.directory}/${project.x.fileName}-${project.version}-bin.jar
+                                                </transform>
                                             </artifact>
                                         </artifacts>
                                     </hello-nbbrd>
