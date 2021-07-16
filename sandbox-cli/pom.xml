@@ -49,21 +49,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Generates manifest for executable jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            <mainClass>${project.x.mainClass}</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-
             <!-- Generates a all-in-one executable jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -91,7 +76,9 @@
                         <transformer
                                 implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                         <transformer
-                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>${project.x.mainClass}</mainClass>
+                        </transformer>
                     </transformers>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <shadedClassifierName>bin</shadedClassifierName>
