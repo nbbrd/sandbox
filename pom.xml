@@ -11,6 +11,7 @@
     <name>sandbox</name>
     <description>Sandbox application</description>
     <url>https://github.com/nbbrd/sandbox</url>
+    <inceptionYear>2020</inceptionYear>
 
     <licenses>
         <license>

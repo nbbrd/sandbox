@@ -95,6 +95,7 @@
                     </transformers>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <shadedClassifierName>bin</shadedClassifierName>
+                    <finalName>${project.x.fileName}-${project.version}-bin</finalName>
                 </configuration>
             </plugin>
         </plugins>
@@ -142,26 +143,22 @@
                                     <!-- Name is here ! -->
                                     <hello-nbbrd>
                                         <type>SINGLE_JAR</type>
+                                        <executable>app</executable>
                                         <artifacts>
                                             <artifact>
                                                 <path>
-                                                    ${project.build.directory}/${project.artifactId}-${project.version}-bin.jar
-                                                </path>
-                                                <transform>
                                                     ${project.build.directory}/${project.x.fileName}-${project.version}-bin.jar
-                                                </transform>
+                                                </path>
                                             </artifact>
                                         </artifacts>
+                                        <scoop>
+                                            <active>RELEASE</active>
+                                        </scoop>
+                                        <brew>
+                                            <active>RELEASE</active>
+                                        </brew>
                                     </hello-nbbrd>
                                 </distributions>
-                                <packagers>
-                                    <scoop>
-                                        <active>RELEASE</active>
-                                    </scoop>
-                                    <brew>
-                                        <active>RELEASE</active>
-                                    </brew>
-                                </packagers>
                             </jreleaser>
                         </configuration>
                     </plugin>
