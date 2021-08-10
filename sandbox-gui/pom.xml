@@ -9,15 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sandbox-cli</artifactId>
+    <artifactId>sandbox-gui</artifactId>
 
-    <name>sandbox-cli</name>
-    <description>Sandbox - CLI</description>
+    <name>sandbox-gui</name>
+    <description>Sandbox - GUI</description>
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <project.x.mainClass>nbbrd.sandbox.cli.MainCommand</project.x.mainClass>
-        <project.x.fileName>hello-nbbrd</project.x.fileName>
+        <project.x.mainClass>nbbrd.sandbox.gui.MainWindow</project.x.mainClass>
+        <project.x.fileName>hellow-nbbrd</project.x.fileName>
+        <project.x.splash>nbbrd/sandbox/gui/nbb.png</project.x.splash>
     </properties>
 
     <dependencies>
@@ -32,9 +33,9 @@
             <version>2.0.0</version>
         </dependency>
         <dependency>
-            <groupId>info.picocli</groupId>
-            <artifactId>picocli</artifactId>
-            <version>4.6.1</version>
+            <groupId>com.github.nbbrd.java-desktop-util</groupId>
+            <artifactId>java-desktop-util-swing</artifactId>
+            <version>2.2.5</version>
         </dependency>
     </dependencies>
 
@@ -77,7 +78,10 @@
                                 implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                         <transformer
                                 implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>${project.x.mainClass}</mainClass>
+                            <manifestEntries>
+                                <Main-Class>${project.x.mainClass}</Main-Class>
+                                <SplashScreen-Image>${project.x.splash}</SplashScreen-Image>
+                            </manifestEntries>
                         </transformer>
                     </transformers>
                     <shadedArtifactAttached>true</shadedArtifactAttached>

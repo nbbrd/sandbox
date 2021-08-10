@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sandbox-parent</artifactId>
+        <groupId>com.github.nbbrd.sandbox</groupId>
+        <version>2.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sandbox-binaries</artifactId>
+    <packaging>pom</packaging>
+
+    <name>sandbox-binaries</name>
+    <description>Sandbox - Binaries</description>
+    <url>https://github.com/nbbrd/sandbox</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sandbox-cli</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sandbox-gui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- skip semver check -->
+            <plugin>
+                <groupId>com.github.siom79.japicmp</groupId>
+                <artifactId>japicmp-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>full-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jreleaser</groupId>
+                        <artifactId>jreleaser-maven-plugin</artifactId>
+                        <version>0.6.0</version>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>full-release</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <jreleaser>
+                                <release>
+                                    <github>
+                                        <skipTag>true</skipTag>
+                                        <draft>true</draft>
+                                        <!-- Fix default value -->
+                                        <branch>master</branch>
+                                        <changelog>
+                                            <external>${project.basedir}/../CHANGELOG.md</external>
+                                        </changelog>
+                                    </github>
+                                </release>
+                                <checksum>
+                                    <individual>true</individual>
+                                </checksum>
+                                <signing>
+                                    <active>ALWAYS</active>
+                                    <!-- Fix default value -->
+                                    <armored>true</armored>
+                                </signing>
+                                <distributions>
+                                    <!-- Name is here ! -->
+                                    <hello-nbbrd>
+                                        <type>SINGLE_JAR</type>
+                                        <artifacts>
+                                            <artifact>
+                                                <path>
+                                                    ${project.basedir}/../sandbox-cli/target/hello-nbbrd-${project.version}-bin.jar
+                                                </path>
+                                            </artifact>
+                                        </artifacts>
+                                        <scoop>
+                                            <active>RELEASE</active>
+                                        </scoop>
+                                        <brew>
+                                            <active>RELEASE</active>
+                                        </brew>
+                                    </hello-nbbrd>
+                                    <!-- Name is here ! -->
+                                    <hellow-nbbrd>
+                                        <type>SINGLE_JAR</type>
+                                        <artifacts>
+                                            <artifact>
+                                                <path>
+                                                    ${project.basedir}/../sandbox-gui/target/hellow-nbbrd-${project.version}-bin.jar
+                                                </path>
+                                            </artifact>
+                                        </artifacts>
+                                        <scoop>
+                                            <active>RELEASE</active>
+                                        </scoop>
+                                        <brew>
+                                            <active>RELEASE</active>
+                                        </brew>
+                                    </hellow-nbbrd>
+                                </distributions>
+                            </jreleaser>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
