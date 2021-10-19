@@ -93,6 +93,7 @@
                                         </artifacts>
                                         <java>
                                             <mainClass>nbbrd.sandbox.cli.MainCommand</mainClass>
+                                            <artifactID>sandbox-cli-2.0.1-SNAPSHOT-bin</artifactID>
                                         </java>
                                         <scoop>
                                             <active>RELEASE</active>
