@@ -6,11 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2021-10-19
+
 ### Changed
 - New API
 
 ### Added
 - GUI application
+- Add distribution to JBang
 
 ## [1.17.4] - 2021-07-16
 
@@ -54,7 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix logic in maven deploy script
 
-[Unreleased]: https://github.com/nbbrd/sandbox/compare/v1.17.4...HEAD
+[Unreleased]: https://github.com/nbbrd/sandbox/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/nbbrd/sandbox/compare/v1.17.4...v2.0.0
 [1.17.4]: https://github.com/nbbrd/sandbox/compare/v1.17.3...v1.17.4
 [1.17.3]: https://github.com/nbbrd/sandbox/compare/v1.17.2...v1.17.3
 [1.17.2]: https://github.com/nbbrd/sandbox/compare/v1.17.1...v1.17.2
