@@ -97,6 +97,9 @@
                                         <brew>
                                             <active>RELEASE</active>
                                         </brew>
+                                        <jbang>
+                                            <active>ALWAYS</active>
+                                        </jbang>
                                     </hello-nbbrd>
                                     <!-- Name is here ! -->
                                     <hellow-nbbrd>
