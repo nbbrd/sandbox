@@ -93,7 +93,7 @@
                                         </artifacts>
                                         <java>
                                             <mainClass>nbbrd.sandbox.cli.MainCommand</mainClass>
-                                            <artifactID>sandbox-cli</artifactID>
+                                            <artifactId>sandbox-cli</artifactId>
                                         </java>
                                         <scoop>
                                             <active>RELEASE</active>
@@ -102,7 +102,7 @@
                                             <active>RELEASE</active>
                                         </brew>
                                         <jbang>
-                                            <active>ALWAYS</active>
+                                            <active>RELEASE</active>
                                         </jbang>
                                     </hello-nbbrd>
                                     <!-- Name is here ! -->
