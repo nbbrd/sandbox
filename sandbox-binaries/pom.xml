@@ -91,6 +91,9 @@
                                                 </path>
                                             </artifact>
                                         </artifacts>
+                                        <java>
+                                            <mainClass>nbbrd.sandbox.cli.MainCommand</mainClass>
+                                        </java>
                                         <scoop>
                                             <active>RELEASE</active>
                                         </scoop>
