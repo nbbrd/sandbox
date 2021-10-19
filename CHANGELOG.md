@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- New API
+
+### Added
+- GUI application
+
 ## [1.17.4] - 2021-07-16
 
 ### Added
@@ -16,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add distribution to Homebrew
 
-### Modified
+### Changed
 - Set checksums as individual files
 
 ## [1.17.2] - 2021-07-15

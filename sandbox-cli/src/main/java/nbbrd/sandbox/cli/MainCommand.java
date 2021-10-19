@@ -43,7 +43,7 @@ public final class MainCommand implements Callable<Void> {
 
     @Override
     public Void call() {
-        new SomeServiceImpl().say("Hello " + name);
+        System.out.println(new SomeServiceImpl().formatText("Hello " + name));
         return null;
     }
 

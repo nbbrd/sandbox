@@ -5,7 +5,7 @@
 
     <groupId>com.github.nbbrd.sandbox</groupId>
     <artifactId>sandbox-parent</artifactId>
-    <version>1.17.4</version>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
 
     <name>sandbox</name>
@@ -51,6 +51,8 @@
             </activation>
             <modules>
                 <module>sandbox-cli</module>
+                <module>sandbox-gui</module>
+                <module>sandbox-binaries</module>
             </modules>
         </profile>
 
@@ -78,6 +80,14 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
                         <version>3.2.0</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <useModulePath>false</useModulePath>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -161,7 +171,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>3.0.0-M3</version>
+                        <version>3.0.0</version>
                         <dependencies>
                             <dependency>
                                 <groupId>org.kordamp.maven</groupId>
@@ -235,7 +245,7 @@
                     <plugin>
                         <groupId>com.github.siom79.japicmp</groupId>
                         <artifactId>japicmp-maven-plugin</artifactId>
-                        <version>0.15.3</version>
+                        <version>0.15.4</version>
                         <configuration>
                             <parameter>
                                 <breakBuildBasedOnSemanticVersioning>true</breakBuildBasedOnSemanticVersioning>
@@ -283,7 +293,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>3.3.1</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -311,7 +321,7 @@
                     <plugin>
                         <groupId>org.simplify4u.plugins</groupId>
                         <artifactId>pgpverify-maven-plugin</artifactId>
-                        <version>1.14.0</version>
+                        <version>1.14.1</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -364,6 +374,13 @@
     </profiles>
 
     <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>

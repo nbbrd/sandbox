@@ -9,9 +9,9 @@ import java.io.UncheckedIOException;
 public class SomeServiceImpl implements SomeService {
 
     @Override
-    public void say(String text) {
+    public String formatText(String text) {
         try {
-            System.out.println(FigletFont.convertOneLine(text));
+            return FigletFont.convertOneLine(text);
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         }
