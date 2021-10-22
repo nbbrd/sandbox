@@ -5,9 +5,10 @@ on: workflow_dispatch
 jobs:
   run-job:
     runs-on: ubuntu-latest
+    name: sdmx-dl version
     steps:
       - name: Setup cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: /root/.jbang
           key: ${{ runner.os }}-jbang-${{ hashFiles('*.java') }}
