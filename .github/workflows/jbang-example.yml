@@ -10,7 +10,7 @@ jobs:
       - name: Setup cache
         uses: actions/cache@v2
         with:
-          path: /root/.jbang
+          path: ~/.jbang
           key: ${{ runner.os }}-jbang-${{ hashFiles('*.java') }}
           restore-keys: |
             ${{ runner.os }}-jbang-
@@ -21,4 +21,4 @@ jobs:
           script: sdmx-dl@nbbrd
           scriptargs: "--version"
         env:
-          JBANG_REPO: /root/.jbang/repository
+          JBANG_REPO: ~/.jbang/repository
