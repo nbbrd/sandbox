@@ -15,4 +15,28 @@
     <description>Sandbox - API</description>
     <url>https://github.com/nbbrd/sandbox</url>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>dev.jbang</groupId>
+                <artifactId>jbang-maven-plugin</artifactId>
+                <version>0.0.7</version>
+                <executions>
+                    <execution>
+                        <id>run</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <script>sdmx-dl@nbbrd</script>
+                            <args>
+                                <arg>--version</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
