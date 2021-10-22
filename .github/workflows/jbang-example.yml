@@ -1,0 +1,13 @@
+name: Example of JBang script
+
+on: workflow_dispatch
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: jbang
+        uses: jbangdev/jbang-action@v0.70.0
+        with:
+          script: sdmx-dl@nbbrd
+          scriptargs: "--version"
