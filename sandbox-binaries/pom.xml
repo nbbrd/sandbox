@@ -65,8 +65,6 @@
                                     <github>
                                         <skipTag>true</skipTag>
                                         <draft>true</draft>
-                                        <!-- Fix default value -->
-                                        <branch>master</branch>
                                         <changelog>
                                             <external>${project.basedir}/../CHANGELOG.md</external>
                                         </changelog>
