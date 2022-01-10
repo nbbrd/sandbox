@@ -33,6 +33,9 @@
                             <args>
                                 <arg>--version</arg>
                             </args>
+                            <trusts>
+                                <trust>https://github.com/nbbrd/jbang-catalog</trust>
+                            </trusts>
                         </configuration>
                     </execution>
                 </executions>
