@@ -1,0 +1,24 @@
+name: sdmx-dl example
+
+on: workflow_dispatch
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+    name: sdmx-dl version
+    steps:
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.jbang
+          key: ${{ runner.os }}-jbang-${{ hashFiles('*.java') }}
+          restore-keys: |
+            ${{ runner.os }}-jbang-
+
+      - name: Print latest stable version of sdmx-dl
+        uses: jbangdev/jbang-action@v0.81.2
+        with:
+          script: sdmx-dl@nbbrd
+          scriptargs: "--version"
+        env:
+          JBANG_REPO: ~/.jbang/repository
