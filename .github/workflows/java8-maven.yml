@@ -13,7 +13,7 @@ jobs:
         os: [ ubuntu-latest ]
         experimental: [ false ]
         include:
-          - java: '>17-ea'
+          - java: '-ea'
             os: ubuntu-latest
             experimental: true
 
