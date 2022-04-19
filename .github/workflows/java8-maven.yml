@@ -7,15 +7,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-#        java: [ 8, 11 ]
+#        java: [ 8, 17 ]
 #        os: [ ubuntu-latest, macOS-latest, windows-latest ]
-        java: [ 11 ]
+        java: [ 17 ]
         os: [ ubuntu-latest ]
         experimental: [ false ]
-#        include:
-#          - java: '>11'
-#            os: ubuntu-latest
-#            experimental: true
+        include:
+          - java: '-ea'
+            os: ubuntu-latest
+            experimental: true
 
     name: JDK${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -26,18 +26,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: true
+          fetch-depth: 0
 
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: 'temurin'
           java-version: ${{ matrix.java }}
-
-      - name: Setup Maven cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          cache: 'maven'
 
       - name: Build and (headless) test with Maven
         uses: GabrielBB/xvfb-action@v1
@@ -49,7 +45,7 @@ jobs:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
     strategy:
       matrix:
-        java: [ 11 ]
+        java: [ 17 ]
         os: [ ubuntu-latest ]
 
     name: Snapshot on develop
@@ -63,16 +59,11 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: 'temurin'
           java-version: ${{ matrix.java }}
-
-      - name: Setup Maven cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          cache: 'maven'
 
       - name: Deploy snapshot with Maven if settings defined
         run: test ! -f ci.settings.xml || mvn -B -ntp deploy -DskipTests=true -s ci.settings.xml -P base-deploy,snapshot-deploy,!non-deployable-modules
@@ -95,7 +86,7 @@ jobs:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
-        java: [ 11 ]
+        java: [ 17 ]
         os: [ ubuntu-latest ]
 
     name: Release on tag
@@ -109,16 +100,11 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: 'temurin'
           java-version: ${{ matrix.java }}
-
-      - name: Setup Maven cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          cache: 'maven'
 
       - name: Deploy with Maven if settings defined
         run: test ! -f ci.settings.xml || mvn -B -ntp deploy -DskipTests=true -s ci.settings.xml -P base-deploy,release-deploy,!non-deployable-modules
@@ -127,6 +113,8 @@ jobs:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           SIGN_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+          # Fix https://issues.sonatype.org/browse/OSSRH-66257
+          MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
 
       - name: Release assets with Maven
         run: mvn -B -ntp install -DskipTests=true -P full-release
