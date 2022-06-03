@@ -1,0 +1,191 @@
+{
+  "libraries": [
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-api:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-api",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.lalyos:jfiglet:0.0.9",
+      "unresolved": false,
+      "groupId": "com.github.lalyos",
+      "artifactId": "jfiglet",
+      "version": "0.0.9",
+      "baseVersion": "0.0.9",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-api:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-api",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-impl:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-impl",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.lalyos:jfiglet:0.0.9",
+      "unresolved": false,
+      "groupId": "com.github.lalyos",
+      "artifactId": "jfiglet",
+      "version": "0.0.9",
+      "baseVersion": "0.0.9",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: info.picocli:picocli:4.6.3",
+      "unresolved": false,
+      "groupId": "info.picocli",
+      "artifactId": "picocli",
+      "version": "4.6.3",
+      "baseVersion": "4.6.3",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-api:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-api",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-impl:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-impl",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.lalyos:jfiglet:0.0.9",
+      "unresolved": false,
+      "groupId": "com.github.lalyos",
+      "artifactId": "jfiglet",
+      "version": "0.0.9",
+      "baseVersion": "0.0.9",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.5",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.java-desktop-util",
+      "artifactId": "java-desktop-util-swing",
+      "version": "2.2.5",
+      "baseVersion": "2.2.5",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-cli:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-cli",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-api:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-api",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-impl:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-impl",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.lalyos:jfiglet:0.0.9",
+      "unresolved": false,
+      "groupId": "com.github.lalyos",
+      "artifactId": "jfiglet",
+      "version": "0.0.9",
+      "baseVersion": "0.0.9",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: info.picocli:picocli:4.6.3",
+      "unresolved": false,
+      "groupId": "info.picocli",
+      "artifactId": "picocli",
+      "version": "4.6.3",
+      "baseVersion": "4.6.3",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.sandbox:sandbox-gui:2.1.1-SNAPSHOT",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.sandbox",
+      "artifactId": "sandbox-gui",
+      "version": "2.1.1-SNAPSHOT",
+      "baseVersion": "2.1.1-SNAPSHOT",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    },
+    {
+      "ideaName": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.5",
+      "unresolved": false,
+      "groupId": "com.github.nbbrd.java-desktop-util",
+      "artifactId": "java-desktop-util-swing",
+      "version": "2.2.5",
+      "baseVersion": "2.2.5",
+      "type": "jar",
+      "optional": false,
+      "scope": "compile"
+    }
+  ]
+}

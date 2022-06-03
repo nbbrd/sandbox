@@ -1,0 +1,16 @@
+{
+  "total": 1,
+  "tools inspection": {
+    "Code Inspection": 1
+  },
+  "attributes": {
+    "vcs": {
+      "sarifIdea": {
+        "repositoryUri": "https://github.com/nbbrd/sandbox",
+        "revisionId": "767b539ab39e040086d34ceabbbf6360f6d7164d",
+        "branch": "develop"
+      }
+    },
+    "deviceId": "200820300000000-20c9-3c25-5b37-8d29c5f122ba"
+  }
+}
