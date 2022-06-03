@@ -2,3 +2,5 @@
 target/
 /snapshots/
 /releases/
+dependency-reduced-pom.xml
+.jbang/
