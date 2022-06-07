@@ -4,6 +4,13 @@
     "Code Inspection": 1
   },
   "attributes": {
+    "vcs": {
+      "sarifIdea": {
+        "repositoryUri": "https://github.com/nbbrd/sandbox",
+        "revisionId": "0470926c4095064404066f7e0c2b73215861fcaf",
+        "branch": "develop"
+      }
+    },
     "deviceId": "200820300000000-20c9-3c25-5b37-8d29c5f122ba"
   }
 }
