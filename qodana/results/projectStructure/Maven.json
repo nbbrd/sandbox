@@ -100,12 +100,12 @@
       "scope": "compile"
     },
     {
-      "ideaName": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.5",
+      "ideaName": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.6",
       "unresolved": false,
       "groupId": "com.github.nbbrd.java-desktop-util",
       "artifactId": "java-desktop-util-swing",
-      "version": "2.2.5",
-      "baseVersion": "2.2.5",
+      "version": "2.2.6",
+      "baseVersion": "2.2.6",
       "type": "jar",
       "optional": false,
       "scope": "compile"
@@ -177,12 +177,12 @@
       "scope": "compile"
     },
     {
-      "ideaName": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.5",
+      "ideaName": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.6",
       "unresolved": false,
       "groupId": "com.github.nbbrd.java-desktop-util",
       "artifactId": "java-desktop-util-swing",
-      "version": "2.2.5",
-      "baseVersion": "2.2.5",
+      "version": "2.2.6",
+      "baseVersion": "2.2.6",
       "type": "jar",
       "optional": false,
       "scope": "compile"

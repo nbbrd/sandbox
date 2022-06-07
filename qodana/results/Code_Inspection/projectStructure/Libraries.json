@@ -7,9 +7,9 @@
       ]
     },
     {
-      "name": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.5",
+      "name": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.6",
       "roots": [
-        "jar://$MAVEN_REPOSITORY$/com/github/nbbrd/java-desktop-util/java-desktop-util-swing/2.2.5/java-desktop-util-swing-2.2.5.jar!/"
+        "jar://$MAVEN_REPOSITORY$/com/github/nbbrd/java-desktop-util/java-desktop-util-swing/2.2.6/java-desktop-util-swing-2.2.6.jar!/"
       ]
     },
     {
