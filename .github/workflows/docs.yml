@@ -10,9 +10,12 @@ jobs:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
+
     env:
       THEME_VERSION: v0.32.3
-      CI_ACTION_REF_NAME: ${{ github.ref_name }}
+      DOC_SLUG: ${{ github.ref_name }}
+      DOC_URL: "http://${{ github.repository_owner }}.github.io/sandbox/docs/${{ env.DOC_SLUG }}"
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -28,20 +31,17 @@ jobs:
       - name: Download theme
         run: |
           mkdir -p docs/themes/hugo-geekdoc/
-          curl -sSL "https://github.com/thegeeklab/hugo-geekdoc/releases/download/$THEME_VERSION/hugo-geekdoc.tar.gz" | tar -xz -C docs/themes/hugo-geekdoc/ --strip-components=1
-
-      - name: Debug
-        run: echo "$CI_ACTION_REF_NAME"
+          curl -sSL https://github.com/thegeeklab/hugo-geekdoc/releases/download/${{ env.THEME_VERSION }}/hugo-geekdoc.tar.gz | tar -xz -C docs/themes/hugo-geekdoc/ --strip-components=1
 
       - name: Build pages
-        run: hugo --source docs -b "http://nbbrd.github.io/sandbox/docs/$CI_ACTION_REF_NAME"
+        run: hugo --source docs -b ${{ env.DOC_URL }}
 
       - name: Deploy pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/public
-          destination_dir: ./docs/${{ env.CI_ACTION_REF_NAME }}
+          destination_dir: ./docs/${{ env.DOC_SLUG }}
 
       - name: Create summary
-        run: echo "Documentation available at http://nbbrd.github.io/sandbox/docs/$CI_ACTION_REF_NAME" >> $GITHUB_STEP_SUMMARY
+        run: echo "Documentation available at ${{ env.DOC_URL }}" >> $GITHUB_STEP_SUMMARY
