@@ -12,9 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       THEME_VERSION: v0.32.3
+      CI_ACTION_REF_NAME: ${{ github.ref_name }}
     steps:
-      - uses: FranzDiebold/github-env-vars-action@v2
-
       - name: Checkout source code
         uses: actions/checkout@v2
         with:
