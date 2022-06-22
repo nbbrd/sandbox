@@ -1,11 +1,11 @@
 {
   "modules": [
     {
-      "name": "sandbox-api",
+      "name": "sandbox-parent",
       "languageLevel": 9
     },
     {
-      "name": "sandbox-parent",
+      "name": "sandbox-api",
       "languageLevel": 9
     },
     {

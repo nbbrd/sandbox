@@ -1,17 +1,11 @@
 {
   "modules": [
     {
-      "name": "sandbox-api",
+      "name": "sandbox-parent",
       "contentEntries": [
         {
-          "path": "file://$PROJECT_DIR$/sandbox-api",
-          "sourceFolders": [
-            {
-              "path": "file://$PROJECT_DIR$/sandbox-api/src/main/java",
-              "type": "Source",
-              "packagePrefix": ""
-            }
-          ]
+          "path": "file://$PROJECT_DIR$",
+          "sourceFolders": []
         }
       ],
       "orderEntries": [
@@ -26,11 +20,17 @@
       ]
     },
     {
-      "name": "sandbox-parent",
+      "name": "sandbox-api",
       "contentEntries": [
         {
-          "path": "file://$PROJECT_DIR$",
-          "sourceFolders": []
+          "path": "file://$PROJECT_DIR$/sandbox-api",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/sandbox-api/src/main/java",
+              "type": "Source",
+              "packagePrefix": ""
+            }
+          ]
         }
       ],
       "orderEntries": [
