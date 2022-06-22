@@ -1,4 +1,4 @@
-baseURL = "http://nbbrd.github.io/sandbox"
+baseURL = "http://nbbrd.github.io/sandbox/develop"
 title = "Sandbox"
 theme = "hugo-geekdoc"
 
