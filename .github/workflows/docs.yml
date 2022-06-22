@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     env:
       THEME_VERSION: v0.32.3
@@ -28,12 +29,18 @@ jobs:
           mkdir -p docs/themes/hugo-geekdoc/
           curl -sSL "https://github.com/thegeeklab/hugo-geekdoc/releases/download/$THEME_VERSION/hugo-geekdoc.tar.gz" | tar -xz -C docs/themes/hugo-geekdoc/ --strip-components=1
 
-      - name: Build
-        run: hugo --source docs -b http://nbbrd.github.io/sandbox/docs/develop
+      - name: Retrieve Environment Variables
+      - uses: FranzDiebold/github-env-vars-action@v2
 
-      - name: Deploy to gh-pages
+      - name: Build pages
+        run: hugo --source docs -b http://nbbrd.github.io/sandbox/docs/$CI_ACTION_REF_NAME
+
+      - name: Deploy pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/public
-          destination_dir: ./docs/develop
+          destination_dir: ./docs/$CI_ACTION_REF_NAME
+
+      - name: Create summary
+        run: echo 'Documentation available at http://nbbrd.github.io/sandbox/docs/$CI_ACTION_REF_NAME' >> $GITHUB_STEP_SUMMARY
