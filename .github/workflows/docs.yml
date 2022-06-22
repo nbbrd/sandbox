@@ -1,20 +1,17 @@
 name: Documentation deployment
 
-on:
-  push:
-    branches:
-      - develop
+on: [ push ]
 
 jobs:
   deploy:
-    if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
+    if: startsWith(github.repository, 'nbbrd/') && ((github.ref == 'refs/heads/develop') || startsWith(github.ref, 'refs/tags/v'))
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
 
     env:
       THEME_VERSION: v0.32.3
       DOC_SLUG: ${{ github.ref_name }}
-      DOC_URL: "http://${{ github.repository_owner }}.github.io/sandbox/docs/${{ github.ref_name }}"
+      DOC_URL: "http://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/${{ github.ref_name }}"
 
     steps:
       - name: Checkout source code
