@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>2.1.0</version>
+        <version>2.2.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,29 +17,29 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>dev.jbang</groupId>
-                <artifactId>jbang-maven-plugin</artifactId>
-                <version>0.0.7</version>
-                <executions>
-                    <execution>
-                        <id>run</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <script>sdmx-dl@nbbrd</script>
-                            <args>
-                                <arg>--version</arg>
-                            </args>
-                            <trusts>
-                                <trust>https://github.com/nbbrd/jbang-catalog</trust>
-                            </trusts>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>dev.jbang</groupId>-->
+<!--                <artifactId>jbang-maven-plugin</artifactId>-->
+<!--                <version>0.0.7</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>run</id>-->
+<!--                        <phase>process-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>run</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <script>sdmx-dl@nbbrd</script>-->
+<!--                            <args>-->
+<!--                                <arg>&#45;&#45;version</arg>-->
+<!--                            </args>-->
+<!--                            <trusts>-->
+<!--                                <trust>https://github.com/nbbrd/jbang-catalog</trust>-->
+<!--                            </trusts>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

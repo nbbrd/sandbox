@@ -1,0 +1,21 @@
+
+<table>
+    <thead>
+    <tr>
+        <th>GroupId</th>
+        <th>ArtifactId</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{ $url := "static/dependencies.csv" }}
+    {{ $sep := "," }}
+    {{ range $i, $r := getCSV $sep $url }}
+    <tr>
+        {{ if ne $i 0 }}
+        <td>{{ index $r 0 }}</td>
+        <td>{{ index $r 1 }}</td>
+        {{ end }}
+    </tr>
+    {{ end }}
+    </tbody>
+</table>
