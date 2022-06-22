@@ -32,3 +32,8 @@ flowchart BT
     classDef x fill:#00000000,stroke:#00000000,font-style:italic
     class x-jaxb,x-picocsv x
 {{< /mermaid >}}
+
+## Some CSV content
+
+{{< dependencies >}}
+
