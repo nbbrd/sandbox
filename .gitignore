@@ -4,3 +4,5 @@ target/
 /releases/
 dependency-reduced-pom.xml
 .jbang/
+/docs/themes
+/docs/.hugo_build.lock
