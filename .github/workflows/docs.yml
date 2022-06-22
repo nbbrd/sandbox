@@ -1,4 +1,4 @@
-name: Documentation on GitHub pages
+name: Documentation deployment
 
 on:
   push:
