@@ -5,7 +5,15 @@
       "languageLevel": 9
     },
     {
+      "name": "sandbox-parent",
+      "languageLevel": 9
+    },
+    {
       "name": "sandbox-cli",
+      "languageLevel": 9
+    },
+    {
+      "name": "sandbox-binaries",
       "languageLevel": 9
     },
     {
@@ -14,14 +22,6 @@
     },
     {
       "name": "sandbox-impl",
-      "languageLevel": 9
-    },
-    {
-      "name": "sandbox-parent",
-      "languageLevel": 9
-    },
-    {
-      "name": "sandbox-binaries",
       "languageLevel": 9
     }
   ]

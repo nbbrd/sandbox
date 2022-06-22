@@ -26,6 +26,25 @@
       ]
     },
     {
+      "name": "sandbox-parent",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
       "name": "sandbox-cli",
       "contentEntries": [
         {
@@ -67,19 +86,66 @@
       ]
     },
     {
+      "name": "sandbox-binaries",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/sandbox-binaries",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "sandbox-cli",
+          "type": "Module"
+        },
+        {
+          "name": "sandbox-api",
+          "type": "Module"
+        },
+        {
+          "name": "sandbox-impl",
+          "type": "Module"
+        },
+        {
+          "name": "Maven: com.github.lalyos:jfiglet:0.0.9",
+          "type": "Library"
+        },
+        {
+          "name": "Maven: info.picocli:picocli:4.6.3",
+          "type": "Library"
+        },
+        {
+          "name": "sandbox-gui",
+          "type": "Module"
+        },
+        {
+          "name": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.6",
+          "type": "Library"
+        }
+      ]
+    },
+    {
       "name": "sandbox-gui",
       "contentEntries": [
         {
           "path": "file://$PROJECT_DIR$/sandbox-gui",
           "sourceFolders": [
             {
-              "path": "file://$PROJECT_DIR$/sandbox-gui/src/main/resources",
-              "type": "Resource",
+              "path": "file://$PROJECT_DIR$/sandbox-gui/src/main/java",
+              "type": "Source",
               "packagePrefix": ""
             },
             {
-              "path": "file://$PROJECT_DIR$/sandbox-gui/src/main/java",
-              "type": "Source",
+              "path": "file://$PROJECT_DIR$/sandbox-gui/src/main/resources",
+              "type": "Resource",
               "packagePrefix": ""
             }
           ]
@@ -141,72 +207,6 @@
         },
         {
           "name": "Maven: com.github.lalyos:jfiglet:0.0.9",
-          "type": "Library"
-        }
-      ]
-    },
-    {
-      "name": "sandbox-parent",
-      "contentEntries": [
-        {
-          "path": "file://$PROJECT_DIR$",
-          "sourceFolders": []
-        }
-      ],
-      "orderEntries": [
-        {
-          "name": "jbr-11",
-          "type": "SDK"
-        },
-        {
-          "name": "<Module source>",
-          "type": "Own sources"
-        }
-      ]
-    },
-    {
-      "name": "sandbox-binaries",
-      "contentEntries": [
-        {
-          "path": "file://$PROJECT_DIR$/sandbox-binaries",
-          "sourceFolders": []
-        }
-      ],
-      "orderEntries": [
-        {
-          "name": "jbr-11",
-          "type": "SDK"
-        },
-        {
-          "name": "<Module source>",
-          "type": "Own sources"
-        },
-        {
-          "name": "sandbox-cli",
-          "type": "Module"
-        },
-        {
-          "name": "sandbox-api",
-          "type": "Module"
-        },
-        {
-          "name": "sandbox-impl",
-          "type": "Module"
-        },
-        {
-          "name": "Maven: com.github.lalyos:jfiglet:0.0.9",
-          "type": "Library"
-        },
-        {
-          "name": "Maven: info.picocli:picocli:4.6.3",
-          "type": "Library"
-        },
-        {
-          "name": "sandbox-gui",
-          "type": "Module"
-        },
-        {
-          "name": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.6",
           "type": "Library"
         }
       ]
