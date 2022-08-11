@@ -64,9 +64,6 @@ jobs:
             $-jbang-
 
       - name: Create index.html
-        run: mkdir public
-
-      - name: Create index.html
         uses: jbangdev/jbang-action@v0.97.0
         with:
           trust: https://gist.github.com/charphi/
