@@ -57,10 +57,11 @@ jobs:
           ref: 'gh-pages'
 
       - name: Create index.html
-        run: mkdir public && tree -d -H '.' -L 1 --noreport --charset utf-8 -o public/index.html docs
+        run: mkdir public && tree -d -H '.' -L 1 --noreport --charset utf-8 -T 'Documentation' docs | sed -e '/<hr>/,+7d' > public/index.html
 
       - name: Deploy index.html
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_dir: ./docs
+          keep_files: true
