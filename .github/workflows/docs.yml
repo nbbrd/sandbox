@@ -56,8 +56,23 @@ jobs:
         with:
           ref: 'gh-pages'
 
+      - uses: actions/cache@v1
+        with:
+          path: /root/.jbang
+          key: $-jbang-$
+          restore-keys: |
+            $-jbang-
+
       - name: Create index.html
-        run: mkdir public && tree -d -H '.' -L 1 --noreport --charset utf-8 -T 'Documentation' docs | sed -e '/<hr>/,+7d' > public/index.html
+        run: mkdir public
+
+      - name: Create index.html
+        uses: jbangdev/jbang-action@v0.97.0
+        with:
+          script: https://gist.github.com/charphi/f44a24eb35dbd61b9f1d7759f0e561bd
+          scriptargs: -T "Documentation" docs -o public/index.html
+        env:
+          JBANG_REPO: /root/.jbang/repository
 
       - name: Deploy index.html
         uses: peaceiris/actions-gh-pages@v3
