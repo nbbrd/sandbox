@@ -18,6 +18,7 @@ jobs:
       - name: Print latest stable version of sdmx-dl using catalog
         uses: jbangdev/jbang-action@v0.98.0
         with:
+          trust: https://github.com/nbbrd/jbang-catalog/
           script: sdmx-dl@nbbrd
           scriptargs: "--version"
         env:
