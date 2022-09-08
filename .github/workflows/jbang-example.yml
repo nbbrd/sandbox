@@ -1,4 +1,4 @@
-name: sdmx-dl example
+name: JBang example
 
 on: workflow_dispatch
 
@@ -15,10 +15,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-jbang-
 
-      - name: Print latest stable version of sdmx-dl
-        uses: jbangdev/jbang-action@v0.81.2
+      - name: Print latest stable version of sdmx-dl using catalog
+        uses: jbangdev/jbang-action@v0.98.0
         with:
           script: sdmx-dl@nbbrd
+          scriptargs: "--version"
+        env:
+          JBANG_REPO: ~/.jbang/repository
+
+      - name: Print latest stable version of sdmx-dl using Maven coordinate
+        uses: jbangdev/jbang-action@v0.98.0
+        with:
+          script: com.github.nbbrd.sdmx-dl:sdmx-dl-cli:RELEASE:bin
           scriptargs: "--version"
         env:
           JBANG_REPO: ~/.jbang/repository
