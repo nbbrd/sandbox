@@ -1,4 +1,4 @@
-package nbbrd.sandbox.gui;
+package nbbrd.sandbox.desktop;
 
 import ec.util.various.swing.BasicSwingLauncher;
 import ec.util.various.swing.TextPrompt;
@@ -15,26 +15,18 @@ public final class MainWindow {
     public static void main(String[] args) {
         new BasicSwingLauncher()
                 .content(MainWindow::create)
-                .icons("/nbbrd/sandbox/gui/nbb.png")
+                .icons("/nbbrd/sandbox/desktop/nbb.png")
                 .title("Hello NBBRD")
                 .launch();
     }
 
     private static Component create() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        JPanel result = new JPanel(new BorderLayout());
+        sleepToShowSplashscreen();
 
         JTextField input = new JTextField();
-        result.add(input, BorderLayout.NORTH);
 
         JTextArea output = new JTextArea();
         output.setEditable(false);
-        result.add(new JScrollPane(output), BorderLayout.CENTER);
 
         new TextPrompt("Type your name here", input).setForeground(output.getDisabledTextColor());
         input.getDocument().addDocumentListener(new DocumentListener() {
@@ -62,6 +54,17 @@ public final class MainWindow {
             }
         });
 
+        JPanel result = new JPanel(new BorderLayout());
+        result.add(input, BorderLayout.NORTH);
+        result.add(new JScrollPane(output), BorderLayout.CENTER);
         return result;
+    }
+
+    private static void sleepToShowSplashscreen() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

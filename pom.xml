@@ -124,7 +124,7 @@
             </activation>
             <modules>
                 <module>sandbox-cli</module>
-                <module>sandbox-gui</module>
+                <module>sandbox-desktop</module>
                 <module>sandbox-bom</module>
             </modules>
         </profile>

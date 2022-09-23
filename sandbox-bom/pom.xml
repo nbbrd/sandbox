@@ -25,7 +25,7 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <artifactId>sandbox-gui</artifactId>
+                <artifactId>sandbox-desktop</artifactId>
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>
             </dependency>
@@ -110,7 +110,7 @@
                                         <artifacts>
                                             <artifact>
                                                 <path>
-                                                    ${project.parent.basedir}/sandbox-cli/target/hello-nbbrd-${project.version}-bin.jar
+                                                    ${project.parent.basedir}/sandbox-cli/target/sandbox-cli-${project.version}-bin.jar
                                                 </path>
                                             </artifact>
                                         </artifacts>
@@ -134,7 +134,7 @@
                                         <artifacts>
                                             <artifact>
                                                 <path>
-                                                    ${project.parent.basedir}/sandbox-gui/target/hellow-nbbrd-${project.version}-bin.jar
+                                                    ${project.parent.basedir}/sandbox-desktop/target/sandbox-desktop-${project.version}-bin.jar
                                                 </path>
                                             </artifact>
                                         </artifacts>
