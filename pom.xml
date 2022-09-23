@@ -125,7 +125,7 @@
             <modules>
                 <module>sandbox-cli</module>
                 <module>sandbox-gui</module>
-                <module>sandbox-binaries</module>
+                <module>sandbox-bom</module>
             </modules>
         </profile>
 
