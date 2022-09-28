@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.3] - 2022-09-28
+
 ### Changed
 - Use heylogs to check and extract changelog
 
@@ -65,7 +67,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix logic in maven deploy script
 
-[Unreleased]: https://github.com/nbbrd/sandbox/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/nbbrd/sandbox/compare/v2.2.3...HEAD
+[2.2.3]: https://github.com/nbbrd/sandbox/compare/v2.0.1...v2.2.3
 [2.0.1]: https://github.com/nbbrd/sandbox/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/nbbrd/sandbox/compare/v1.17.4...v2.0.0
 [1.17.4]: https://github.com/nbbrd/sandbox/compare/v1.17.3...v1.17.4
