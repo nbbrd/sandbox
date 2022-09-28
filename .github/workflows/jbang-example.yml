@@ -1,4 +1,4 @@
-name: sdmx-dl example
+name: JBang example
 
 on: workflow_dispatch
 
@@ -8,17 +8,26 @@ jobs:
     name: sdmx-dl version
     steps:
       - name: Setup cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.jbang
           key: ${{ runner.os }}-jbang-${{ hashFiles('*.java') }}
           restore-keys: |
             ${{ runner.os }}-jbang-
 
-      - name: Print latest stable version of sdmx-dl
-        uses: jbangdev/jbang-action@v0.81.2
+      - name: Print latest stable version of sdmx-dl using catalog
+        uses: jbangdev/jbang-action@v0.98.0
         with:
+          trust: https://github.com/nbbrd/jbang-catalog/
           script: sdmx-dl@nbbrd
+          scriptargs: "--version"
+        env:
+          JBANG_REPO: ~/.jbang/repository
+
+      - name: Print latest stable version of sdmx-dl using Maven coordinate
+        uses: jbangdev/jbang-action@v0.98.0
+        with:
+          script: com.github.nbbrd.sdmx-dl:sdmx-dl-cli:RELEASE:bin
           scriptargs: "--version"
         env:
           JBANG_REPO: ~/.jbang/repository
