@@ -2,10 +2,6 @@ name: Java8+ with Maven
 
 on: [ push, pull_request ]
 
-#concurrency:
-#  group: ${{ github.workflow }}-${{ github.ref }}
-#  cancel-in-progress: true
-
 jobs:
   build-and-test-job:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
@@ -44,9 +40,6 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: mvn -U -B -ntp package
-          
-      - name: Create summary
-        run: echo "Concurrency group ${{ github.workflow }}-${{ github.ref }}" >> $GITHUB_STEP_SUMMARY
 
   snapshot-job:
     needs: build-and-test-job
