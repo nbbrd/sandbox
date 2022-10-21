@@ -43,6 +43,9 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: mvn -U -B -ntp package
+          
+      - name: Create summary
+        run: echo "Concurrency group ${{ github.workflow }}-${{ github.ref }}" >> $GITHUB_STEP_SUMMARY
 
   snapshot-job:
     needs: build-and-test-job
