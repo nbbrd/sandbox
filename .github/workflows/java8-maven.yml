@@ -8,8 +8,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ 8, 17 ]
-        os: [ ubuntu-latest, macOS-latest, windows-latest ]
+#        java: [ 8, 17 ]
+#        os: [ ubuntu-latest, macOS-latest, windows-latest ]
+        java: [ 17 ]
+        os: [ ubuntu-latest ]
 
     name: JDK${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
