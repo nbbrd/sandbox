@@ -6,6 +6,7 @@ import nbbrd.sandbox.SomeService;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
+@lombok.AllArgsConstructor
 public class SomeServiceImpl implements SomeService {
 
     @Override

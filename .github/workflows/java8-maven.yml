@@ -8,19 +8,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-#        java: [ 8, 17 ]
-#        os: [ ubuntu-latest, macOS-latest, windows-latest ]
-        java: [ 17 ]
-        os: [ ubuntu-latest ]
-        experimental: [ false ]
-        include:
-          - java: '-ea'
-            os: ubuntu-latest
-            experimental: true
+        java: [ 8, 17 ]
+        os: [ ubuntu-latest, macOS-latest, windows-latest ]
 
     name: JDK${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}
 
     steps:
       - name: Checkout source code
