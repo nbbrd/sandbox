@@ -11,8 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: '-ea'
-        os: ubuntu-latest
+        java: [ '-ea' ]
+        os: [ ubuntu-latest ]
 
     continue-on-error: true
 
