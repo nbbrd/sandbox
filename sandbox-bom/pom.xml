@@ -119,6 +119,13 @@
                                     <!-- Fix default value -->
                                     <armored>true</armored>
                                 </signing>
+                                <announce>
+                                    <discussions>
+                                        <active>ALWAYS</active>
+                                        <organization>nbbrd</organization>
+                                        <team>sandbox</team>
+                                    </discussions>
+                                </announce>
                                 <distributions>
                                     <!-- Name is here ! -->
                                     <hello-nbbrd>
