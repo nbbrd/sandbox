@@ -124,6 +124,7 @@
                                         <active>ALWAYS</active>
                                         <organization>nbbrd</organization>
                                         <team>sandbox</team>
+                                        <title>{{projectNameCapitalized}} {{projectVersion}} released!</title>
                                     </discussions>
                                 </announce>
                                 <distributions>
