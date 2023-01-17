@@ -352,8 +352,7 @@
 
 
 
-<pre class="gdoc-mermaid mermaid text-center">
-flowchart BT
+<pre class="gdoc-mermaid mermaid text-center">flowchart BT
 
     x-jaxb{{javax.xml.bind:jaxb-api}}
     x-picocsv{{com.github.nbbrd.picocsv:picocsv}}
@@ -364,17 +363,15 @@ flowchart BT
     picocsv
     win
 
-    xml --> base
-    xml-bind --> xml
-    xml-bind -.-> x-jaxb
-    win --> base
-    picocsv --> base
-    picocsv -.-> x-picocsv
+    xml --&gt; base
+    xml-bind --&gt; xml
+    xml-bind -.-&gt; x-jaxb
+    win --&gt; base
+    picocsv --&gt; base
+    picocsv -.-&gt; x-picocsv
 
     classDef x fill:#00000000,stroke:#00000000,font-style:italic
-    class x-jaxb,x-picocsv x
-</pre>
-
+    class x-jaxb,x-picocsv x</pre>
 <div class="gdoc-page__anchorwrap">
     <h2 id="some-csv-content">
         Some CSV content
