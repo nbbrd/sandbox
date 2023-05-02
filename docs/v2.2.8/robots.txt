@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /tags/*
+
+Sitemap: http://nbbrd.github.io/sandbox/docs/v2.2.8/sitemap.xml
