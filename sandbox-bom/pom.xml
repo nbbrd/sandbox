@@ -120,6 +120,8 @@
         </profile>
 
         <profile>
+            <!-- Release binaries on GitHub -->
+            <!-- Note that all plugins are run on 'install' phase -->
             <id>full-release</id>
             <build>
                 <plugins>
@@ -130,104 +132,104 @@
                         <executions>
                             <execution>
                                 <id>extract-changelog</id>
+                                <phase>install</phase>
                                 <goals>
                                     <goal>extract</goal>
                                 </goals>
                                 <configuration>
                                     <inputFile>${project.parent.basedir}/CHANGELOG.md</inputFile>
-                                    <ref>${project.version}</ref>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
+
                     <!-- Release assets -->
                     <plugin>
                         <groupId>org.jreleaser</groupId>
                         <artifactId>jreleaser-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>1.5.1</version>
                         <executions>
                             <execution>
+                                <id>release-assets</id>
                                 <phase>install</phase>
                                 <goals>
                                     <goal>full-release</goal>
                                 </goals>
+                                <configuration>
+                                    <jreleaser>
+                                        <release>
+                                            <github>
+                                                <skipTag>true</skipTag>
+                                                <changelog>
+                                                    <external>${project.build.directory}/CHANGELOG.md</external>
+                                                </changelog>
+                                                <!-- Fix default value -->
+                                                <branch>master</branch>
+                                            </github>
+                                        </release>
+                                        <signing>
+                                            <active>ALWAYS</active>
+                                            <!-- Fix default value -->
+                                            <armored>true</armored>
+                                        </signing>
+                                        <announce>
+                                            <discussions>
+                                                <active>ALWAYS</active>
+                                                <organization>nbbrd</organization>
+                                                <team>sandbox</team>
+                                                <message>🚀 {{projectNameCapitalized}} {{projectVersion}} has been
+                                                    released!
+                                                    {{releaseNotesUrl}}
+                                                </message>
+                                            </discussions>
+                                        </announce>
+                                        <distributions>
+                                            <!-- Name is here ! -->
+                                            <hello-nbbrd>
+                                                <type>SINGLE_JAR</type>
+                                                <artifacts>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.parent.basedir}/sandbox-cli/target/sandbox-cli-${project.version}-bin.jar
+                                                        </path>
+                                                    </artifact>
+                                                </artifacts>
+                                                <java>
+                                                    <mainClass>nbbrd.sandbox.cli.MainCommand</mainClass>
+                                                    <artifactId>sandbox-cli</artifactId>
+                                                </java>
+                                                <scoop>
+                                                    <active>RELEASE</active>
+                                                </scoop>
+                                                <brew>
+                                                    <active>RELEASE</active>
+                                                </brew>
+                                                <jbang>
+                                                    <active>RELEASE</active>
+                                                </jbang>
+                                            </hello-nbbrd>
+                                            <!-- Name is here ! -->
+                                            <hellow-nbbrd>
+                                                <type>SINGLE_JAR</type>
+                                                <artifacts>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.parent.basedir}/sandbox-desktop/target/sandbox-desktop-${project.version}-bin.jar
+                                                        </path>
+                                                    </artifact>
+                                                </artifacts>
+                                                <scoop>
+                                                    <active>RELEASE</active>
+                                                </scoop>
+                                                <brew>
+                                                    <active>RELEASE</active>
+                                                </brew>
+                                            </hellow-nbbrd>
+                                        </distributions>
+                                    </jreleaser>
+                                </configuration>
                             </execution>
                         </executions>
-                        <configuration>
-                            <jreleaser>
-                                <release>
-                                    <github>
-                                        <skipTag>true</skipTag>
-                                        <!-- Fix default value -->
-                                        <branch>master</branch>
-                                        <changelog>
-                                            <external>${project.build.directory}/CHANGELOG.md</external>
-                                        </changelog>
-                                    </github>
-                                </release>
-                                <checksum>
-                                    <individual>true</individual>
-                                </checksum>
-                                <signing>
-                                    <active>ALWAYS</active>
-                                    <!-- Fix default value -->
-                                    <armored>true</armored>
-                                </signing>
-                                <announce>
-                                    <discussions>
-                                        <active>ALWAYS</active>
-                                        <organization>nbbrd</organization>
-                                        <team>sandbox</team>
-                                        <message>🚀 {{projectNameCapitalized}} {{projectVersion}} has been released!
-                                            {{releaseNotesUrl}}
-                                        </message>
-                                    </discussions>
-                                </announce>
-                                <distributions>
-                                    <!-- Name is here ! -->
-                                    <hello-nbbrd>
-                                        <type>SINGLE_JAR</type>
-                                        <artifacts>
-                                            <artifact>
-                                                <path>
-                                                    ${project.parent.basedir}/sandbox-cli/target/sandbox-cli-${project.version}-bin.jar
-                                                </path>
-                                            </artifact>
-                                        </artifacts>
-                                        <java>
-                                            <mainClass>nbbrd.sandbox.cli.MainCommand</mainClass>
-                                            <artifactId>sandbox-cli</artifactId>
-                                        </java>
-                                        <scoop>
-                                            <active>RELEASE</active>
-                                        </scoop>
-                                        <brew>
-                                            <active>RELEASE</active>
-                                        </brew>
-                                        <jbang>
-                                            <active>RELEASE</active>
-                                        </jbang>
-                                    </hello-nbbrd>
-                                    <!-- Name is here ! -->
-                                    <hellow-nbbrd>
-                                        <type>SINGLE_JAR</type>
-                                        <artifacts>
-                                            <artifact>
-                                                <path>
-                                                    ${project.parent.basedir}/sandbox-desktop/target/sandbox-desktop-${project.version}-bin.jar
-                                                </path>
-                                            </artifact>
-                                        </artifacts>
-                                        <scoop>
-                                            <active>RELEASE</active>
-                                        </scoop>
-                                        <brew>
-                                            <active>RELEASE</active>
-                                        </brew>
-                                    </hellow-nbbrd>
-                                </distributions>
-                            </jreleaser>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
