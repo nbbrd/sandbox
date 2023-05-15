@@ -61,7 +61,7 @@ jobs:
           cache: 'maven'
 
       - name: Deploy snapshot with Maven if settings defined
-        run: test ! -f ci.settings.xml || mvn -B -ntp deploy -DskipTests=true -s ci.settings.xml -P base-deploy,snapshot-deploy,!non-deployable-modules
+        run: test ! -f ci.settings.xml || mvn -B -ntp deploy -DskipTests -s ci.settings.xml -P base-deploy,snapshot-deploy,!non-deployable-modules
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
@@ -69,7 +69,7 @@ jobs:
           SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
       - name: Dryrun release assets with Maven
-        run: mvn -B -ntp install -DskipTests=true -P full-release -Djreleaser.output.directory=$PWD/out/jreleaser -Djreleaser.dry.run=true
+        run: mvn -B -ntp install -DskipTests -P full-release -Djreleaser.output.directory=$PWD/out/jreleaser -Djreleaser.dry.run
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.MAVEN_GPG_PUBLIC_KEY }}
@@ -80,7 +80,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: jreleaser-release
+          name: assets-snapshot-log
           path: |
             out/jreleaser/trace.log
             out/jreleaser/output.properties
@@ -111,7 +111,7 @@ jobs:
           cache: 'maven'
 
       - name: Deploy with Maven if settings defined
-        run: test ! -f ci.settings.xml || mvn -B -ntp deploy -DskipTests=true -s ci.settings.xml -P base-deploy,release-deploy,!non-deployable-modules
+        run: test ! -f ci.settings.xml || mvn -B -ntp deploy -DskipTests -s ci.settings.xml -P base-deploy,release-deploy,!non-deployable-modules
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
@@ -121,7 +121,7 @@ jobs:
           MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
 
       - name: Release assets with Maven
-        run: mvn -B -ntp install -DskipTests=true -P full-release -Djreleaser.output.directory=$PWD/out/jreleaser
+        run: mvn -B -ntp install -DskipTests -P full-release -Djreleaser.output.directory=$PWD/out/jreleaser
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.MAVEN_GPG_PUBLIC_KEY }}
@@ -132,7 +132,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: jreleaser-release
+          name: assets-release-log
           path: |
             out/jreleaser/trace.log
             out/jreleaser/output.properties
