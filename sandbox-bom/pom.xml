@@ -172,17 +172,17 @@
                                             <!-- Fix default value -->
                                             <armored>true</armored>
                                         </signing>
-                                        <announce>
-                                            <discussions>
-                                                <active>ALWAYS</active>
-                                                <organization>nbbrd</organization>
-                                                <team>sandbox</team>
-                                                <message>🚀 {{projectNameCapitalized}} {{projectVersion}} has been
-                                                    released!
-                                                    {{releaseNotesUrl}}
-                                                </message>
-                                            </discussions>
-                                        </announce>
+<!--                                        <announce>-->
+<!--                                            <discussions>-->
+<!--                                                <active>ALWAYS</active>-->
+<!--                                                <organization>nbbrd</organization>-->
+<!--                                                <team>sandbox</team>-->
+<!--                                                <message>🚀 {{projectNameCapitalized}} {{projectVersion}} has been-->
+<!--                                                    released!-->
+<!--                                                    {{releaseNotesUrl}}-->
+<!--                                                </message>-->
+<!--                                            </discussions>-->
+<!--                                        </announce>-->
                                         <distributions>
                                             <!-- Name is here ! -->
                                             <hello-nbbrd>
