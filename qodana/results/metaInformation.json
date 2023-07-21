@@ -3,14 +3,17 @@
   "tools inspection": {
     "Code Inspection": 1
   },
+  "linter": "QDJVMC",
   "attributes": {
     "vcs": {
       "sarifIdea": {
-        "repositoryUri": "https://github.com/nbbrd/sandbox",
-        "revisionId": "7fa0190bb7d0e988c6bbb6cca32a14b795488fed",
-        "branch": "develop"
+        "repositoryUri": "https://github.com/nbbrd/sandbox.git",
+        "revisionId": "9d21be6e0bac70a2de2a38ca843e5c875e74718e",
+        "branch": "refs/heads/develop"
       }
     },
-    "deviceId": "200820300000000-20c9-3c25-5b37-8d29c5f122ba"
+    "deviceId": "200820300000000-86da-fd3c-994d-7168a33f03d8",
+    "jobUrl": "https://github.com/nbbrd/sandbox/actions/runs/5623006783",
+    "repoUrl": "https://github.com/nbbrd/sandbox.git"
   }
 }

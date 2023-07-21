@@ -4,19 +4,29 @@
       "name": "Maven: com.github.lalyos:jfiglet:0.0.9",
       "roots": [
         "jar://$MAVEN_REPOSITORY$/com/github/lalyos/jfiglet/0.0.9/jfiglet-0.0.9.jar!/"
-      ]
+      ],
+      "properties": {}
     },
     {
-      "name": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.2.6",
+      "name": "Maven: org.projectlombok:lombok:1.18.28",
       "roots": [
-        "jar://$MAVEN_REPOSITORY$/com/github/nbbrd/java-desktop-util/java-desktop-util-swing/2.2.6/java-desktop-util-swing-2.2.6.jar!/"
-      ]
+        "jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar!/"
+      ],
+      "properties": {}
     },
     {
-      "name": "Maven: info.picocli:picocli:4.6.3",
+      "name": "Maven: com.github.nbbrd.java-desktop-util:java-desktop-util-swing:2.3.0",
       "roots": [
-        "jar://$MAVEN_REPOSITORY$/info/picocli/picocli/4.6.3/picocli-4.6.3.jar!/"
-      ]
+        "jar://$MAVEN_REPOSITORY$/com/github/nbbrd/java-desktop-util/java-desktop-util-swing/2.3.0/java-desktop-util-swing-2.3.0.jar!/"
+      ],
+      "properties": {}
+    },
+    {
+      "name": "Maven: info.picocli:picocli:4.7.4",
+      "roots": [
+        "jar://$MAVEN_REPOSITORY$/info/picocli/picocli/4.7.4/picocli-4.7.4.jar!/"
+      ],
+      "properties": {}
     }
   ]
 }

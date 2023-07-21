@@ -1,0 +1,125 @@
+{"version":"3","listProblem":[{
+  "tool": "Code Inspection",
+  "category": "Qodana",
+  "type": "Sanity",
+  "tags": [
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Variable 'x' might not have been initialized",
+  "detailsInfo": "Reports issues essential to this file like syntax errors, unresolved methods and variables, etc...",
+  "sources": [
+    {
+      "type": "file",
+      "path": "sandbox-impl/src/main/java/nbbrd/sandbox/impl/SomeClass.java",
+      "language": "JAVA",
+      "line": 33,
+      "offset": 9,
+      "length": 11,
+      "code": {
+        "startLine": 31,
+        "length": 11,
+        "offset": 69,
+        "surroundingCode": "    @lombok.EqualsAndHashCode\n    public static class Item {\n        final int x;\n        final int y;\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "sandbox-impl",
+    "inspectionName": "QodanaSanity"
+  },
+  "hash": "15a498f3e6df3b8f1f0e69e85566d504e2a77b7410934be39979f2f691141d7c"
+},{
+  "tool": "Code Inspection",
+  "category": "Qodana",
+  "type": "Sanity",
+  "tags": [
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "Cannot resolve method 'builder' in 'SomeClass'",
+  "detailsInfo": "Reports issues essential to this file like syntax errors, unresolved methods and variables, etc...",
+  "sources": [
+    {
+      "type": "file",
+      "path": "sandbox-impl/src/main/java/nbbrd/sandbox/impl/SomeClass.java",
+      "language": "JAVA",
+      "line": 22,
+      "offset": 26,
+      "length": 7,
+      "code": {
+        "startLine": 20,
+        "length": 7,
+        "offset": 79,
+        "surroundingCode": "        System.out.println(\n                SomeClass\n                        .builder()\n                        .key(\"abc\")\n                        .item(new Item(1, 3))"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "sandbox-impl",
+    "inspectionName": "QodanaSanity"
+  },
+  "hash": "56815432b0bd0754588eca21e7fd99c2c420d6a4e0735dd908cca5ab4cf7ac2e"
+},{
+  "tool": "Code Inspection",
+  "category": "Qodana",
+  "type": "Sanity",
+  "tags": [
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "'Item()' cannot be applied to '(int, int)'",
+  "detailsInfo": "Reports issues essential to this file like syntax errors, unresolved methods and variables, etc...",
+  "sources": [
+    {
+      "type": "file",
+      "path": "sandbox-impl/src/main/java/nbbrd/sandbox/impl/SomeClass.java",
+      "language": "JAVA",
+      "line": 24,
+      "offset": 39,
+      "length": 6,
+      "code": {
+        "startLine": 22,
+        "length": 6,
+        "offset": 109,
+        "surroundingCode": "                        .builder()\n                        .key(\"abc\")\n                        .item(new Item(1, 3))\n                        .item(new Item(3, 1))\n                        .build()"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "sandbox-impl",
+    "inspectionName": "QodanaSanity"
+  },
+  "hash": "9dce49a26b17d078653b483513384d2a55a1f660c3a95e736d6b73065a9d40a9"
+},{
+  "tool": "Code Inspection",
+  "category": "Qodana",
+  "type": "Sanity",
+  "tags": [
+    "Sanity"
+  ],
+  "severity": "Critical",
+  "comment": "'Item()' cannot be applied to '(int, int)'",
+  "detailsInfo": "Reports issues essential to this file like syntax errors, unresolved methods and variables, etc...",
+  "sources": [
+    {
+      "type": "file",
+      "path": "sandbox-impl/src/main/java/nbbrd/sandbox/impl/SomeClass.java",
+      "language": "JAVA",
+      "line": 25,
+      "offset": 39,
+      "length": 6,
+      "code": {
+        "startLine": 23,
+        "length": 6,
+        "offset": 120,
+        "surroundingCode": "                        .key(\"abc\")\n                        .item(new Item(1, 3))\n                        .item(new Item(3, 1))\n                        .build()\n        );"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "sandbox-impl",
+    "inspectionName": "QodanaSanity"
+  },
+  "hash": "a9be7e5e9c44be3ac9e25823ab89e72e0993a84fb1be9871b8fe2679415d0c7b"
+}]}

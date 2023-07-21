@@ -1,27 +1,27 @@
 {
   "modules": [
     {
+      "name": "sandbox-cli",
+      "languageLevel": 9
+    },
+    {
+      "name": "sandbox-impl",
+      "languageLevel": 9
+    },
+    {
+      "name": "sandbox-desktop",
+      "languageLevel": 9
+    },
+    {
+      "name": "sandbox-bom",
+      "languageLevel": 9
+    },
+    {
       "name": "sandbox-parent",
       "languageLevel": 9
     },
     {
       "name": "sandbox-api",
-      "languageLevel": 9
-    },
-    {
-      "name": "sandbox-cli",
-      "languageLevel": 9
-    },
-    {
-      "name": "sandbox-binaries",
-      "languageLevel": 9
-    },
-    {
-      "name": "sandbox-gui",
-      "languageLevel": 9
-    },
-    {
-      "name": "sandbox-impl",
       "languageLevel": 9
     }
   ]
