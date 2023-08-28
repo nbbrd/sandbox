@@ -22,9 +22,9 @@
       "properties": {}
     },
     {
-      "name": "Maven: info.picocli:picocli:4.7.4",
+      "name": "Maven: info.picocli:picocli:4.7.5",
       "roots": [
-        "jar://$MAVEN_REPOSITORY$/info/picocli/picocli/4.7.4/picocli-4.7.4.jar!/"
+        "jar://$MAVEN_REPOSITORY$/info/picocli/picocli/4.7.5/picocli-4.7.5.jar!/"
       ],
       "properties": {}
     }

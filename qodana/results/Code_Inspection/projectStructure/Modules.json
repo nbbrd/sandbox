@@ -59,7 +59,7 @@
           "type": "Library"
         },
         {
-          "name": "Maven: info.picocli:picocli:4.7.4",
+          "name": "Maven: info.picocli:picocli:4.7.5",
           "type": "Library"
         }
       ]

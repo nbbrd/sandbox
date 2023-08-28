@@ -111,12 +111,12 @@
       "scope": "compile"
     },
     {
-      "ideaName": "Maven: info.picocli:picocli:4.7.4",
+      "ideaName": "Maven: info.picocli:picocli:4.7.5",
       "unresolved": false,
       "groupId": "info.picocli",
       "artifactId": "picocli",
-      "version": "4.7.4",
-      "baseVersion": "4.7.4",
+      "version": "4.7.5",
+      "baseVersion": "4.7.5",
       "type": "jar",
       "optional": false,
       "scope": "compile"
