@@ -8,12 +8,12 @@
     "vcs": {
       "sarifIdea": {
         "repositoryUri": "https://github.com/nbbrd/sandbox.git",
-        "revisionId": "3fb2129fb90c99f322ddd884da4c14e1d7469930",
+        "revisionId": "26c2afa8a6793c8d14592a9bb46614ccd463c42b",
         "branch": "refs/heads/develop"
       }
     },
     "deviceId": "200820300000000-86da-fd3c-994d-7168a33f03d8",
-    "jobUrl": "https://github.com/nbbrd/sandbox/actions/runs/6072087106",
+    "jobUrl": "https://github.com/nbbrd/sandbox/actions/runs/6080809558",
     "repoUrl": "https://github.com/nbbrd/sandbox.git"
   }
 }
