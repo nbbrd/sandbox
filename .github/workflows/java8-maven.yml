@@ -37,7 +37,7 @@ jobs:
 
   auto-merge:
     needs: build-and-test-job
-    if: github.event_name == 'pull_request' && ${{ (github.actor == 'dependabot[bot]') }}
+    if: ${{ github.event_name == 'pull_request' }} && ${{ (github.actor == 'dependabot[bot]') }}
     permissions:
       contents: write
       pull-requests: write
