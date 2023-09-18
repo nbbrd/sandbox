@@ -283,16 +283,16 @@
           "description": "Reports call arguments with `Boolean` type without explicit parameter names specified.\n\n\nWhen multiple boolean literals are passed sequentially, it's easy to forget parameter ordering that could lead to mistakes.\nExplicit parameter names allow for easier code reading and understanding.\n\n**Example:**\n\n\n      fun check(checkName: Boolean, checkAddress: Boolean, checkPhone: Boolean) {}\n\n      fun usage() {\n          check(true, false, true) // What does this mean?\n      }\n\nThe quick-fix adds missing parameter names:\n\n\n      fun check(checkName: Boolean, checkAddress: Boolean, checkPhone: Boolean) {}\n\n      fun usage() {\n          check(checkName = true, checkAddress = false, checkPhone = true)\n      }\n"
         },
         {
-          "shortName": "ReplaceSizeZeroCheckWithIsEmpty",
-          "displayName": "Size zero check can be replaced with 'isEmpty()'",
-          "enabled": false,
-          "description": "Reports `size == 0` checks on `Collections/Array/String` that should be replaced with `isEmpty()`.\n\nUsing `isEmpty()` makes your code simpler.\n\nThe quick-fix replaces the size check with `isEmpty()`.\n\n**Example:**\n\n\n      fun foo() {\n          val arrayOf = arrayOf(1, 2, 3)\n          arrayOf.size == 0\n      }\n\nAfter the quick-fix is applied:\n\n\n      fun foo() {\n          val arrayOf = arrayOf(1, 2, 3)\n          arrayOf.isEmpty()\n      }\n"
-        },
-        {
           "shortName": "ReplaceGuardClauseWithFunctionCall",
           "displayName": "Guard clause can be replaced with Kotlin's function call",
           "enabled": false,
           "description": "Reports guard clauses that can be replaced with a function call.\n\n**Example:**\n\n      fun test(foo: Int?) {\n          if (foo == null) throw IllegalArgumentException(\"foo\") // replaceable clause\n      }\n\nAfter the quick-fix is applied:\n\n      fun test(foo: Int?) {\n          checkNotNull(foo)\n      }\n"
+        },
+        {
+          "shortName": "ReplaceSizeZeroCheckWithIsEmpty",
+          "displayName": "Size zero check can be replaced with 'isEmpty()'",
+          "enabled": false,
+          "description": "Reports `size == 0` checks on `Collections/Array/String` that should be replaced with `isEmpty()`.\n\nUsing `isEmpty()` makes your code simpler.\n\nThe quick-fix replaces the size check with `isEmpty()`.\n\n**Example:**\n\n\n      fun foo() {\n          val arrayOf = arrayOf(1, 2, 3)\n          arrayOf.size == 0\n      }\n\nAfter the quick-fix is applied:\n\n\n      fun foo() {\n          val arrayOf = arrayOf(1, 2, 3)\n          arrayOf.isEmpty()\n      }\n"
         },
         {
           "shortName": "ReplaceToStringWithStringTemplate",
@@ -948,16 +948,16 @@
           "description": "Reports redundant lambda arrows in lambdas without parameters.\n\n**Example:**\n\n\n      fun foo(f: () -> Unit) = f()\n\n      fun bar() {\n          foo { -> println(\"Hi!\") }\n      }\n\nAfter the quick-fix is applied:\n\n\n      fun foo(f: () -> Unit) = f()\n\n      fun bar() {\n          foo { println(\"Hi!\") }\n      }\n"
         },
         {
-          "shortName": "RedundantModalityModifier",
-          "displayName": "Redundant modality modifier",
-          "enabled": false,
-          "description": "Reports the modality modifiers that match the default modality of an element (`final` for most elements, `open` for members with an `override`).\n\n**Example:**\n\n\n      final class Foo\n\n      open class Bar : Comparable<Bar> {\n          open override fun compareTo(other: Bar): Int = 0\n      }\n\nAfter the quick-fix is applied:\n\n\n      class Foo\n\n      open class Bar : Comparable<Bar> {\n          override fun compareTo(other: Bar): Int = 0\n      }\n"
-        },
-        {
           "shortName": "RedundantValueArgument",
           "displayName": "Redundant value argument",
           "enabled": false,
           "description": "Reports arguments that are equal to the default values of the corresponding parameters.\n\n**Example:**\n\n\n    fun foo(x: Int, y: Int = 2) {}\n\n    fun bar() {\n        foo(1, 2)\n    }\n\nAfter the quick-fix is applied:\n\n\n    fun bar() {\n        foo(1)\n    }\n"
+        },
+        {
+          "shortName": "RedundantModalityModifier",
+          "displayName": "Redundant modality modifier",
+          "enabled": false,
+          "description": "Reports the modality modifiers that match the default modality of an element (`final` for most elements, `open` for members with an `override`).\n\n**Example:**\n\n\n      final class Foo\n\n      open class Bar : Comparable<Bar> {\n          open override fun compareTo(other: Bar): Int = 0\n      }\n\nAfter the quick-fix is applied:\n\n\n      class Foo\n\n      open class Bar : Comparable<Bar> {\n          override fun compareTo(other: Bar): Int = 0\n      }\n"
         },
         {
           "shortName": "RemoveToStringInStringTemplate",
@@ -1192,16 +1192,16 @@
           "description": "Reports non-final fields that are accessed in both `synchronized` and non-`synchronized` contexts. `volatile` fields as well as accesses in constructors and initializers are ignored by this inspection.\n\n\nSuch \"partially synchronized\" access is often the result of a coding oversight\nand may lead to unexpectedly inconsistent data structures.\n\n**Example:**\n\n\n      public class Program {\n        Console console; // warning: Field 'console' is accessed in both synchronized and unsynchronized contexts\n\n        public synchronized void execute() {\n          console.print(\"running\");\n        }\n\n        public void check() {\n          console.check();\n        }\n      }\n\n\nUse the option to specify if simple getters and setters are counted as accesses too."
         },
         {
-          "shortName": "WaitCalledOnCondition",
-          "displayName": "'wait()' called on 'java.util.concurrent.locks.Condition' object",
-          "enabled": false,
-          "description": "Reports calls to `wait()` made on a `java.util.concurrent.locks.Condition` object. This is probably a programming error, and some variant of the `await()` method was intended instead.\n\n**Example:**\n\n\n      void acquire(Condition released) throws InterruptedException {\n        while (acquired) {\n          released.wait();\n        }\n      }\n\nGood code would look like this:\n\n\n      void acquire(Condition released) throws InterruptedException {\n        while (acquired) {\n          released.await();\n        }\n      }\n"
-        },
-        {
           "shortName": "NonSynchronizedMethodOverridesSynchronizedMethod",
           "displayName": "Unsynchronized method overrides 'synchronized' method",
           "enabled": false,
           "description": "Reports non-`synchronized` methods overriding `synchronized` methods.\n\n\nThe overridden method will not be automatically synchronized if the superclass method\nis declared as `synchronized`. This may result in unexpected race conditions when using the subclass.\n\n**Example:**\n\n\n      class Super {\n        synchronized void process() {}\n      }\n      class Sub extends Super {\n        // Unsynchronized method 'process()' overrides synchronized method\n        void process() {}\n      }  \n"
+        },
+        {
+          "shortName": "WaitCalledOnCondition",
+          "displayName": "'wait()' called on 'java.util.concurrent.locks.Condition' object",
+          "enabled": false,
+          "description": "Reports calls to `wait()` made on a `java.util.concurrent.locks.Condition` object. This is probably a programming error, and some variant of the `await()` method was intended instead.\n\n**Example:**\n\n\n      void acquire(Condition released) throws InterruptedException {\n        while (acquired) {\n          released.wait();\n        }\n      }\n\nGood code would look like this:\n\n\n      void acquire(Condition released) throws InterruptedException {\n        while (acquired) {\n          released.await();\n        }\n      }\n"
         },
         {
           "shortName": "WaitNotifyNotInSynchronizedContext",
@@ -2002,6 +2002,197 @@
       ]
     },
     {
+      "name": "Class structure",
+      "inspections": [
+        {
+          "shortName": "ConstantDeclaredInAbstractClass",
+          "displayName": "Constant declared in 'abstract' class",
+          "enabled": false,
+          "description": "Reports constants (`public static final` fields) declared in abstract classes.\n\nSome coding standards require declaring constants in interfaces instead."
+        },
+        {
+          "shortName": "ClassWithOnlyPrivateConstructors",
+          "displayName": "Class with only 'private' constructors should be declared 'final'",
+          "enabled": false,
+          "description": "Reports classes with only `private` constructors.\n\nA class that only has `private` constructors cannot be extended outside a file and should be declared as `final`."
+        },
+        {
+          "shortName": "NonFinalFieldInEnum",
+          "displayName": "Non-final field in 'enum'",
+          "enabled": false,
+          "description": "Reports non-final fields in enumeration types. Non-final fields introduce global mutable state, which is generally considered undesirable.\n\n**Example:**\n\n\n      enum Enum {\n        FIRST(\"first\"),\n        SECOND(\"second\");\n\n        public String str;\n\n        Enum(String str) {\n            this.str = str;\n        }\n      }\n\nAfter the quick-fix is applied:\n\n\n      enum Enum {\n        FIRST(\"first\"),\n        SECOND(\"second\");\n\n        public final String str;\n\n        Enum(String str) {\n            this.str = str;\n        }\n      }\n\nUse the \\`Ignore fields that cannot be made 'final'\\` option to only warn on fields that can be made final using the quick-fix."
+        },
+        {
+          "shortName": "FinalMethod",
+          "displayName": "Method can't be overridden",
+          "enabled": false,
+          "description": "Reports methods that are declared `final`. Such methods can't be overridden and may indicate a lack of object-oriented design. Some coding standards discourage `final` methods."
+        },
+        {
+          "shortName": "Singleton",
+          "displayName": "Singleton",
+          "enabled": false,
+          "description": "Reports singleton classes.\n\nSingleton classes are declared in a way that only one instance of the class can ever be instantiated. Singleton classes complicate testing,\nand their presence may indicate a lack of object-oriented design.\n\n**Example:**\n\n\n      class Singleton {\n        private static final Singleton ourInstance = new Singleton();\n\n        private Singleton() {\n        }\n\n        public Singleton getInstance() {\n            return ourInstance;\n        }\n      }\n"
+        },
+        {
+          "shortName": "NonFinalUtilityClass",
+          "displayName": "Utility class is not 'final'",
+          "enabled": false,
+          "description": "Reports utility classes that aren't `final` or `abstract`.\n\nUtility classes have all fields and methods declared as `static`.\nMaking them `final` prevents them from being accidentally subclassed.\n\n**Example:**\n\n\n      public class UtilityClass {\n        public static void foo() {}\n      }\n\nAfter the quick-fix is applied:\n\n\n      public final class UtilityClass {\n        public static void foo() {}\n      }\n"
+        },
+        {
+          "shortName": "StaticNonFinalField",
+          "displayName": "'static', non-'final' field",
+          "enabled": false,
+          "description": "Reports non-`final` `static` fields.\n\nA quick-fix is available to add the `final` modifier to a non-`final` `static` field.\n\nThis inspection doesn't check fields' mutability. For example, adding the `final` modifier to a field that has a value\nbeing set somewhere will cause a compilation error.\n\n\nUse the **Only report 'public' fields** option so that the inspection reported only `public` fields."
+        },
+        {
+          "shortName": "ParameterCanBeLocal",
+          "displayName": "Value passed as parameter never read",
+          "enabled": false,
+          "description": "Reports redundant method parameters that can be replaced with local variables.\n\nIf all local usages of a parameter are preceded by assignments to that parameter, the\nparameter can be removed and its usages replaced with local variables.\nIt makes no sense to have such a parameter, as values that are passed to it are overwritten.\nUsually, the problem appears as a result of refactoring.\n\nExample:\n\n\n      void test(int p) {\n        p = 1;\n        System.out.print(p);\n      }\n\nAfter the quick-fix is applied:\n\n\n      void test() {\n        int p = 1;\n        System.out.print(p);\n      }\n"
+        },
+        {
+          "shortName": "NoopMethodInAbstractClass",
+          "displayName": "No-op method in 'abstract' class",
+          "enabled": false,
+          "description": "Reports no-op (for \"no operation\") methods in `abstract` classes.\n\nIt is usually a better\ndesign to make such methods `abstract` themselves so that classes inheriting these\nmethods provide their implementations.\n\n**Example:**\n\n\n      abstract class Test {\n        protected void doTest() {\n        }\n      }\n"
+        },
+        {
+          "shortName": "ClassInitializer",
+          "displayName": "Non-'static' initializer",
+          "enabled": false,
+          "description": "Reports non-`static` initializers in classes.\n\nSome coding standards prohibit instance initializers and recommend using constructors or field initializers for initialization.\nAlso, deleting the `static` keyword may accidentally create non-`static` initializers and result in obscure bugs.\n\nThis inspection doesn't report instance initializers in anonymous classes.\n\n\nUse the **Only warn when the class has one or more constructors** option to ignore instance initializers in classes that don't have any constructors."
+        },
+        {
+          "shortName": "UtilityClassWithPublicConstructor",
+          "displayName": "Utility class with 'public' constructor",
+          "enabled": false,
+          "description": "Reports utility classes with `public` constructors.\n\nUtility classes have all fields and methods declared as `static`. Creating a `public`\nconstructor in such classes is confusing and may cause accidental class instantiation.\n\n**Example:**\n\n\n      public final class UtilityClass {\n        public UtilityClass(){\n        }\n        public static void foo() {}\n      }\n\nAfter the quick-fix is applied:\n\n\n      public final class UtilityClass {\n        private UtilityClass(){\n        }\n        public static void foo() {}\n      }\n"
+        },
+        {
+          "shortName": "UtilityClassCanBeEnum",
+          "displayName": "Utility class can be 'enum'",
+          "enabled": false,
+          "description": "Reports utility classes that can be converted to enums.\n\nSome coding style guidelines require implementing utility classes as enums\nto avoid code coverage issues in `private` constructors.\n\n**Example:**\n\n\n      class StringUtils {\n        public static final String EMPTY = \"\";\n      }\n\nAfter the quick-fix is applied:\n\n\n      enum StringUtils {\n        ;\n        public static final String EMPTY = \"\";\n      }\n"
+        },
+        {
+          "shortName": "ListenerMayUseAdapter",
+          "displayName": "Class may extend adapter instead of implementing listener",
+          "enabled": false,
+          "description": "Reports classes implementing listeners instead of extending corresponding adapters.\n\nA quick-fix is available to\nremove any redundant empty methods left after replacing a listener implementation with an adapter extension.\n\n\nUse the **Only warn when empty implementing methods are found** option to configure the inspection to warn even if no empty methods are found."
+        },
+        {
+          "shortName": "FinalClass",
+          "displayName": "Class is closed to inheritance",
+          "enabled": false,
+          "description": "Reports classes that are declared `final`. Final classes that extend a `sealed` class or interface are not reported. Such classes can't be inherited and may indicate a lack of object-oriented design. Some coding standards discourage `final` classes.\n\n**Example:**\n\n\n      public final class Main {\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class Main {\n      }\n"
+        },
+        {
+          "shortName": "UtilityClassWithoutPrivateConstructor",
+          "displayName": "Utility class without 'private' constructor",
+          "enabled": false,
+          "description": "Reports utility classes without `private` constructors.\n\nUtility classes have all fields and methods declared as `static`. Creating `private`\nconstructors in utility classes prevents them from being accidentally instantiated.\n\n\nUse the **Ignore if annotated by** option to specify special annotations. The inspection ignores classes marked with one of\nthese annotations.\n\n\nUse the **Ignore classes with only a main method** option to ignore classes with no methods other than the main one."
+        },
+        {
+          "shortName": "MarkerInterface",
+          "displayName": "Marker interface",
+          "enabled": false,
+          "description": "Reports marker interfaces without any methods or fields.\n\nSuch interfaces may be confusing and typically indicate a design failure.\n\nThe inspection ignores interfaces that extend two or more interfaces and interfaces\nthat specify the generic type of their superinterface."
+        },
+        {
+          "shortName": "InnerClassOnInterface",
+          "displayName": "Inner class of interface",
+          "enabled": false,
+          "description": "Reports inner classes in `interface` classes.\n\nSome coding standards\ndiscourage the use of such classes. The inspection doesn't report enum classes and annotation interfaces.\n\n\nUse the **Ignore inner interfaces of interfaces** option to ignore inner interfaces. For example:\n\n\n      interface I {\n        interface Inner {\n        }\n      }\n"
+        },
+        {
+          "shortName": "FieldCanBeLocal",
+          "displayName": "Field can be local",
+          "enabled": false,
+          "description": "Reports redundant class fields that can be replaced with local variables.\n\nIf all local usages of a field are preceded by assignments to that field, the\nfield can be removed, and its usages can be replaced with local variables."
+        },
+        {
+          "shortName": "UtilityClass",
+          "displayName": "Utility class",
+          "enabled": false,
+          "description": "Reports utility classes.\n\nUtility classes have all fields and methods declared as `static` and their\npresence may indicate a lack of object-oriented design.\n\n\nUse the **Ignore if annotated by** option to specify special annotations. The inspection ignores classes annotated with one of\nthese annotations."
+        },
+        {
+          "shortName": "ClassNameDiffersFromFileName",
+          "displayName": "Class name differs from file name",
+          "enabled": false,
+          "description": "Reports top-level class names that don't match the name of a file containing them.\n\nWhile the Java specification allows for naming non-`public` classes this way,\nfiles with unmatched names may be confusing and decrease usefulness of various software tools."
+        },
+        {
+          "shortName": "AnonymousInnerClass",
+          "displayName": "Anonymous inner class can be replaced with inner class",
+          "enabled": false,
+          "description": "Reports anonymous inner classes.\n\nIn some cases, replacing anonymous inner classes with inner classes can lead to more readable and maintainable code.\nAlso, some code standards discourage anonymous inner classes."
+        },
+        {
+          "shortName": "MultipleTopLevelClassesInFile",
+          "displayName": "Multiple top level classes in single file",
+          "enabled": false,
+          "description": "Reports multiple top-level classes in a single Java file.\n\nPutting multiple\ntop-level classes in one file may be confusing and degrade the usefulness of various\nsoftware tools."
+        },
+        {
+          "shortName": "LimitedScopeInnerClass",
+          "displayName": "Local class",
+          "enabled": false,
+          "description": "Reports local classes.\n\nA local class is a named nested class declared inside a code block.\nLocal classes are uncommon and may therefore be confusing.\nIn addition, some code standards discourage the use of local classes.\n\n**Example:**\n\n\n      void test() {\n        class Local { // local class\n        }\n        new Local();\n      }\n"
+        },
+        {
+          "shortName": "ClassMayBeInterface",
+          "displayName": "Abstract 'class' may be 'interface'",
+          "enabled": false,
+          "description": "Reports `abstract` classes that can be converted to interfaces.\n\nUsing interfaces instead of classes is preferable as Java doesn't support multiple class inheritance,\nwhile a class can implement multiple interfaces.\n\nA class may be converted to an interface if it has no superclasses (other\nthan Object), has only `public static final` fields,\n`public abstract` methods, and `public` inner classes.\n\n\nExample:\n\n\n    abstract class Example {\n        public static final int MY_CONST = 42;\n        public abstract void foo();\n    }\n\n    class Inheritor extends Example {\n        @Override\n        public void foo() {\n            System.out.println(MY_CONST);\n        }\n    }\n\nAfter the quick-fix is applied:\n\n\n    interface Example {\n        int MY_CONST = 42;\n        void foo();\n    }\n\n    class Inheritor implements Example {\n        @Override\n        public void foo() {\n            System.out.println(MY_CONST);\n        }\n    }\n\nConfigure the inspection:\n\n\nUse the **Report classes containing non-abstract methods when using Java 8** option to report only the classes with `static` methods and non-abstract methods that can be converted to\n`default` methods (only applicable to language level of 8 or higher)."
+        },
+        {
+          "shortName": "EmptyClass",
+          "displayName": "Redundant empty class",
+          "enabled": false,
+          "description": "Reports empty classes and Java files without any defined classes.\n\nA class is empty if it\ndoesn't contain any fields, methods, constructors, or initializers. Empty classes often remain\nafter significant changes or refactorings.\n\nConfigure the inspection:\n\n* Use the **Ignore if annotated by** option to specify special annotations. The inspection will ignore the classes marked with these annotations.\n*\n  Use the **Ignore class if it is a parametrization of a super type** option to ignore classes that parameterize a superclass. For example:\n\n      class MyList extends ArrayList<String> {}\n\n* Use the **Ignore subclasses of java.lang.Throwable** to ignore classes that extend `java.lang.Throwable`.\n* Use the **Comments count as content** option to ignore classes that contain comments."
+        },
+        {
+          "shortName": "InterfaceMayBeAnnotatedFunctional",
+          "displayName": "Interface may be annotated as '@FunctionalInterface'",
+          "enabled": false,
+          "description": "Reports interfaces that can be annotated with `@FunctionalInterface` (available since JDK 1.8).\n\nAnnotating an interface with `@FunctionalInterface` indicates that the interface\nis functional and no more `abstract` methods can be added to it.\n\n**Example:**\n\n\n      interface FileProcessor {\n        void execute(File file);\n      }\n\nAfter the quick-fix is applied:\n\n\n      @FunctionalInterface\n      interface FileProcessor {\n        void execute(File file);\n      }\n\nThis inspection only reports if the language level of the project or module is 8 or higher."
+        },
+        {
+          "shortName": "FinalPrivateMethod",
+          "displayName": "'private' method declared 'final'",
+          "enabled": false,
+          "description": "Reports methods that are marked with both `final` and `private` keywords.\n\nSince `private` methods cannot be meaningfully overridden because of their visibility, declaring them\n`final` is redundant."
+        },
+        {
+          "shortName": "FinalStaticMethod",
+          "displayName": "'static' method declared 'final'",
+          "enabled": false,
+          "description": "Reports static methods that are marked as `final`.\n\nSuch code might indicate an error or an incorrect assumption about the effect of the `final` keyword.\nStatic methods are not subject to runtime polymorphism, so the only purpose of the `final` keyword used with static methods\nis to ensure the method will not be hidden in a subclass."
+        },
+        {
+          "shortName": "MethodReturnAlwaysConstant",
+          "displayName": "Method returns per-class constant",
+          "enabled": false,
+          "description": "Reports methods that only return a constant, which may differ for various inheritors.\n\nAvailable only from **Code \\| Inspect Code** or\n**Code \\| Analyze Code \\| Run Inspection by Name** and isn't reported in the editor."
+        },
+        {
+          "shortName": "PublicConstructor",
+          "displayName": "'public' constructor can be replaced with factory method",
+          "enabled": false,
+          "description": "Reports `public` constructors.\n\nSome coding standards discourage the use of `public` constructors and recommend\n`static` factory methods instead.\nThis way the implementation can be swapped out without affecting the call sites.\n\n**Example:**\n\n\n      class Test {\n        private String name;\n\n        public Test(String name) {\n            this.name = name;\n        }\n\n        public void test() {\n            System.out.println(name);\n        }\n\n        public static void main(String[] args) {\n            new Test(\"str\").test();\n        }\n      }\n\nAfter quick-fix is applied:\n\n\n      class Test {\n        private String name;\n\n        private Test(String name) {\n            this.name = name;\n        }\n\n        public static Test getInstance(String name) {\n            return new Test(name);\n        }\n\n        public void test() {\n            System.out.println(name);\n        }\n\n        public static void main(String[] args) {\n            getInstance(\"str\").test();\n        }\n      }\n"
+        },
+        {
+          "shortName": "ConstantDeclaredInInterface",
+          "displayName": "Constant declared in interface",
+          "enabled": false,
+          "description": "Reports constants (`public static final` fields) declared in interfaces.\n\nSome coding standards require declaring constants in abstract classes instead."
+        }
+      ]
+    },
+    {
       "name": "Code style issues",
       "inspections": [
         {
@@ -2487,197 +2678,6 @@
       ]
     },
     {
-      "name": "Class structure",
-      "inspections": [
-        {
-          "shortName": "ConstantDeclaredInAbstractClass",
-          "displayName": "Constant declared in 'abstract' class",
-          "enabled": false,
-          "description": "Reports constants (`public static final` fields) declared in abstract classes.\n\nSome coding standards require declaring constants in interfaces instead."
-        },
-        {
-          "shortName": "ClassWithOnlyPrivateConstructors",
-          "displayName": "Class with only 'private' constructors should be declared 'final'",
-          "enabled": false,
-          "description": "Reports classes with only `private` constructors.\n\nA class that only has `private` constructors cannot be extended outside a file and should be declared as `final`."
-        },
-        {
-          "shortName": "NonFinalFieldInEnum",
-          "displayName": "Non-final field in 'enum'",
-          "enabled": false,
-          "description": "Reports non-final fields in enumeration types. Non-final fields introduce global mutable state, which is generally considered undesirable.\n\n**Example:**\n\n\n      enum Enum {\n        FIRST(\"first\"),\n        SECOND(\"second\");\n\n        public String str;\n\n        Enum(String str) {\n            this.str = str;\n        }\n      }\n\nAfter the quick-fix is applied:\n\n\n      enum Enum {\n        FIRST(\"first\"),\n        SECOND(\"second\");\n\n        public final String str;\n\n        Enum(String str) {\n            this.str = str;\n        }\n      }\n\nUse the \\`Ignore fields that cannot be made 'final'\\` option to only warn on fields that can be made final using the quick-fix."
-        },
-        {
-          "shortName": "FinalMethod",
-          "displayName": "Method can't be overridden",
-          "enabled": false,
-          "description": "Reports methods that are declared `final`. Such methods can't be overridden and may indicate a lack of object-oriented design. Some coding standards discourage `final` methods."
-        },
-        {
-          "shortName": "NonFinalUtilityClass",
-          "displayName": "Utility class is not 'final'",
-          "enabled": false,
-          "description": "Reports utility classes that aren't `final` or `abstract`.\n\nUtility classes have all fields and methods declared as `static`.\nMaking them `final` prevents them from being accidentally subclassed.\n\n**Example:**\n\n\n      public class UtilityClass {\n        public static void foo() {}\n      }\n\nAfter the quick-fix is applied:\n\n\n      public final class UtilityClass {\n        public static void foo() {}\n      }\n"
-        },
-        {
-          "shortName": "Singleton",
-          "displayName": "Singleton",
-          "enabled": false,
-          "description": "Reports singleton classes.\n\nSingleton classes are declared in a way that only one instance of the class can ever be instantiated. Singleton classes complicate testing,\nand their presence may indicate a lack of object-oriented design.\n\n**Example:**\n\n\n      class Singleton {\n        private static final Singleton ourInstance = new Singleton();\n\n        private Singleton() {\n        }\n\n        public Singleton getInstance() {\n            return ourInstance;\n        }\n      }\n"
-        },
-        {
-          "shortName": "StaticNonFinalField",
-          "displayName": "'static', non-'final' field",
-          "enabled": false,
-          "description": "Reports non-`final` `static` fields.\n\nA quick-fix is available to add the `final` modifier to a non-`final` `static` field.\n\nThis inspection doesn't check fields' mutability. For example, adding the `final` modifier to a field that has a value\nbeing set somewhere will cause a compilation error.\n\n\nUse the **Only report 'public' fields** option so that the inspection reported only `public` fields."
-        },
-        {
-          "shortName": "ParameterCanBeLocal",
-          "displayName": "Value passed as parameter never read",
-          "enabled": false,
-          "description": "Reports redundant method parameters that can be replaced with local variables.\n\nIf all local usages of a parameter are preceded by assignments to that parameter, the\nparameter can be removed and its usages replaced with local variables.\nIt makes no sense to have such a parameter, as values that are passed to it are overwritten.\nUsually, the problem appears as a result of refactoring.\n\nExample:\n\n\n      void test(int p) {\n        p = 1;\n        System.out.print(p);\n      }\n\nAfter the quick-fix is applied:\n\n\n      void test() {\n        int p = 1;\n        System.out.print(p);\n      }\n"
-        },
-        {
-          "shortName": "NoopMethodInAbstractClass",
-          "displayName": "No-op method in 'abstract' class",
-          "enabled": false,
-          "description": "Reports no-op (for \"no operation\") methods in `abstract` classes.\n\nIt is usually a better\ndesign to make such methods `abstract` themselves so that classes inheriting these\nmethods provide their implementations.\n\n**Example:**\n\n\n      abstract class Test {\n        protected void doTest() {\n        }\n      }\n"
-        },
-        {
-          "shortName": "ClassInitializer",
-          "displayName": "Non-'static' initializer",
-          "enabled": false,
-          "description": "Reports non-`static` initializers in classes.\n\nSome coding standards prohibit instance initializers and recommend using constructors or field initializers for initialization.\nAlso, deleting the `static` keyword may accidentally create non-`static` initializers and result in obscure bugs.\n\nThis inspection doesn't report instance initializers in anonymous classes.\n\n\nUse the **Only warn when the class has one or more constructors** option to ignore instance initializers in classes that don't have any constructors."
-        },
-        {
-          "shortName": "UtilityClassWithPublicConstructor",
-          "displayName": "Utility class with 'public' constructor",
-          "enabled": false,
-          "description": "Reports utility classes with `public` constructors.\n\nUtility classes have all fields and methods declared as `static`. Creating a `public`\nconstructor in such classes is confusing and may cause accidental class instantiation.\n\n**Example:**\n\n\n      public final class UtilityClass {\n        public UtilityClass(){\n        }\n        public static void foo() {}\n      }\n\nAfter the quick-fix is applied:\n\n\n      public final class UtilityClass {\n        private UtilityClass(){\n        }\n        public static void foo() {}\n      }\n"
-        },
-        {
-          "shortName": "UtilityClassCanBeEnum",
-          "displayName": "Utility class can be 'enum'",
-          "enabled": false,
-          "description": "Reports utility classes that can be converted to enums.\n\nSome coding style guidelines require implementing utility classes as enums\nto avoid code coverage issues in `private` constructors.\n\n**Example:**\n\n\n      class StringUtils {\n        public static final String EMPTY = \"\";\n      }\n\nAfter the quick-fix is applied:\n\n\n      enum StringUtils {\n        ;\n        public static final String EMPTY = \"\";\n      }\n"
-        },
-        {
-          "shortName": "ListenerMayUseAdapter",
-          "displayName": "Class may extend adapter instead of implementing listener",
-          "enabled": false,
-          "description": "Reports classes implementing listeners instead of extending corresponding adapters.\n\nA quick-fix is available to\nremove any redundant empty methods left after replacing a listener implementation with an adapter extension.\n\n\nUse the **Only warn when empty implementing methods are found** option to configure the inspection to warn even if no empty methods are found."
-        },
-        {
-          "shortName": "FinalClass",
-          "displayName": "Class is closed to inheritance",
-          "enabled": false,
-          "description": "Reports classes that are declared `final`. Final classes that extend a `sealed` class or interface are not reported. Such classes can't be inherited and may indicate a lack of object-oriented design. Some coding standards discourage `final` classes.\n\n**Example:**\n\n\n      public final class Main {\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class Main {\n      }\n"
-        },
-        {
-          "shortName": "UtilityClassWithoutPrivateConstructor",
-          "displayName": "Utility class without 'private' constructor",
-          "enabled": false,
-          "description": "Reports utility classes without `private` constructors.\n\nUtility classes have all fields and methods declared as `static`. Creating `private`\nconstructors in utility classes prevents them from being accidentally instantiated.\n\n\nUse the **Ignore if annotated by** option to specify special annotations. The inspection ignores classes marked with one of\nthese annotations.\n\n\nUse the **Ignore classes with only a main method** option to ignore classes with no methods other than the main one."
-        },
-        {
-          "shortName": "MarkerInterface",
-          "displayName": "Marker interface",
-          "enabled": false,
-          "description": "Reports marker interfaces without any methods or fields.\n\nSuch interfaces may be confusing and typically indicate a design failure.\n\nThe inspection ignores interfaces that extend two or more interfaces and interfaces\nthat specify the generic type of their superinterface."
-        },
-        {
-          "shortName": "InnerClassOnInterface",
-          "displayName": "Inner class of interface",
-          "enabled": false,
-          "description": "Reports inner classes in `interface` classes.\n\nSome coding standards\ndiscourage the use of such classes. The inspection doesn't report enum classes and annotation interfaces.\n\n\nUse the **Ignore inner interfaces of interfaces** option to ignore inner interfaces. For example:\n\n\n      interface I {\n        interface Inner {\n        }\n      }\n"
-        },
-        {
-          "shortName": "FieldCanBeLocal",
-          "displayName": "Field can be local",
-          "enabled": false,
-          "description": "Reports redundant class fields that can be replaced with local variables.\n\nIf all local usages of a field are preceded by assignments to that field, the\nfield can be removed, and its usages can be replaced with local variables."
-        },
-        {
-          "shortName": "UtilityClass",
-          "displayName": "Utility class",
-          "enabled": false,
-          "description": "Reports utility classes.\n\nUtility classes have all fields and methods declared as `static` and their\npresence may indicate a lack of object-oriented design.\n\n\nUse the **Ignore if annotated by** option to specify special annotations. The inspection ignores classes annotated with one of\nthese annotations."
-        },
-        {
-          "shortName": "ClassNameDiffersFromFileName",
-          "displayName": "Class name differs from file name",
-          "enabled": false,
-          "description": "Reports top-level class names that don't match the name of a file containing them.\n\nWhile the Java specification allows for naming non-`public` classes this way,\nfiles with unmatched names may be confusing and decrease usefulness of various software tools."
-        },
-        {
-          "shortName": "AnonymousInnerClass",
-          "displayName": "Anonymous inner class can be replaced with inner class",
-          "enabled": false,
-          "description": "Reports anonymous inner classes.\n\nIn some cases, replacing anonymous inner classes with inner classes can lead to more readable and maintainable code.\nAlso, some code standards discourage anonymous inner classes."
-        },
-        {
-          "shortName": "MultipleTopLevelClassesInFile",
-          "displayName": "Multiple top level classes in single file",
-          "enabled": false,
-          "description": "Reports multiple top-level classes in a single Java file.\n\nPutting multiple\ntop-level classes in one file may be confusing and degrade the usefulness of various\nsoftware tools."
-        },
-        {
-          "shortName": "LimitedScopeInnerClass",
-          "displayName": "Local class",
-          "enabled": false,
-          "description": "Reports local classes.\n\nA local class is a named nested class declared inside a code block.\nLocal classes are uncommon and may therefore be confusing.\nIn addition, some code standards discourage the use of local classes.\n\n**Example:**\n\n\n      void test() {\n        class Local { // local class\n        }\n        new Local();\n      }\n"
-        },
-        {
-          "shortName": "ClassMayBeInterface",
-          "displayName": "Abstract 'class' may be 'interface'",
-          "enabled": false,
-          "description": "Reports `abstract` classes that can be converted to interfaces.\n\nUsing interfaces instead of classes is preferable as Java doesn't support multiple class inheritance,\nwhile a class can implement multiple interfaces.\n\nA class may be converted to an interface if it has no superclasses (other\nthan Object), has only `public static final` fields,\n`public abstract` methods, and `public` inner classes.\n\n\nExample:\n\n\n    abstract class Example {\n        public static final int MY_CONST = 42;\n        public abstract void foo();\n    }\n\n    class Inheritor extends Example {\n        @Override\n        public void foo() {\n            System.out.println(MY_CONST);\n        }\n    }\n\nAfter the quick-fix is applied:\n\n\n    interface Example {\n        int MY_CONST = 42;\n        void foo();\n    }\n\n    class Inheritor implements Example {\n        @Override\n        public void foo() {\n            System.out.println(MY_CONST);\n        }\n    }\n\nConfigure the inspection:\n\n\nUse the **Report classes containing non-abstract methods when using Java 8** option to report only the classes with `static` methods and non-abstract methods that can be converted to\n`default` methods (only applicable to language level of 8 or higher)."
-        },
-        {
-          "shortName": "EmptyClass",
-          "displayName": "Redundant empty class",
-          "enabled": false,
-          "description": "Reports empty classes and Java files without any defined classes.\n\nA class is empty if it\ndoesn't contain any fields, methods, constructors, or initializers. Empty classes often remain\nafter significant changes or refactorings.\n\nConfigure the inspection:\n\n* Use the **Ignore if annotated by** option to specify special annotations. The inspection will ignore the classes marked with these annotations.\n*\n  Use the **Ignore class if it is a parametrization of a super type** option to ignore classes that parameterize a superclass. For example:\n\n      class MyList extends ArrayList<String> {}\n\n* Use the **Ignore subclasses of java.lang.Throwable** to ignore classes that extend `java.lang.Throwable`.\n* Use the **Comments count as content** option to ignore classes that contain comments."
-        },
-        {
-          "shortName": "InterfaceMayBeAnnotatedFunctional",
-          "displayName": "Interface may be annotated as '@FunctionalInterface'",
-          "enabled": false,
-          "description": "Reports interfaces that can be annotated with `@FunctionalInterface` (available since JDK 1.8).\n\nAnnotating an interface with `@FunctionalInterface` indicates that the interface\nis functional and no more `abstract` methods can be added to it.\n\n**Example:**\n\n\n      interface FileProcessor {\n        void execute(File file);\n      }\n\nAfter the quick-fix is applied:\n\n\n      @FunctionalInterface\n      interface FileProcessor {\n        void execute(File file);\n      }\n\nThis inspection only reports if the language level of the project or module is 8 or higher."
-        },
-        {
-          "shortName": "FinalPrivateMethod",
-          "displayName": "'private' method declared 'final'",
-          "enabled": false,
-          "description": "Reports methods that are marked with both `final` and `private` keywords.\n\nSince `private` methods cannot be meaningfully overridden because of their visibility, declaring them\n`final` is redundant."
-        },
-        {
-          "shortName": "FinalStaticMethod",
-          "displayName": "'static' method declared 'final'",
-          "enabled": false,
-          "description": "Reports static methods that are marked as `final`.\n\nSuch code might indicate an error or an incorrect assumption about the effect of the `final` keyword.\nStatic methods are not subject to runtime polymorphism, so the only purpose of the `final` keyword used with static methods\nis to ensure the method will not be hidden in a subclass."
-        },
-        {
-          "shortName": "MethodReturnAlwaysConstant",
-          "displayName": "Method returns per-class constant",
-          "enabled": false,
-          "description": "Reports methods that only return a constant, which may differ for various inheritors.\n\nAvailable only from **Code \\| Inspect Code** or\n**Code \\| Analyze Code \\| Run Inspection by Name** and isn't reported in the editor."
-        },
-        {
-          "shortName": "PublicConstructor",
-          "displayName": "'public' constructor can be replaced with factory method",
-          "enabled": false,
-          "description": "Reports `public` constructors.\n\nSome coding standards discourage the use of `public` constructors and recommend\n`static` factory methods instead.\nThis way the implementation can be swapped out without affecting the call sites.\n\n**Example:**\n\n\n      class Test {\n        private String name;\n\n        public Test(String name) {\n            this.name = name;\n        }\n\n        public void test() {\n            System.out.println(name);\n        }\n\n        public static void main(String[] args) {\n            new Test(\"str\").test();\n        }\n      }\n\nAfter quick-fix is applied:\n\n\n      class Test {\n        private String name;\n\n        private Test(String name) {\n            this.name = name;\n        }\n\n        public static Test getInstance(String name) {\n            return new Test(name);\n        }\n\n        public void test() {\n            System.out.println(name);\n        }\n\n        public static void main(String[] args) {\n            getInstance(\"str\").test();\n        }\n      }\n"
-        },
-        {
-          "shortName": "ConstantDeclaredInInterface",
-          "displayName": "Constant declared in interface",
-          "enabled": false,
-          "description": "Reports constants (`public static final` fields) declared in interfaces.\n\nSome coding standards require declaring constants in abstract classes instead."
-        }
-      ]
-    },
-    {
       "name": "Probable bugs",
       "inspections": [
         {
@@ -2723,16 +2723,16 @@
           "description": "Reports calls to `StringBuffer` and `StringBuilder` constructors with `char` as the argument. In this case, `char` is silently cast to an integer and interpreted as the initial capacity of the buffer.\n\n**Example:**\n\n\n      new StringBuilder('(').append(\"1\").append(')');\n\nAfter the quick-fix is applied:\n\n\n      new StringBuilder(\"(\").append(\"1\").append(')');\n"
         },
         {
-          "shortName": "ResultOfObjectAllocationIgnored",
-          "displayName": "Result of object allocation ignored",
-          "enabled": false,
-          "description": "Reports object allocations where the allocated object is ignored and neither assigned to a variable nor used in another way.\n\n\nSuch allocation expressions are legal in Java, but are usually either unintended, or\nevidence of a very odd object initialization strategy.\n\n\nUse the options to list classes whose allocations should be ignored by this inspection."
-        },
-        {
           "shortName": "ClassGetClass",
           "displayName": "Suspicious 'Class.getClass()' call",
           "enabled": true,
           "description": "Reports `getClass()` methods that are called on a `java.lang.Class` instance.\n\nThis is usually a mistake as the result is always equivalent to `Class.class`.\nIf it's a mistake, then it's better to remove the `getClass()` call and use the qualifier directly.\nIf the behavior is intended, then it's better to write `Class.class` explicitly to avoid confusion.\n\nExample:\n\n\n      void test(Class<?> clazz) {\n        String name = clazz.getClass().getName();\n      }\n\nAfter one of the possible quick-fixes is applied:\n\n\n      void test(Class<?> clazz) {\n        String name = clazz.getName();\n      }\n\nNew in 2018.2"
+        },
+        {
+          "shortName": "ResultOfObjectAllocationIgnored",
+          "displayName": "Result of object allocation ignored",
+          "enabled": false,
+          "description": "Reports object allocations where the allocated object is ignored and neither assigned to a variable nor used in another way.\n\n\nSuch allocation expressions are legal in Java, but are usually either unintended, or\nevidence of a very odd object initialization strategy.\n\n\nUse the options to list classes whose allocations should be ignored by this inspection."
         },
         {
           "shortName": "MisspelledEquals",
@@ -3095,16 +3095,16 @@
           "description": "Reports suspicious indentation of statements after a control statement without braces.\n\n\nSuch indentation can make it look like the statement is inside the control statement,\nwhen in fact it will be executed unconditionally after the control statement.\n\n**Example:**\n\n\n      class Bar {\n          void foo(int i) {\n              if (i == 0)\n                  System.out.println(\"foo\");\n                  System.out.println(\"bar\"); // warning\n              if (i == 1);\n                  System.out.println(\"great\"); // warning\n              if (i == 42)\n                  System.out.println(\"answer\");\n                      System.out.println(\"question\"); // warning\n          }\n      }\n"
         },
         {
-          "shortName": "ClassNewInstance",
-          "displayName": "Unsafe call to 'Class.newInstance()'",
-          "enabled": false,
-          "description": "Reports calls to `java.lang.Class.newInstance()`.\n\n\nThis method propagates exceptions thrown by\nthe no-arguments constructor, including checked exceptions. Usages of this method\neffectively bypass the compile-time exception checking that would\notherwise be performed by the compiler.\n\n\nA quick-fix is suggested to replace the call with a call to the\n`java.lang.reflect.Constructor.newInstance()` method, which\navoids this problem by wrapping any exception thrown by the constructor in a\n(checked) `java.lang.reflect.InvocationTargetException`.\n\n**Example:**\n\n\n      clazz.newInstance()\n\nAfter the quick-fix is applied:\n\n\n      clazz.getConstructor().newInstance();\n"
-        },
-        {
           "shortName": "MagicConstant",
           "displayName": "Magic Constant",
           "enabled": true,
           "description": "Reports expressions that can be replaced with \"magic\" constants.\n\nExample 1:\n\n\n      // Bare literal \"2\" is used, warning:\n      Font font = new Font(\"Arial\", 2)\n\nExample 2:\n\n\n      // Predefined constant is used, good:\n      Font font = new Font(\"Arial\", Font.ITALIC)\n\n\nWhen possible, the quick-fix inserts an appropriate predefined constant.\n\n\nThe behavior of this inspection is controlled by `org.intellij.lang.annotations.MagicConstant` annotation.\nSome standard Java library methods are pre-annotated, but you can use this annotation in your code as well."
+        },
+        {
+          "shortName": "ClassNewInstance",
+          "displayName": "Unsafe call to 'Class.newInstance()'",
+          "enabled": false,
+          "description": "Reports calls to `java.lang.Class.newInstance()`.\n\n\nThis method propagates exceptions thrown by\nthe no-arguments constructor, including checked exceptions. Usages of this method\neffectively bypass the compile-time exception checking that would\notherwise be performed by the compiler.\n\n\nA quick-fix is suggested to replace the call with a call to the\n`java.lang.reflect.Constructor.newInstance()` method, which\navoids this problem by wrapping any exception thrown by the constructor in a\n(checked) `java.lang.reflect.InvocationTargetException`.\n\n**Example:**\n\n\n      clazz.newInstance()\n\nAfter the quick-fix is applied:\n\n\n      clazz.getConstructor().newInstance();\n"
         },
         {
           "shortName": "SuspiciousDateFormat",
@@ -4740,16 +4740,16 @@
           "description": "Reports equality expressions which are negated by a prefix expression.\n\nSuch expressions can be simplified using the `!=` operator.\n\nExample:\n\n\n      !(i == 1)\n\nAfter the quick-fix is applied:\n\n\n      i != 1\n"
         },
         {
-          "shortName": "AssertionCanBeIf",
-          "displayName": "Assertion can be replaced with 'if' statement",
-          "enabled": false,
-          "description": "Reports `assert` statements and suggests replacing them with `if` statements that throw `java.lang.AssertionError`.\n\nExample:\n\n\n      assert param != null;\n\nAfter the quick-fix is applied:\n\n\n      if (param == null) throw new AssertionError();\n"
-        },
-        {
           "shortName": "DoubleNegation",
           "displayName": "Double negation",
           "enabled": true,
           "description": "Reports double negations that can be simplified.\n\nExample:\n\n\n      if (!!functionCall()) {}\n\nAfter the quick-fix is applied:\n\n\n      if (functionCall()) {}\n\nExample:\n\n\n      if (!(a != b)) {}\n\nAfter the quick-fix is applied:\n\n\n      if (a == b) {}\n"
+        },
+        {
+          "shortName": "AssertionCanBeIf",
+          "displayName": "Assertion can be replaced with 'if' statement",
+          "enabled": false,
+          "description": "Reports `assert` statements and suggests replacing them with `if` statements that throw `java.lang.AssertionError`.\n\nExample:\n\n\n      assert param != null;\n\nAfter the quick-fix is applied:\n\n\n      if (param == null) throw new AssertionError();\n"
         },
         {
           "shortName": "BreakStatement",
@@ -6804,6 +6804,77 @@
       ]
     },
     {
+      "name": "Logging",
+      "inspections": [
+        {
+          "shortName": "LoggingConditionDisagreesWithLogLevelStatement",
+          "displayName": "Log condition does not match logging call",
+          "enabled": false,
+          "description": "Reports *is log enabled for* conditions of `if` statements that do not match the log level of the contained logging call.\n\n\nFor example:\n\n\n      if (LOG.isTraceEnabled()) {\n        // debug level logged, but checked for trace level\n        LOG.debug(\"some log message\");\n      }\n\nThis inspection understands the *java.util.logging* , *Log4j* , *Log4j2* , *Apache Commons Logging*\nand the *SLF4J* logging frameworks."
+        },
+        {
+          "shortName": "LoggingPlaceholderCountMatchesArgumentCount",
+          "displayName": "Number of placeholders does not match number of arguments in logging call",
+          "enabled": true,
+          "description": "Reports SLF4J, Log4j2 and akka.event.LoggingAdapter logging calls, such as `logger.info(\"{}: {}\", key)` where the number of `{}` placeholders in the logger message doesn't match the number of other arguments to the logging call.\n\n\nUse the inspection option to specify which implementation SLF4J uses.\nIf **Check automatically** is chosen, then `org.apache.logging.slf4j.Log4jLogger` is searched in the classpath.\nIf this file is founded or **Yes** is chosen, then cases, when the last parameter with an exception type has a placeholder, will\nnot be reported for SLFJ4 API.\nFor example:\n\n\n    // will not be reported\n    log.error(\"For id {}: {}\", id, new RuntimeException());\n\nThis option works only for SLF4J."
+        },
+        {
+          "shortName": "LoggingStringTemplateAsArgument",
+          "displayName": "String template as argument to logging call",
+          "enabled": true,
+          "description": "Reports string templates that are used as arguments to **SLF4J** and **Log4j 2** logging methods. The method `org.apache.logging.log4j.Logger.log()` and its overloads are supported only for **all log levels** option. String templates are evaluated at runtime even when the logging message is not logged; this can negatively impact performance. It is recommended to use a parameterized log message instead, which will not be evaluated when logging is disabled.\n\n**Example (for Kotlin):**\n\n\n          val variable1 = getVariable()\n          logger.info(\"variable1: $variable1\")\n\n**After the quick-fix is applied (for Kotlin):**\n\n\n          val variable1 = getVariable()\n          logger.info(\"variable1: {}\", variable1)\n\n\nNote that the suggested replacement might not be equivalent to the original code, for example,\nwhen string templates contain method calls or assignment expressions.\n\n* Use the **Warn on** list to ignore certain higher logging levels. Higher logging levels may be always enabled, and the arguments will always be evaluated.\n* Use the **Do not warn when only expressions with primitive types, their wrappers or String are included** option to ignore string templates, which contain only expressions with primitive types, their wrappers or String. For example, it could be useful to prevent loading lazy collections. Note that, creating string even only with expressions with primitive types, their wrappers or String at runtime can negatively impact performance.\n\nNew in 2023.1"
+        },
+        {
+          "shortName": "LogStatementGuardedByLogCondition",
+          "displayName": "Logging call not guarded by log condition",
+          "enabled": false,
+          "description": "Reports logging calls with non-constant arguments that are not surrounded by a guard condition. The evaluation of the arguments of a logging call can be expensive. Surrounding a logging call with a guard clause prevents that cost when logging is disabled for the level used by the logging statement. This is especially useful for the least serious level (trace, debug, finest) of logging calls, because those are most often disabled in a production environment.\n\n**Example:**\n\n\n      public class Principal {\n        void bad(Object object) {\n          if (true) {\n            LOG.debug(\"log log log \" + expensiveCalculation(object));\n          }\n          LOG.debug(\"some more logging \" + expensiveCalculation(1));\n        }\n\n        void good(Object) {\n          if (LOG.isDebug()) {\n            LOG.debug(\"value: \" + expensiveCalculation(object));\n          }\n        }\n      }\n\n\nConfigure the inspection:\n\n* Use the **Logger class name** field to specify the logger class name used.\n*\n  Use the table to specify the logging methods this inspection should warn on, with the corresponding log condition text.\n\n* Use the **Flag all unguarded logging calls** option to have the inspection flag all unguarded log calls, not only those with non-constant arguments."
+        },
+        {
+          "shortName": "NonStaticFinalLogger",
+          "displayName": "Non-constant logger",
+          "enabled": false,
+          "description": "Reports logger fields that are not declared `static` and/or `final`. Ensuring that every class logger is effectively constant and bound to that class simplifies the task of providing a unified logging implementation for an application.\n\nA quick-fix is provided to change the logger modifiers to `static final`.\n\n**Example:**\n\n\n      public class Significant {\n        private Logger LOG = Logger.getLogger(Critical.class);\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class Significant {\n        private static final Logger LOG = Logger.getLogger(Critical.class);\n      }\n\n\nConfigure the inspection:\n\n* Use the **Logger class name** table to specify logger class names. The inspection will report the fields that are not `static` and `final` and are of the type equal to one of the specified class names."
+        },
+        {
+          "shortName": "PublicMethodWithoutLogging",
+          "displayName": "'public' method without logging",
+          "enabled": false,
+          "description": "Reports any public methods that do not contain a logging statement. This inspection does not report simple getters and setters.\n\nFor example:\n\n\n      public class Crucial {\n        private static finalLogger LOG = LoggerFactory.getLogger(Crucial.class);\n        public void doImportantStuff() {\n          // warning on this method\n        }\n\n        public void doOtherStuff() {\n          LOG.info(\"do other stuff\");\n        }\n      }\n\n\nUse the table below to specify Logger class names.\nPublic methods that do not use instance methods of the specified classes will be reported by this inspection."
+        },
+        {
+          "shortName": "ClassWithMultipleLoggers",
+          "displayName": "Class with multiple loggers",
+          "enabled": false,
+          "description": "Reports classes that have multiple loggers declared. Ensuring that every class has a single dedicated logger is an important step in providing a unified logging implementation for an application.\n\nFor example:\n\n\n      public class Critical {\n        protected static final Logger LOG = Logger.getLogger(Critical.class);\n\n        protected static final Logger myLogger = Logger.getLogger(getClass());\n      }\n\n\nUse the table below to specify Logger class names.\nClasses which declare multiple fields that have the type of one of the specified classes will be reported by this inspection."
+        },
+        {
+          "shortName": "LoggerInitializedWithForeignClass",
+          "displayName": "Logger initialized with foreign class",
+          "enabled": false,
+          "description": "Reports `Logger` instances that are initialized with a `class` literal from a different class than the `Logger` is contained in. This can easily happen when copy-pasting some code from another class and may result in logging events under an unexpected category and cause filters to be applied incorrectly.\n\nA quick-fix is provided to replace the foreign class literal with one from the surrounding class.\n\n**Example:**\n\n\n      public class Paramount {\n        protected static final Logger LOG = Logger.getLogger(Critical.class);\n\n        // ... other fields and methods\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class Paramount {\n        protected static final Logger LOG = Logger.getLogger(Paramount.class);\n\n        // ... other fields and methods\n      }\n\n\nConfigure the inspection:\n\n* Use the table to specify the logger factory classes and logger factory methods recognized by this inspection.\n* Use the **Ignore loggers initialized with a superclass** option to ignore loggers that are initialized with a superclass of the class containing the logger.\n* Use the **Ignore loggers in non-public classes** to only warn on loggers in `public` classes."
+        },
+        {
+          "shortName": "ClassWithoutLogger",
+          "displayName": "Class without logger",
+          "enabled": false,
+          "description": "Reports classes which do not have a declared logger.\n\nEnsuring that every class has a dedicated logger is an important step in providing a unified logging\nimplementation for an application. Interfaces, enumerations, annotations, inner classes, and abstract classes are not reported by this inspection.\n\nFor example:\n\n\n      public class NoLoggerDeclared {\n\n        int calculateNthDigitOfPi(int n) {\n          // todo\n          return 1;\n        }\n      }\n\n\nUse the table in the **Options** section to specify logger class names.\nClasses which do not declare a field with the type of one of the specified classes will be reported by this inspection."
+        },
+        {
+          "shortName": "StringConcatenationArgumentToLogCall",
+          "displayName": "Non-constant string concatenation as argument to logging call",
+          "enabled": false,
+          "description": "Reports non-constant string concatenations that are used as arguments to **SLF4J** and **Log4j 2** logging methods. Non-constant concatenations are evaluated at runtime even when the logging message is not logged; this can negatively impact performance. It is recommended to use a parameterized log message instead, which will not be evaluated when logging is disabled.\n\n**Example:**\n\n\n      public class Vital {\n        private static final Logger LOG = LoggerFactory.getLogger(Vital.class);\n\n        public void saveTheWorld(int i, String s, boolean b) {\n          LOG.info(\"saveTheWorld(\" + i + \", \" + s + \", \"  + b + \")\");\n          // todo\n        }\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class Vital {\n        private static final Logger LOG = LoggerFactory.getLogger(Vital.class);\n\n        public void saveTheWorld(int i, String s, boolean b) {\n          LOG.info(\"saveTheWorld({}, {}, {})\", i, s, b);\n          // todo\n        }\n      }\n\n\nConfigure the inspection:\n\n* Use the **Warn on** list to ignore certain higher logging levels. Higher logging levels may be enabled even in production, and the arguments will always be evaluated."
+        },
+        {
+          "shortName": "KotlinLoggerInitializedWithForeignClass",
+          "displayName": "Logger initialized with foreign class",
+          "enabled": false,
+          "description": "Reports `Logger` instances initialized with a class literal other than the class the `Logger` resides in.\n\n\nThis can happen when copy-pasting from another class.\nIt may result in logging events under an unexpected category and incorrect filtering.\n\n\nUse the inspection options to specify the logger factory classes and methods recognized by this inspection.\n\n**Example:**\n\n\n    class AnotherService\n    class MyService {\n        private val logger = LoggerFactory.getLogger(AnotherService::class.java)\n    }\n\nAfter the quick-fix is applied:\n\n\n    class MyService {\n        private val logger = LoggerFactory.getLogger(MyService::class.java)\n    }\n"
+        }
+      ]
+    },
+    {
       "name": "Javadoc",
       "inspections": [
         {
@@ -6901,77 +6972,6 @@
           "displayName": "Missing Javadoc",
           "enabled": false,
           "description": "Reports missing Javadoc comments and tags.\n\nExample:\n\n\n      /**\n       * Missing \"@param\" is reported (if configured).\n       */\n      public void sample(int param){\n      }\n\nThe quick-fixes add missing tag or missing Javadoc comment:\n\n\n      /**\n       * Missing \"@param\" is reported (if configured).\n       * @param param\n       */\n      public void sample(int param){\n      }\n\n\nInspection can be configured to ignore deprecated elements or simple accessor methods like `getField()` or `setField()`.\nYou can also use options below to configure required tags and minimal required visibility for the specific code elements like method, field, class, package, module."
-        }
-      ]
-    },
-    {
-      "name": "Logging",
-      "inspections": [
-        {
-          "shortName": "LoggingConditionDisagreesWithLogLevelStatement",
-          "displayName": "Log condition does not match logging call",
-          "enabled": false,
-          "description": "Reports *is log enabled for* conditions of `if` statements that do not match the log level of the contained logging call.\n\n\nFor example:\n\n\n      if (LOG.isTraceEnabled()) {\n        // debug level logged, but checked for trace level\n        LOG.debug(\"some log message\");\n      }\n\nThis inspection understands the *java.util.logging* , *Log4j* , *Log4j2* , *Apache Commons Logging*\nand the *SLF4J* logging frameworks."
-        },
-        {
-          "shortName": "LoggingPlaceholderCountMatchesArgumentCount",
-          "displayName": "Number of placeholders does not match number of arguments in logging call",
-          "enabled": true,
-          "description": "Reports SLF4J, Log4j2 and akka.event.LoggingAdapter logging calls, such as `logger.info(\"{}: {}\", key)` where the number of `{}` placeholders in the logger message doesn't match the number of other arguments to the logging call.\n\n\nUse the inspection option to specify which implementation SLF4J uses.\nIf **Check automatically** is chosen, then `org.apache.logging.slf4j.Log4jLogger` is searched in the classpath.\nIf this file is founded or **Yes** is chosen, then cases, when the last parameter with an exception type has a placeholder, will\nnot be reported for SLFJ4 API.\nFor example:\n\n\n    // will not be reported\n    log.error(\"For id {}: {}\", id, new RuntimeException());\n\nThis option works only for SLF4J."
-        },
-        {
-          "shortName": "LoggingStringTemplateAsArgument",
-          "displayName": "String template as argument to logging call",
-          "enabled": true,
-          "description": "Reports string templates that are used as arguments to **SLF4J** and **Log4j 2** logging methods. The method `org.apache.logging.log4j.Logger.log()` and its overloads are supported only for **all log levels** option. String templates are evaluated at runtime even when the logging message is not logged; this can negatively impact performance. It is recommended to use a parameterized log message instead, which will not be evaluated when logging is disabled.\n\n**Example (for Kotlin):**\n\n\n          val variable1 = getVariable()\n          logger.info(\"variable1: $variable1\")\n\n**After the quick-fix is applied (for Kotlin):**\n\n\n          val variable1 = getVariable()\n          logger.info(\"variable1: {}\", variable1)\n\n\nNote that the suggested replacement might not be equivalent to the original code, for example,\nwhen string templates contain method calls or assignment expressions.\n\n* Use the **Warn on** list to ignore certain higher logging levels. Higher logging levels may be always enabled, and the arguments will always be evaluated.\n* Use the **Do not warn when only expressions with primitive types, their wrappers or String are included** option to ignore string templates, which contain only expressions with primitive types, their wrappers or String. For example, it could be useful to prevent loading lazy collections. Note that, creating string even only with expressions with primitive types, their wrappers or String at runtime can negatively impact performance.\n\nNew in 2023.1"
-        },
-        {
-          "shortName": "LogStatementGuardedByLogCondition",
-          "displayName": "Logging call not guarded by log condition",
-          "enabled": false,
-          "description": "Reports logging calls with non-constant arguments that are not surrounded by a guard condition. The evaluation of the arguments of a logging call can be expensive. Surrounding a logging call with a guard clause prevents that cost when logging is disabled for the level used by the logging statement. This is especially useful for the least serious level (trace, debug, finest) of logging calls, because those are most often disabled in a production environment.\n\n**Example:**\n\n\n      public class Principal {\n        void bad(Object object) {\n          if (true) {\n            LOG.debug(\"log log log \" + expensiveCalculation(object));\n          }\n          LOG.debug(\"some more logging \" + expensiveCalculation(1));\n        }\n\n        void good(Object) {\n          if (LOG.isDebug()) {\n            LOG.debug(\"value: \" + expensiveCalculation(object));\n          }\n        }\n      }\n\n\nConfigure the inspection:\n\n* Use the **Logger class name** field to specify the logger class name used.\n*\n  Use the table to specify the logging methods this inspection should warn on, with the corresponding log condition text.\n\n* Use the **Flag all unguarded logging calls** option to have the inspection flag all unguarded log calls, not only those with non-constant arguments."
-        },
-        {
-          "shortName": "NonStaticFinalLogger",
-          "displayName": "Non-constant logger",
-          "enabled": false,
-          "description": "Reports logger fields that are not declared `static` and/or `final`. Ensuring that every class logger is effectively constant and bound to that class simplifies the task of providing a unified logging implementation for an application.\n\nA quick-fix is provided to change the logger modifiers to `static final`.\n\n**Example:**\n\n\n      public class Significant {\n        private Logger LOG = Logger.getLogger(Critical.class);\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class Significant {\n        private static final Logger LOG = Logger.getLogger(Critical.class);\n      }\n\n\nConfigure the inspection:\n\n* Use the **Logger class name** table to specify logger class names. The inspection will report the fields that are not `static` and `final` and are of the type equal to one of the specified class names."
-        },
-        {
-          "shortName": "PublicMethodWithoutLogging",
-          "displayName": "'public' method without logging",
-          "enabled": false,
-          "description": "Reports any public methods that do not contain a logging statement. This inspection does not report simple getters and setters.\n\nFor example:\n\n\n      public class Crucial {\n        private static finalLogger LOG = LoggerFactory.getLogger(Crucial.class);\n        public void doImportantStuff() {\n          // warning on this method\n        }\n\n        public void doOtherStuff() {\n          LOG.info(\"do other stuff\");\n        }\n      }\n\n\nUse the table below to specify Logger class names.\nPublic methods that do not use instance methods of the specified classes will be reported by this inspection."
-        },
-        {
-          "shortName": "ClassWithMultipleLoggers",
-          "displayName": "Class with multiple loggers",
-          "enabled": false,
-          "description": "Reports classes that have multiple loggers declared. Ensuring that every class has a single dedicated logger is an important step in providing a unified logging implementation for an application.\n\nFor example:\n\n\n      public class Critical {\n        protected static final Logger LOG = Logger.getLogger(Critical.class);\n\n        protected static final Logger myLogger = Logger.getLogger(getClass());\n      }\n\n\nUse the table below to specify Logger class names.\nClasses which declare multiple fields that have the type of one of the specified classes will be reported by this inspection."
-        },
-        {
-          "shortName": "LoggerInitializedWithForeignClass",
-          "displayName": "Logger initialized with foreign class",
-          "enabled": false,
-          "description": "Reports `Logger` instances that are initialized with a `class` literal from a different class than the `Logger` is contained in. This can easily happen when copy-pasting some code from another class and may result in logging events under an unexpected category and cause filters to be applied incorrectly.\n\nA quick-fix is provided to replace the foreign class literal with one from the surrounding class.\n\n**Example:**\n\n\n      public class Paramount {\n        protected static final Logger LOG = Logger.getLogger(Critical.class);\n\n        // ... other fields and methods\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class Paramount {\n        protected static final Logger LOG = Logger.getLogger(Paramount.class);\n\n        // ... other fields and methods\n      }\n\n\nConfigure the inspection:\n\n* Use the table to specify the logger factory classes and logger factory methods recognized by this inspection.\n* Use the **Ignore loggers initialized with a superclass** option to ignore loggers that are initialized with a superclass of the class containing the logger.\n* Use the **Ignore loggers in non-public classes** to only warn on loggers in `public` classes."
-        },
-        {
-          "shortName": "ClassWithoutLogger",
-          "displayName": "Class without logger",
-          "enabled": false,
-          "description": "Reports classes which do not have a declared logger.\n\nEnsuring that every class has a dedicated logger is an important step in providing a unified logging\nimplementation for an application. Interfaces, enumerations, annotations, inner classes, and abstract classes are not reported by this inspection.\n\nFor example:\n\n\n      public class NoLoggerDeclared {\n\n        int calculateNthDigitOfPi(int n) {\n          // todo\n          return 1;\n        }\n      }\n\n\nUse the table in the **Options** section to specify logger class names.\nClasses which do not declare a field with the type of one of the specified classes will be reported by this inspection."
-        },
-        {
-          "shortName": "StringConcatenationArgumentToLogCall",
-          "displayName": "Non-constant string concatenation as argument to logging call",
-          "enabled": false,
-          "description": "Reports non-constant string concatenations that are used as arguments to **SLF4J** and **Log4j 2** logging methods. Non-constant concatenations are evaluated at runtime even when the logging message is not logged; this can negatively impact performance. It is recommended to use a parameterized log message instead, which will not be evaluated when logging is disabled.\n\n**Example:**\n\n\n      public class Vital {\n        private static final Logger LOG = LoggerFactory.getLogger(Vital.class);\n\n        public void saveTheWorld(int i, String s, boolean b) {\n          LOG.info(\"saveTheWorld(\" + i + \", \" + s + \", \"  + b + \")\");\n          // todo\n        }\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class Vital {\n        private static final Logger LOG = LoggerFactory.getLogger(Vital.class);\n\n        public void saveTheWorld(int i, String s, boolean b) {\n          LOG.info(\"saveTheWorld({}, {}, {})\", i, s, b);\n          // todo\n        }\n      }\n\n\nConfigure the inspection:\n\n* Use the **Warn on** list to ignore certain higher logging levels. Higher logging levels may be enabled even in production, and the arguments will always be evaluated."
-        },
-        {
-          "shortName": "KotlinLoggerInitializedWithForeignClass",
-          "displayName": "Logger initialized with foreign class",
-          "enabled": false,
-          "description": "Reports `Logger` instances initialized with a class literal other than the class the `Logger` resides in.\n\n\nThis can happen when copy-pasting from another class.\nIt may result in logging events under an unexpected category and incorrect filtering.\n\n\nUse the inspection options to specify the logger factory classes and methods recognized by this inspection.\n\n**Example:**\n\n\n    class AnotherService\n    class MyService {\n        private val logger = LoggerFactory.getLogger(AnotherService::class.java)\n    }\n\nAfter the quick-fix is applied:\n\n\n    class MyService {\n        private val logger = LoggerFactory.getLogger(MyService::class.java)\n    }\n"
         }
       ]
     },
@@ -7306,6 +7306,29 @@
       ]
     },
     {
+      "name": "Workspace model",
+      "inspections": [
+        {
+          "shortName": "WorkspaceEntityMutableField",
+          "displayName": "Unsupported 'var' field in entity",
+          "enabled": false,
+          "description": "Detects unsupported `var` fields in the inheritors of `WorkspaceEntity` interface\n\n\nInterface implementing `WorkspaceEntity` have to have only `val` fields because it's immutable.\nImplementation of `WorkspaceEntity.Builder` will be generated for the mutation"
+        },
+        {
+          "shortName": "WorkspaceImplObsolete",
+          "displayName": "Obsolete version of entity implementation",
+          "enabled": false,
+          "description": "Reports existence of the obsolete implementation for the entity.\n\n\nVerifies that existing implementation for entities has the same API version as described at `com.intellij.platform.workspace.storage.CodeGeneratorVersions` from dependencies.\n\n\nSuggests regenerating implementation for the whole entities in the current module."
+        },
+        {
+          "shortName": "WorkspaceImplAbsent",
+          "displayName": "Absent entity implementation",
+          "enabled": false,
+          "description": "Reports absent of implementation for the entity.\n\n\nVerifies that each entity in the project has the implementation.\n\n\nSuggests generation implementation for the whole entities in the current module."
+        }
+      ]
+    },
+    {
       "name": "Visibility",
       "inspections": [
         {
@@ -7409,29 +7432,6 @@
           "displayName": "Usage of service not declared in 'module-info'",
           "enabled": true,
           "description": "Reports situations in which a service is loaded with `java.util.ServiceLoader` but it isn't declared with the `uses` clause in the `module-info.java` file and suggests inserting it.\n\nNew in 2018.1"
-        }
-      ]
-    },
-    {
-      "name": "Workspace model",
-      "inspections": [
-        {
-          "shortName": "WorkspaceEntityMutableField",
-          "displayName": "Unsupported 'var' field in entity",
-          "enabled": false,
-          "description": "Detects unsupported `var` fields in the inheritors of `WorkspaceEntity` interface\n\n\nInterface implementing `WorkspaceEntity` have to have only `val` fields because it's immutable.\nImplementation of `WorkspaceEntity.Builder` will be generated for the mutation"
-        },
-        {
-          "shortName": "WorkspaceImplObsolete",
-          "displayName": "Obsolete version of entity implementation",
-          "enabled": false,
-          "description": "Reports existence of the obsolete implementation for the entity.\n\n\nVerifies that existing implementation for entities has the same API version as described at `com.intellij.platform.workspace.storage.CodeGeneratorVersions` from dependencies.\n\n\nSuggests regenerating implementation for the whole entities in the current module."
-        },
-        {
-          "shortName": "WorkspaceImplAbsent",
-          "displayName": "Absent entity implementation",
-          "enabled": false,
-          "description": "Reports absent of implementation for the entity.\n\n\nVerifies that each entity in the project has the implementation.\n\n\nSuggests generation implementation for the whole entities in the current module."
         }
       ]
     },
@@ -9033,16 +9033,16 @@
           "description": "Reports methods whose number of statements exceeds the specified maximum.\n\nMethods with too many statements may be confusing and are a good sign that refactoring is necessary.\n\nThe following statements are not counted:\n\n* empty statements (semicolons)\n* block statements\n* `for` loop initialization statements, that is, `int i = ...` within a `for(int i = ...;...)` statement\n* `for` loop update statements, that is, `i += 2` within a `for(int i = ...;...; i += 2)` statement\n\nUse the **Maximum statements per method** field to specify the maximum allowed number of statements in a method."
         },
         {
-          "shortName": "OverlyLongLambda",
-          "displayName": "Overly long lambda expression",
-          "enabled": false,
-          "description": "Reports lambda expressions whose number of statements exceeds the specified maximum.\n\nLambda expressions that are too long may be confusing, and it is often better to extract the statements into a separate method.\n\n\nThe following statements are not counted:\n\n* empty statements (semicolons)\n* block statements\n* `for` loop initialization statements, that is, `int i = ...` within a `for(int i = ...;...)` statement\n* `for` loop update statements, that is, `i += 2` within a `for(int i = ...;...; i += 2)` statement\n\nUse the **Non-comment source statements limit** field to specify the maximum allowed number of statements in a lambda expression."
-        },
-        {
           "shortName": "ParametersPerMethod",
           "displayName": "Method with too many parameters",
           "enabled": false,
           "description": "Reports methods whose number of parameters exceeds the specified maximum. Methods with too many parameters can be a good sign that a refactoring is necessary.\n\nMethods that have super methods are not reported.\n\nUse the **Parameter limit** field to specify the maximum allowed number of parameters for a method."
+        },
+        {
+          "shortName": "OverlyLongLambda",
+          "displayName": "Overly long lambda expression",
+          "enabled": false,
+          "description": "Reports lambda expressions whose number of statements exceeds the specified maximum.\n\nLambda expressions that are too long may be confusing, and it is often better to extract the statements into a separate method.\n\n\nThe following statements are not counted:\n\n* empty statements (semicolons)\n* block statements\n* `for` loop initialization statements, that is, `int i = ...` within a `for(int i = ...;...)` statement\n* `for` loop update statements, that is, `i += 2` within a `for(int i = ...;...; i += 2)` statement\n\nUse the **Non-comment source statements limit** field to specify the maximum allowed number of statements in a lambda expression."
         },
         {
           "shortName": "MethodCoupling",
@@ -9128,16 +9128,16 @@
       "name": "Test frameworks",
       "inspections": [
         {
-          "shortName": "JUnitMixedFramework",
-          "displayName": "JUnit API usage from multiple versions in a single TestCase",
-          "enabled": true,
-          "description": "Reports JUnit annotated methods when used in a test case from a different JUnit version. To determine the framework version for a test case the inspection checks the framework version of the super class when available. When a super class is not available it will use the most used framework in the test case.\n\nExample (JUnit 4 annotation in JUnit 3 test case):\n\n\n      public class MyTest extends TestCase {\n          @Test\n          public void foo() { }\n\n          @Test\n          @Ignore\n          public void testBar() { }\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class MyTest extends TestCase {\n          public void testFoo() {}\n\n          public void _testBar() {}\n      }\n\nExample (JUnit 5 annotation in JUnit 4 test case):\n\n\n      public class MyTest {\n          @BeforeAll // JUnit 5 lifecycle method\n          public void initialize() { }\n\n          @org.junit.Test  // JUnit 4 test annotation\n          public void test() {}\n\n          @org.junit.Test  // JUnit 4 test annotation\n          public void testWouldBeExecuted() {}\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class MyTest {\n          @BeforeClass // JUnit 4 lifecycle method\n          public void initialize() { }\n\n          @org.junit.Test  // JUnit 4 test annotation\n          public void test() {}\n\n          @org.junit.Test  // JUnit 4 test annotation\n          public void testWouldBeExecuted() {}\n      }\n"
-        },
-        {
           "shortName": "TestMethodWithoutAssertion",
           "displayName": "Test method without assertions",
           "enabled": false,
           "description": "Reports test methods that do not contain any assertions. Such methods may indicate either incomplete or weak test cases.\n\n**Example:**\n\n\n      public class ExtensiveTest {\n\n        @Test\n        public void testAlive() {\n          System.out.println(\"nothing\");\n        }\n      }\n\n\nConfigure the inspection:\n\n* Use the table to specify the combinations of fully qualified class name and method name regular expression that should qualify as assertions. Class names also match subclasses.\n* Use the **'assert' keyword is considered an assertion** option to specify if the Java `assert` statements using the `assert` keyword should be considered an assertion.\n* Use the **Ignore test methods which declare exceptions** option to ignore the test methods that declare exceptions. This can be useful when you have tests that will throw an exception on failure and thus don't need any assertions."
+        },
+        {
+          "shortName": "JUnitMixedFramework",
+          "displayName": "JUnit API usage from multiple versions in a single TestCase",
+          "enabled": true,
+          "description": "Reports JUnit annotated methods when used in a test case from a different JUnit version. To determine the framework version for a test case the inspection checks the framework version of the super class when available. When a super class is not available it will use the most used framework in the test case.\n\nExample (JUnit 4 annotation in JUnit 3 test case):\n\n\n      public class MyTest extends TestCase {\n          @Test\n          public void foo() { }\n\n          @Test\n          @Ignore\n          public void testBar() { }\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class MyTest extends TestCase {\n          public void testFoo() {}\n\n          public void _testBar() {}\n      }\n\nExample (JUnit 5 annotation in JUnit 4 test case):\n\n\n      public class MyTest {\n          @BeforeAll // JUnit 5 lifecycle method\n          public void initialize() { }\n\n          @org.junit.Test  // JUnit 4 test annotation\n          public void test() {}\n\n          @org.junit.Test  // JUnit 4 test annotation\n          public void testWouldBeExecuted() {}\n      }\n\nAfter the quick-fix is applied:\n\n\n      public class MyTest {\n          @BeforeClass // JUnit 4 lifecycle method\n          public void initialize() { }\n\n          @org.junit.Test  // JUnit 4 test annotation\n          public void test() {}\n\n          @org.junit.Test  // JUnit 4 test annotation\n          public void testWouldBeExecuted() {}\n      }\n"
         },
         {
           "shortName": "TestFailedLine",
