@@ -41,6 +41,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    name: Auto-merge on dependabot PR
     runs-on: ubuntu-latest
     steps:
       - name: Merge PR
