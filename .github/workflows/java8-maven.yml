@@ -37,7 +37,7 @@ jobs:
 
   auto-merge:
     needs: build-and-test-job
-    if: ${{ (env.PR_URL != '') && (github.actor == 'dependabot[bot]') }}
+    if: ${{ ($PR_URL != '') && (github.actor == 'dependabot[bot]') }}
     permissions:
       contents: write
       pull-requests: write
