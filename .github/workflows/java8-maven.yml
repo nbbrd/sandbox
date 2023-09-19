@@ -35,9 +35,9 @@ jobs:
         with:
           run: mvn -U -B -ntp package
 
-  auto-merge:
+  auto-merge-job:
     needs: build-and-test-job
-    if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
+    if: startsWith(github.repository, 'nbbrd/') && github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
     permissions:
       contents: write
       pull-requests: write
