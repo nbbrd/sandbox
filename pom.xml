@@ -200,7 +200,7 @@
                 </property>
             </activation>
             <properties>
-                <lombok.version>1.18.28</lombok.version>
+                <lombok.version>1.18.30</lombok.version>
             </properties>
             <dependencyManagement>
                 <dependencies>
