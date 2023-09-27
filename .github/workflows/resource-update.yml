@@ -34,7 +34,7 @@ jobs:
       - name: Apply update on Maven POM
         run: >
           mvn -B -ntp versions:set-property 
-          -Dproperty= ${{ env.DEP_PROP }}
+          -Dproperty=${{ env.DEP_PROP }}
           -DnewVersion=${{ steps.latest-release.outputs.release }} 
           -DgenerateBackupPoms=false
 
