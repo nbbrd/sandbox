@@ -1,0 +1,34 @@
+name: Update resource
+
+on: workflow_dispatch
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+    name: Update resource
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+#      - name: Setup Java
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'temurin'
+#          java-version: 17
+#          cache: 'maven'
+
+      - name: Check for updates
+        id: hugo-geekdoc
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: thegeeklab/hugo-geekdoc
+
+      - name: Apply updates
+        run: echo ${{ steps.hugo-geekdoc.outputs.release }}
+
+#      - name: Create Pull Request
+#        uses: peter-evans/create-pull-request@v5
