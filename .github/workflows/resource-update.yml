@@ -27,9 +27,24 @@ jobs:
         with:
           repository: thegeeklab/hugo-geekdoc
 
-      - name: Apply updates
-#        run: echo ${{ steps.geekdoc.outputs.release }}
-        run: mvn -B -ntp versions:set-property -Dproperty=hugo-geekdoc.version -DnewVersion=${{ steps.geekdoc.outputs.release }}
+      - name: Apply update on Maven POM
+        run: >
+          mvn -B -ntp versions:set-property 
+          -Dproperty=hugo-geekdoc.version 
+          -DnewVersion=${{ steps.geekdoc.outputs.release }} 
+          -DgenerateBackupPoms=false
 
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Bump hugo-geekdoc from xxx to ${{ steps.geekdoc.outputs.release }}
+          title: Bump hugo-geekdoc from xxx to ${{ steps.geekdoc.outputs.release }}
+          body: ${{ steps.geekdoc.outputs.description }}
+          delete-branch: true
+
+      - name: Create summary
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}" >> $GITHUB_STEP_SUMMARY
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}" >> $GITHUB_STEP_SUMMARY
