@@ -1,11 +1,15 @@
-name: Update resource
+name: Update GitHub dependency
 
 on: workflow_dispatch
 
 jobs:
   run-job:
     runs-on: ubuntu-latest
-    name: Update resource
+    name: Update GitHub dependency
+
+    env:
+      DEP_REPO: thegeeklab/hugo-geekdoc
+      DEP_PROP: hugo-geekdoc.version
 
     steps:
       - name: Checkout source code
@@ -21,26 +25,26 @@ jobs:
           java-version: 17
           cache: 'maven'
 
-      - name: Check for updates
-        id: geekdoc
+      - name: Check for update
+        id: latest-release
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          repository: thegeeklab/hugo-geekdoc
+          repository: ${{ env.DEP_REPO }}
 
       - name: Apply update on Maven POM
         run: >
           mvn -B -ntp versions:set-property 
-          -Dproperty=hugo-geekdoc.version 
-          -DnewVersion=${{ steps.geekdoc.outputs.release }} 
+          -Dproperty= ${{ env.DEP_PROP }}
+          -DnewVersion=${{ steps.latest-release.outputs.release }} 
           -DgenerateBackupPoms=false
 
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: Bump hugo-geekdoc from xxx to ${{ steps.geekdoc.outputs.release }}
-          title: Bump hugo-geekdoc from xxx to ${{ steps.geekdoc.outputs.release }}
-          body: ${{ steps.geekdoc.outputs.description }}
+          commit-message: Bump ${{ env.DEP_PROP }} from xxx to ${{ steps.latest-release.outputs.release }}
+          title: Bump ${{ env.DEP_PROP }} from xxx to ${{ steps.latest-release.outputs.release }}
+          body: ${{ steps.latest-release.outputs.description }}
           delete-branch: true
 
       - name: Create summary
