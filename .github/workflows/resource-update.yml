@@ -1,6 +1,9 @@
 name: Update GitHub dependency
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * SAT'
 
 jobs:
   run-job:
