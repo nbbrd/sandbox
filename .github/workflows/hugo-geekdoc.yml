@@ -8,13 +8,11 @@ on:
 jobs:
   update-mvn-property:
     runs-on: ubuntu-latest
+    name: Update Maven property using the latest release version (tag) of a GitHub repository
 
     env:
       DEP_PROP: hugo-geekdoc.version
       DEP_REPO: thegeeklab/hugo-geekdoc
-
-#    name: Update Maven property using the latest release version (tag) of a GitHub repository
-    name: Update Maven property ${{ env.DEP_PROP }} using the latest release version (tag) of ${{ env.DEP_REPO }}
 
     steps:
       - name: Checkout source code
