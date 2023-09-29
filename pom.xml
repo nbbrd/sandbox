@@ -5,7 +5,7 @@
 
     <groupId>com.github.nbbrd.sandbox</groupId>
     <artifactId>sandbox-parent</artifactId>
-    <version>2.3.2</version>
+    <version>2.3.3</version>
     <packaging>pom</packaging>
 
     <name>sandbox</name>
@@ -80,6 +80,11 @@
                     <version>3.1.2</version>
                 </plugin>
                 <!-- Other plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.6.0</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
@@ -195,7 +200,7 @@
                 </property>
             </activation>
             <properties>
-                <lombok.version>1.18.28</lombok.version>
+                <lombok.version>1.18.30</lombok.version>
             </properties>
             <dependencyManagement>
                 <dependencies>
@@ -388,7 +393,7 @@
                     <plugin>
                         <groupId>com.github.siom79.japicmp</groupId>
                         <artifactId>japicmp-maven-plugin</artifactId>
-                        <version>0.17.3</version>
+                        <version>0.18.0</version>
                         <configuration>
                             <parameter>
                                 <breakBuildBasedOnSemanticVersioning>true</breakBuildBasedOnSemanticVersioning>

@@ -7,7 +7,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>2.3.2</version>
+        <version>2.3.3</version>
     </parent>
 
     <artifactId>sandbox-bom</artifactId>
@@ -16,6 +16,10 @@
     <name>sandbox-bom</name>
     <description>Sandbox - Bill of Materials</description>
     <url>https://github.com/nbbrd/sandbox</url>
+
+    <properties>
+        <hugo-geekdoc.version>v0.41.1</hugo-geekdoc.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -107,12 +111,12 @@
                         </executions>
                         <configuration>
                             <url>
-                                https://github.com/thegeeklab/hugo-geekdoc/releases/download/v0.37.1/hugo-geekdoc.tar.gz
+                                https://github.com/thegeeklab/hugo-geekdoc/releases/download/${hugo-geekdoc.version}/hugo-geekdoc.tar.gz
                             </url>
                             <unpack>true</unpack>
                             <outputDirectory>${project.parent.basedir}/docs/themes/hugo-geekdoc</outputDirectory>
-                            <sha256>c73105401b063c38cfed359f5ee0b4230c3686d4797a67d7b8e80dfb7b2492f1</sha256>
-                            <alwaysVerifyChecksum>true</alwaysVerifyChecksum>
+<!--                            <sha256>c73105401b063c38cfed359f5ee0b4230c3686d4797a67d7b8e80dfb7b2492f1</sha256>-->
+<!--                            <alwaysVerifyChecksum>true</alwaysVerifyChecksum>-->
                         </configuration>
                     </plugin>
                 </plugins>
@@ -157,6 +161,9 @@
                                 </goals>
                                 <configuration>
                                     <jreleaser>
+                                        <project>
+                                            <description>Hello NBBRD</description>
+                                        </project>
                                         <release>
                                             <github>
                                                 <skipTag>true</skipTag>
