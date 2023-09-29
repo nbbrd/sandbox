@@ -161,6 +161,9 @@
                                 </goals>
                                 <configuration>
                                     <jreleaser>
+                                        <project>
+                                            <description>Hello NBBRD</description>
+                                        </project>
                                         <release>
                                             <github>
                                                 <skipTag>true</skipTag>
