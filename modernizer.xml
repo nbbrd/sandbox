@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <modernizer>
-    <violation>
-        <name>org/checkerframework/checker/nullness/qual/NonNull</name>
-        <version>8</version>
-        <comment>Prefer lombok.NonNull</comment>
-    </violation>
-    <violation>
-        <name>lombok/experimental/UtilityClass</name>
-        <version>8</version>
-        <comment>Do not use since it might trigger compilation errors in some cases</comment>
-    </violation>
+<!--    The following code doesn't work -->
+<!--    <violation>-->
+<!--        <name>org/checkerframework/checker/nullness/qual/NonNull</name>-->
+<!--        <version>8</version>-->
+<!--        <comment>Prefer lombok.NonNull</comment>-->
+<!--    </violation>-->
+<!--    <violation>-->
+<!--        <name>lombok/experimental/UtilityClass</name>-->
+<!--        <version>8</version>-->
+<!--        <comment>Do not use since it might trigger compilation errors in some cases</comment>-->
+<!--    </violation>-->
 </modernizer>
