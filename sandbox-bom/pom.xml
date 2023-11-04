@@ -18,7 +18,7 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <hugo-geekdoc.version>v0.41.3</hugo-geekdoc.version>
+        <hugo-geekdoc.version>v0.44.0</hugo-geekdoc.version>
     </properties>
 
     <dependencyManagement>
