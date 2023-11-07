@@ -5,6 +5,7 @@
     <link>http://nbbrd.github.io/sandbox/docs/develop/</link>
     <description>Recent content in Overview on Sandbox</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="http://nbbrd.github.io/sandbox/docs/develop/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <atom:link href="http://nbbrd.github.io/sandbox/docs/develop/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
