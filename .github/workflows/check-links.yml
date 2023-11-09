@@ -37,4 +37,4 @@ jobs:
         with:
           fail: true
           debug: true
-          args: --max-concurrency 1 --cache --no-progress --exclude-all-private --exclude-path ".*resources.*" './**/*.md'
+          args: --max-concurrency 1 --cache --no-progress --exclude-all-private --exclude-path "\/resources\/" './**/*.md'
