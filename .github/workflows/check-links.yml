@@ -37,5 +37,4 @@ jobs:
         uses: lycheeverse/lychee-action@v1.8.0
         with:
           fail: true
-          debug: true
           args: --max-concurrency 1 --cache --no-progress --exclude-all-private './**/*.md'
