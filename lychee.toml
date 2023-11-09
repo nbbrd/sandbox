@@ -1,2 +1,3 @@
 verbose = true
-exclude_path = ["*/resources/*"]
+
+exclude_path = ["resources"]
