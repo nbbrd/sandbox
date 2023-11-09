@@ -3,6 +3,7 @@ name: Check external href links in the documentation
 on:
   push:
     paths:
+      - '.github/workflows/check-links.yml'
       - '**/*.md'
   schedule:
     # Run on the first of each month at 9:00 AM
