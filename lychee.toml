@@ -1,1 +1,1 @@
-exclude_path = ["resources", "src/main/resources/csl-styles"]
+exclude_path = ["resources", "sandbox-cli/src/test/resources"]
