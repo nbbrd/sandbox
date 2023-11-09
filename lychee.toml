@@ -1,1 +1,1 @@
-exclude_path = [".*/resources", "*/src/test/resources"]
+exclude_path = ["**/resources", "*/src/test/resources"]
