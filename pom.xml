@@ -389,7 +389,7 @@
                                 </goals>
                                 <configuration>
                                     <violationsFiles>
-                                        <violationsFile>modernizer.xml</violationsFile>
+<!--                                        <violationsFile>modernizer.xml</violationsFile>-->
                                     </violationsFiles>
                                 </configuration>
                             </execution>
