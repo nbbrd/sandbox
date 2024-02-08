@@ -5,7 +5,7 @@
 
     <groupId>com.github.nbbrd.sandbox</groupId>
     <artifactId>sandbox-parent</artifactId>
-    <version>2.3.4</version>
+    <version>2.3.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>sandbox</name>
@@ -36,7 +36,7 @@
     </scm>
 
     <properties>
-        <project.build.outputTimestamp>2024-02-08T15:10:11Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2024-02-08T15:10:16Z</project.build.outputTimestamp>
     </properties>
 
     <build>
