@@ -8,7 +8,7 @@ jobs:
     name: sdmx-dl version
     steps:
       - name: Setup cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.jbang
           key: ${{ runner.os }}-jbang-${{ hashFiles('*.java') }}

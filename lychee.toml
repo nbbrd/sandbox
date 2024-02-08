@@ -1,0 +1,1 @@
+exclude_path = ["sandbox-cli/src/test/resources/Main.md"]
