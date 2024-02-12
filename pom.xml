@@ -154,6 +154,17 @@
                     <artifactId>jreleaser-maven-plugin</artifactId>
                     <version>1.10.0</version>
                 </plugin>
+                <!-- Experimental plugins -->
+                <plugin>
+                    <groupId>com.github.siom79.japicmp</groupId>
+                    <artifactId>japicmp-maven-plugin</artifactId>
+                    <version>0.18.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.simplify4u.plugins</groupId>
+                    <artifactId>pgpverify-maven-plugin</artifactId>
+                    <version>1.17.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -475,7 +486,6 @@
                     <plugin>
                         <groupId>com.github.siom79.japicmp</groupId>
                         <artifactId>japicmp-maven-plugin</artifactId>
-                        <version>0.18.3</version>
                         <configuration>
                             <parameter>
                                 <breakBuildBasedOnSemanticVersioning>true</breakBuildBasedOnSemanticVersioning>
@@ -548,7 +558,6 @@
                     <plugin>
                         <groupId>org.simplify4u.plugins</groupId>
                         <artifactId>pgpverify-maven-plugin</artifactId>
-                        <version>1.17.0</version>
                         <executions>
                             <execution>
                                 <goals>
