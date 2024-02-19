@@ -16,6 +16,19 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <dependencies>
+        <!-- compile only -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.nbbrd.java-service-util</groupId>
+            <artifactId>java-service-processor</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- compile and runtime -->
         <dependency>
             <artifactId>sandbox-api</artifactId>
             <groupId>${project.groupId}</groupId>
@@ -25,12 +38,6 @@
             <groupId>com.github.lalyos</groupId>
             <artifactId>jfiglet</artifactId>
             <version>0.0.9</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

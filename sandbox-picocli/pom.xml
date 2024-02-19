@@ -16,13 +16,9 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <dependencies>
+        <!-- compile and runtime -->
         <dependency>
             <artifactId>sandbox-api</artifactId>
-            <groupId>${project.groupId}</groupId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <artifactId>sandbox-figlet</artifactId>
             <groupId>${project.groupId}</groupId>
             <version>${project.version}</version>
         </dependency>
@@ -30,6 +26,14 @@
             <groupId>info.picocli</groupId>
             <artifactId>picocli</artifactId>
             <version>4.7.5</version>
+        </dependency>
+
+        <!-- runtime only -->
+        <dependency>
+            <artifactId>sandbox-figlet</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

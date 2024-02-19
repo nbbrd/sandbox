@@ -1,4 +1,4 @@
-package nbbrd.sandbox.impl;
+package nbbrd.sandbox.figlet;
 
 import lombok.AccessLevel;
 import lombok.Builder;

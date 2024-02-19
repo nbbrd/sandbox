@@ -1,9 +1,11 @@
 package nbbrd.sandbox.swing;
 
+import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.FlatLightLaf;
 import ec.util.various.swing.BasicSwingLauncher;
 import ec.util.various.swing.TextPrompt;
-import nbbrd.sandbox.SomeService;
-import nbbrd.sandbox.impl.SomeServiceImpl;
+import nbbrd.sandbox.TextFormattingService;
+import nbbrd.sandbox.TextFormattingServiceLoader;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -13,7 +15,10 @@ import java.awt.*;
 public final class DesktopLauncher {
 
     public static void main(String[] args) {
+        FlatLightLaf.setup();
+
         new BasicSwingLauncher()
+                .lookAndFeel(FlatLightLaf.class.getName())
                 .content(DesktopLauncher::create)
                 .icons("/nbbrd/sandbox/swing/nbb.png")
                 .title("Hello NBBRD")
@@ -26,12 +31,13 @@ public final class DesktopLauncher {
         JTextField input = new JTextField();
 
         JTextArea output = new JTextArea();
+        output.putClientProperty(FlatClientProperties.STYLE_CLASS, "monospaced");
         output.setEditable(false);
 
         new TextPrompt("Type your name here", input).setForeground(output.getDisabledTextColor());
         input.getDocument().addDocumentListener(new DocumentListener() {
 
-            final SomeService service = new SomeServiceImpl();
+            final TextFormattingService service = TextFormattingServiceLoader.load();
 
             @Override
             public void insertUpdate(DocumentEvent e) {

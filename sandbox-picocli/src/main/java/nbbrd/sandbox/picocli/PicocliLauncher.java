@@ -17,7 +17,7 @@
 package nbbrd.sandbox.picocli;
 
 import nbbrd.sandbox.About;
-import nbbrd.sandbox.impl.SomeServiceImpl;
+import nbbrd.sandbox.TextFormattingServiceLoader;
 import picocli.CommandLine;
 
 import java.util.concurrent.Callable;
@@ -43,7 +43,7 @@ public final class PicocliLauncher implements Callable<Void> {
 
     @Override
     public Void call() {
-        System.out.println(new SomeServiceImpl().formatText("Hello " + name));
+        System.out.println(TextFormattingServiceLoader.load().formatText("Hello " + name));
         return null;
     }
 

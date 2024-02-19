@@ -17,13 +17,9 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <dependencies>
+        <!-- compile and runtime -->
         <dependency>
             <artifactId>sandbox-api</artifactId>
-            <groupId>${project.groupId}</groupId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <artifactId>sandbox-figlet</artifactId>
             <groupId>${project.groupId}</groupId>
             <version>${project.version}</version>
         </dependency>
@@ -37,6 +33,19 @@
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.3</version>
+        </dependency>
+
+        <!-- runtime only -->
+        <dependency>
+            <artifactId>sandbox-figlet</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

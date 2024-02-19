@@ -15,6 +15,15 @@
     <description>Sandbox - API</description>
     <url>https://github.com/nbbrd/sandbox</url>
 
+    <dependencies>
+        <!-- compile only -->
+        <dependency>
+            <groupId>com.github.nbbrd.java-service-util</groupId>
+            <artifactId>java-service-processor</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
 <!--            <plugin>-->

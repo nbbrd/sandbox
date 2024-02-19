@@ -1,6 +1,13 @@
-module nbbrd.sandbox.impl {
+import nbbrd.sandbox.TextFormattingService;
+import nbbrd.sandbox.figlet.FigletTextFormattingService;
+
+module nbbrd.sandbox.figlet {
+
+    requires static lombok;
+    requires static nbbrd.service;
+
     requires nbbrd.sandbox;
     requires jfiglet;
-    exports nbbrd.sandbox.impl;
-    requires static lombok;
+
+    provides TextFormattingService with FigletTextFormattingService;
 }
