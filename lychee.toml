@@ -1,1 +1,1 @@
-exclude_path = ["sandbox-cli/src/test/resources/Main.md"]
+exclude_path = ["sandbox-picocli/src/test/resources/lychee_excluded.md"]

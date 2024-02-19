@@ -9,28 +9,28 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sandbox-impl</artifactId>
+    <artifactId>sandbox-figlet</artifactId>
 
-    <name>sandbox-impl</name>
-    <description>Sandbox - IMPL</description>
+    <name>sandbox-figlet</name>
+    <description>Sandbox - Figlet</description>
     <url>https://github.com/nbbrd/sandbox</url>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-api</artifactId>
-            <version>2.3.5-SNAPSHOT</version>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.lalyos</groupId>
             <artifactId>jfiglet</artifactId>
             <version>0.0.9</version>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
 </project>

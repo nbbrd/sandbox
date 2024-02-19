@@ -24,12 +24,22 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <artifactId>sandbox-cli</artifactId>
+                <artifactId>sandbox-api</artifactId>
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <artifactId>sandbox-desktop</artifactId>
+                <artifactId>sandbox-figlet</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>sandbox-picocli</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>sandbox-swing</artifactId>
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>
             </dependency>
@@ -115,8 +125,6 @@
                             </url>
                             <unpack>true</unpack>
                             <outputDirectory>${project.parent.basedir}/docs/themes/hugo-geekdoc</outputDirectory>
-<!--                            <sha256>c73105401b063c38cfed359f5ee0b4230c3686d4797a67d7b8e80dfb7b2492f1</sha256>-->
-<!--                            <alwaysVerifyChecksum>true</alwaysVerifyChecksum>-->
                         </configuration>
                     </plugin>
                 </plugins>
@@ -178,17 +186,6 @@
                                             <!-- Fix default value -->
                                             <armored>true</armored>
                                         </signing>
-<!--                                        <announce>-->
-<!--                                            <discussions>-->
-<!--                                                <active>ALWAYS</active>-->
-<!--                                                <organization>nbbrd</organization>-->
-<!--                                                <team>sandbox</team>-->
-<!--                                                <message>🚀 {{projectNameCapitalized}} {{projectVersion}} has been-->
-<!--                                                    released!-->
-<!--                                                    {{releaseNotesUrl}}-->
-<!--                                                </message>-->
-<!--                                            </discussions>-->
-<!--                                        </announce>-->
                                         <distributions>
                                             <!-- Name is here ! -->
                                             <hello-nbbrd>
@@ -196,13 +193,13 @@
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
-                                                            ${project.parent.basedir}/sandbox-cli/target/sandbox-cli-${project.version}-bin.jar
+                                                            ${project.parent.basedir}/sandbox-picocli/target/sandbox-picocli-${project.version}-bin.jar
                                                         </path>
                                                     </artifact>
                                                 </artifacts>
                                                 <java>
-                                                    <mainClass>nbbrd.sandbox.cli.MainCommand</mainClass>
-                                                    <artifactId>sandbox-cli</artifactId>
+                                                    <mainClass>nbbrd.sandbox.picocli.PicocliLauncher</mainClass>
+                                                    <artifactId>sandbox-picocli</artifactId>
                                                 </java>
                                                 <scoop>
                                                     <active>RELEASE</active>
@@ -220,7 +217,7 @@
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
-                                                            ${project.parent.basedir}/sandbox-desktop/target/sandbox-desktop-${project.version}-bin.jar
+                                                            ${project.parent.basedir}/sandbox-swing/target/sandbox-swing-${project.version}-bin.jar
                                                         </path>
                                                     </artifact>
                                                 </artifacts>

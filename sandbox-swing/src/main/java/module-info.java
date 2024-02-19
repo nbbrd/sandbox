@@ -1,4 +1,4 @@
-module nbbrd.sandbox.desktop {
+module nbbrd.sandbox.swing {
     requires nbbrd.sandbox;
     requires nbbrd.sandbox.impl;
     requires nbbrd.desktop.swing;

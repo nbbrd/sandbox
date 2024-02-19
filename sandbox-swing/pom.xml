@@ -2,34 +2,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
         <version>2.3.5-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sandbox-cli</artifactId>
+    <artifactId>sandbox-swing</artifactId>
 
-    <name>sandbox-cli</name>
-    <description>Sandbox - CLI</description>
+    <name>sandbox-swing</name>
+    <description>Sandbox - Swing</description>
     <url>https://github.com/nbbrd/sandbox</url>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.nbbrd.sandbox</groupId>
             <artifactId>sandbox-api</artifactId>
-            <version>2.3.5-SNAPSHOT</version>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.nbbrd.sandbox</groupId>
-            <artifactId>sandbox-impl</artifactId>
-            <version>2.3.5-SNAPSHOT</version>
+            <artifactId>sandbox-figlet</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>info.picocli</groupId>
-            <artifactId>picocli</artifactId>
-            <version>4.7.5</version>
+            <groupId>com.github.nbbrd.java-desktop-util</groupId>
+            <artifactId>java-desktop-util-swing</artifactId>
+            <version>2.3.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.nbbrd.java-design-util</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -71,7 +78,10 @@
                                 implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                         <transformer
                                 implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>nbbrd.sandbox.cli.MainCommand</mainClass>
+                            <manifestEntries>
+                                <Main-Class>nbbrd.sandbox.swing.DesktopLauncher</Main-Class>
+                                <SplashScreen-Image>nbbrd/sandbox/swing/nbb.png</SplashScreen-Image>
+                            </manifestEntries>
                         </transformer>
                     </transformers>
                     <shadedArtifactAttached>true</shadedArtifactAttached>

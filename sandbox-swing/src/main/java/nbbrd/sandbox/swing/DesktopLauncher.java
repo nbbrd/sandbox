@@ -1,4 +1,4 @@
-package nbbrd.sandbox.desktop;
+package nbbrd.sandbox.swing;
 
 import ec.util.various.swing.BasicSwingLauncher;
 import ec.util.various.swing.TextPrompt;
@@ -10,12 +10,12 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
-public final class MainWindow {
+public final class DesktopLauncher {
 
     public static void main(String[] args) {
         new BasicSwingLauncher()
-                .content(MainWindow::create)
-                .icons("/nbbrd/sandbox/desktop/nbb.png")
+                .content(DesktopLauncher::create)
+                .icons("/nbbrd/sandbox/swing/nbb.png")
                 .title("Hello NBBRD")
                 .launch();
     }

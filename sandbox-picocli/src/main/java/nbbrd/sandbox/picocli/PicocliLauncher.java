@@ -14,7 +14,7 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  */
-package nbbrd.sandbox.cli;
+package nbbrd.sandbox.picocli;
 
 import nbbrd.sandbox.About;
 import nbbrd.sandbox.impl.SomeServiceImpl;
@@ -27,15 +27,15 @@ import java.util.concurrent.Callable;
  */
 @CommandLine.Command(
         name = About.NAME,
-        versionProvider = MainCommand.ManifestVersionProvider.class,
+        versionProvider = PicocliLauncher.ManifestVersionProvider.class,
         scope = CommandLine.ScopeType.INHERIT,
         sortOptions = false,
         mixinStandardHelpOptions = true
 )
-public final class MainCommand implements Callable<Void> {
+public final class PicocliLauncher implements Callable<Void> {
 
     public static void main(String[] args) {
-        new CommandLine(new MainCommand()).execute(args);
+        new CommandLine(new PicocliLauncher()).execute(args);
     }
 
     @CommandLine.Parameters(arity = "1")

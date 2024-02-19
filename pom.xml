@@ -211,7 +211,7 @@
 
     <modules>
         <module>sandbox-api</module>
-        <module>sandbox-impl</module>
+        <module>sandbox-figlet</module>
     </modules>
 
     <profiles>
@@ -224,8 +224,8 @@
                 </property>
             </activation>
             <modules>
-                <module>sandbox-cli</module>
-                <module>sandbox-desktop</module>
+                <module>sandbox-picocli</module>
+                <module>sandbox-swing</module>
                 <module>sandbox-bom</module>
             </modules>
         </profile>
