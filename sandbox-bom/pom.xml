@@ -188,7 +188,7 @@
                                         </signing>
                                         <distributions>
                                             <!-- Name is here ! -->
-                                            <hello-nbbrd>
+                                            <hello-nbbrd-picocli>
                                                 <type>SINGLE_JAR</type>
                                                 <artifacts>
                                                     <artifact>
@@ -210,9 +210,9 @@
                                                 <jbang>
                                                     <active>RELEASE</active>
                                                 </jbang>
-                                            </hello-nbbrd>
+                                            </hello-nbbrd-picocli>
                                             <!-- Name is here ! -->
-                                            <hellow-nbbrd>
+                                            <hello-nbbrd-swing>
                                                 <type>SINGLE_JAR</type>
                                                 <artifacts>
                                                     <artifact>
@@ -227,7 +227,7 @@
                                                 <brew>
                                                     <active>RELEASE</active>
                                                 </brew>
-                                            </hellow-nbbrd>
+                                            </hello-nbbrd-swing>
                                         </distributions>
                                     </jreleaser>
                                 </configuration>
