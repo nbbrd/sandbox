@@ -226,6 +226,7 @@
             <modules>
                 <module>sandbox-picocli</module>
                 <module>sandbox-swing</module>
+                <module>sandbox-netbeans</module>
                 <module>sandbox-bom</module>
             </modules>
         </profile>
