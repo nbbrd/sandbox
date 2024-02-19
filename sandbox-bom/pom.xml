@@ -19,6 +19,7 @@
 
     <properties>
         <hugo-geekdoc.version>v0.44.1</hugo-geekdoc.version>
+        <java.bundled.version>jdk-21.0.2+13</java.bundled.version>
     </properties>
 
     <dependencyManagement>
@@ -140,6 +141,9 @@
             <!-- Release binaries on GitHub -->
             <!-- Note that all plugins are run on 'install' phase -->
             <id>full-release</id>
+            <properties>
+                <jdkname>${java.bundled.version}-jre</jdkname>
+            </properties>
             <build>
                 <plugins>
                     <!-- Extract changelog for release -->
@@ -155,6 +159,123 @@
                                 </goals>
                                 <configuration>
                                     <inputFile>${project.parent.basedir}/CHANGELOG.md</inputFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Gather binaries and JRE -->
+                    <plugin>
+                        <groupId>org.jreleaser</groupId>
+                        <artifactId>jdks-maven-plugin</artifactId>
+                        <version>1.10.0</version>
+                        <executions>
+                            <execution>
+                                <id>download-windows-jre</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>setup-disco</goal>
+                                </goals>
+                                <configuration>
+                                    <pkgs>
+                                        <pkg>
+                                            <name>temurin-windows-x86_64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>windows-x86_64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>zip</archiveType>
+                                        </pkg>
+                                        <pkg>
+                                            <name>temurin-linux-x86_64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>linux-x86_64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>tar.gz</archiveType>
+                                        </pkg>
+                                        <pkg>
+                                            <name>temurin-linux-aarch64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>linux-aarch64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>tar.gz</archiveType>
+                                        </pkg>
+                                        <pkg>
+                                            <name>temurin-mac-x86_64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>mac-x86_64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>tar.gz</archiveType>
+                                        </pkg>
+                                        <pkg>
+                                            <name>temurin-mac-aarch64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>mac-aarch64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>tar.gz</archiveType>
+                                        </pkg>
+                                    </pkgs>
+                                    <unpack>false</unpack>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Create binaries bundled with JRE -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>pack-desktop-binaries</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <macrodef name="bundle-desktop">
+                                            <attribute name="platform"/>
+                                            <attribute name="extension"/>
+                                            <attribute name="dir"/>
+                                            <sequential>
+                                                <echo message="Bundling jdemetra for @{platform}" level="info"/>
+                                                <pathconvert property="temurin.@{platform}">
+                                                    <first>
+                                                        <fileset
+                                                                dir="${project.build.directory}/jdks/temurin-@{platform}"/>
+                                                    </first>
+                                                </pathconvert>
+                                                <ant antfile="${project.basedir}/src/antrun/bundle-netbeans.xml">
+                                                    <property name="x.bundleInput"
+                                                              value="${project.basedir}/../sandbox-netbeans/application/target/sandbox-netbeans-app-${project.version}.zip"/>
+                                                    <property name="x.bundleOutput"
+                                                              value="${project.build.directory}/sandbox-netbeans-app-${project.version}-@{platform}.zip"/>
+                                                    <property name="x.branding" value="sandboxnetbeans"/>
+                                                    <property name="x.jdkArchive" value="${temurin.@{platform}}"/>
+                                                    <property name="x.jdkDirectory" value="@{dir}"/>
+                                                    <target name="bundle.@{extension}"/>
+                                                </ant>
+                                            </sequential>
+                                        </macrodef>
+
+                                        <parallel threadsPerProcessor="1">
+                                            <bundle-desktop platform="windows-x86_64" extension="zip" dir="${jdkname}"/>
+                                            <bundle-desktop platform="linux-x86_64" extension="tar.gz"
+                                                            dir="${jdkname}"/>
+                                            <bundle-desktop platform="linux-aarch64" extension="tar.gz"
+                                                            dir="${jdkname}"/>
+                                            <bundle-desktop platform="mac-x86_64" extension="tar.gz"
+                                                            dir="${jdkname}/Contents/Home"/>
+                                            <bundle-desktop platform="mac-aarch64" extension="tar.gz"
+                                                            dir="${jdkname}/Contents/Home"/>
+                                        </parallel>
+                                    </target>
                                 </configuration>
                             </execution>
                         </executions>
@@ -195,6 +316,7 @@
                                             <!-- Name is here ! -->
                                             <hello-nbbrd-picocli>
                                                 <type>SINGLE_JAR</type>
+                                                <stereotype>CLI</stereotype>
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
@@ -219,6 +341,7 @@
                                             <!-- Name is here ! -->
                                             <hello-nbbrd-swing>
                                                 <type>SINGLE_JAR</type>
+                                                <stereotype>DESKTOP</stereotype>
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
@@ -233,6 +356,49 @@
                                                     <active>RELEASE</active>
                                                 </brew>
                                             </hello-nbbrd-swing>
+                                            <!-- Name is here ! -->
+                                            <hello-nbbrd-netbeans>
+                                                <type>BINARY</type>
+                                                <stereotype>DESKTOP</stereotype>
+                                                <artifacts>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-windows-x86_64.zip
+                                                        </path>
+                                                        <platform>windows-x86_64</platform>
+                                                    </artifact>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-linux-x86_64.zip
+                                                        </path>
+                                                        <platform>linux-x86_64</platform>
+                                                    </artifact>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-linux-aarch64.zip
+                                                        </path>
+                                                        <platform>linux-aarch_64</platform>
+                                                    </artifact>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-mac-x86_64.zip
+                                                        </path>
+                                                        <platform>osx-x86_64</platform>
+                                                    </artifact>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-mac-aarch64.zip
+                                                        </path>
+                                                        <platform>osx-aarch_64</platform>
+                                                    </artifact>
+                                                </artifacts>
+                                                <scoop>
+                                                    <active>RELEASE</active>
+                                                </scoop>
+                                                <brew>
+                                                    <active>RELEASE</active>
+                                                </brew>
+                                            </hello-nbbrd-netbeans>
                                         </distributions>
                                     </jreleaser>
                                 </configuration>
