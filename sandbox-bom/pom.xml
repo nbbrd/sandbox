@@ -360,6 +360,11 @@
                                             <hello-nbbrd-netbeans>
                                                 <type>BINARY</type>
                                                 <stereotype>DESKTOP</stereotype>
+                                                <executable>
+                                                    <name>sandboxnetbeans</name>
+                                                    <unixExtension/>
+                                                    <windowsExtension>exe</windowsExtension>
+                                                </executable>
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
@@ -397,6 +402,9 @@
                                                 </scoop>
                                                 <brew>
                                                     <active>RELEASE</active>
+<!--                                                    <repository>-->
+<!--                                                        <multiPlatform>true</multiPlatform>-->
+<!--                                                    </repository>-->
                                                 </brew>
                                             </hello-nbbrd-netbeans>
                                         </distributions>
