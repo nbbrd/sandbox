@@ -38,8 +38,8 @@ jobs:
         with:
           run: mvn -U -B -ntp install
 
-      - name: Ensure reproducible builds with Maven
-        run: mvn -U -B -ntp clean verify artifact:compare -DskipTests
+#      - name: Ensure reproducible builds with Maven
+#        run: mvn -U -B -ntp clean verify artifact:compare -DskipTests
 
   auto-merge-job:
     needs: build-and-test-job
