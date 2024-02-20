@@ -395,6 +395,9 @@
                                                             ${project.build.directory}/sandbox-netbeans-app-${project.version}-mac-aarch64.zip
                                                         </path>
                                                         <platform>osx-aarch_64</platform>
+                                                        <extraProperties>
+                                                            <skipBrew>true</skipBrew>
+                                                        </extraProperties>
                                                     </artifact>
                                                 </artifacts>
                                                 <scoop>
