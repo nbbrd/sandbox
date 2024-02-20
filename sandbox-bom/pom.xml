@@ -7,7 +7,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>2.3.4</version>
+        <version>2.4.0</version>
     </parent>
 
     <artifactId>sandbox-bom</artifactId>
@@ -19,17 +19,33 @@
 
     <properties>
         <hugo-geekdoc.version>v0.44.1</hugo-geekdoc.version>
+        <java.bundled.version>jdk-21.0.2+13</java.bundled.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <artifactId>sandbox-cli</artifactId>
+                <artifactId>sandbox-api</artifactId>
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <artifactId>sandbox-desktop</artifactId>
+                <artifactId>sandbox-figlet</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>sandbox-picocli</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>sandbox-swing</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>sandbox-netbeans</artifactId>
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>
             </dependency>
@@ -99,7 +115,7 @@
                     <plugin>
                         <groupId>com.googlecode.maven-download-plugin</groupId>
                         <artifactId>download-maven-plugin</artifactId>
-                        <version>1.8.0</version>
+                        <version>1.8.1</version>
                         <executions>
                             <execution>
                                 <id>download-hugo-theme</id>
@@ -115,8 +131,6 @@
                             </url>
                             <unpack>true</unpack>
                             <outputDirectory>${project.parent.basedir}/docs/themes/hugo-geekdoc</outputDirectory>
-<!--                            <sha256>c73105401b063c38cfed359f5ee0b4230c3686d4797a67d7b8e80dfb7b2492f1</sha256>-->
-<!--                            <alwaysVerifyChecksum>true</alwaysVerifyChecksum>-->
                         </configuration>
                     </plugin>
                 </plugins>
@@ -127,6 +141,9 @@
             <!-- Release binaries on GitHub -->
             <!-- Note that all plugins are run on 'install' phase -->
             <id>full-release</id>
+            <properties>
+                <jdkname>${java.bundled.version}-jre</jdkname>
+            </properties>
             <build>
                 <plugins>
                     <!-- Extract changelog for release -->
@@ -147,11 +164,127 @@
                         </executions>
                     </plugin>
 
+                    <!-- Gather binaries and JRE -->
+                    <plugin>
+                        <groupId>org.jreleaser</groupId>
+                        <artifactId>jdks-maven-plugin</artifactId>
+                        <version>1.10.0</version>
+                        <executions>
+                            <execution>
+                                <id>download-windows-jre</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>setup-disco</goal>
+                                </goals>
+                                <configuration>
+                                    <pkgs>
+                                        <pkg>
+                                            <name>temurin-windows-x86_64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>windows-x86_64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>zip</archiveType>
+                                        </pkg>
+                                        <pkg>
+                                            <name>temurin-linux-x86_64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>linux-x86_64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>tar.gz</archiveType>
+                                        </pkg>
+                                        <pkg>
+                                            <name>temurin-linux-aarch64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>linux-aarch64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>tar.gz</archiveType>
+                                        </pkg>
+                                        <pkg>
+                                            <name>temurin-mac-x86_64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>mac-x86_64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>tar.gz</archiveType>
+                                        </pkg>
+                                        <pkg>
+                                            <name>temurin-mac-aarch64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>mac-aarch64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>tar.gz</archiveType>
+                                        </pkg>
+                                    </pkgs>
+                                    <unpack>false</unpack>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Create binaries bundled with JRE -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>pack-desktop-binaries</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <macrodef name="bundle-desktop">
+                                            <attribute name="platform"/>
+                                            <attribute name="extension"/>
+                                            <attribute name="dir"/>
+                                            <sequential>
+                                                <echo message="Bundling jdemetra for @{platform}" level="info"/>
+                                                <pathconvert property="temurin.@{platform}">
+                                                    <first>
+                                                        <fileset
+                                                                dir="${project.build.directory}/jdks/temurin-@{platform}"/>
+                                                    </first>
+                                                </pathconvert>
+                                                <ant antfile="${project.basedir}/src/antrun/bundle-netbeans.xml">
+                                                    <property name="x.bundleInput"
+                                                              value="${project.basedir}/../sandbox-netbeans/application/target/sandbox-netbeans-app-${project.version}.zip"/>
+                                                    <property name="x.bundleOutput"
+                                                              value="${project.build.directory}/sandbox-netbeans-app-${project.version}-@{platform}.zip"/>
+                                                    <property name="x.branding" value="sandboxnetbeans"/>
+                                                    <property name="x.jdkArchive" value="${temurin.@{platform}}"/>
+                                                    <property name="x.jdkDirectory" value="@{dir}"/>
+                                                    <target name="bundle.@{extension}"/>
+                                                </ant>
+                                            </sequential>
+                                        </macrodef>
+
+                                        <parallel threadsPerProcessor="1">
+                                            <bundle-desktop platform="windows-x86_64" extension="zip" dir="${jdkname}"/>
+                                            <bundle-desktop platform="linux-x86_64" extension="tar.gz"
+                                                            dir="${jdkname}"/>
+                                            <bundle-desktop platform="linux-aarch64" extension="tar.gz"
+                                                            dir="${jdkname}"/>
+                                            <bundle-desktop platform="mac-x86_64" extension="tar.gz"
+                                                            dir="${jdkname}/Contents/Home"/>
+                                            <bundle-desktop platform="mac-aarch64" extension="tar.gz"
+                                                            dir="${jdkname}/Contents/Home"/>
+                                        </parallel>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                     <!-- Release assets -->
                     <plugin>
                         <groupId>org.jreleaser</groupId>
                         <artifactId>jreleaser-maven-plugin</artifactId>
-                        <version>1.10.0</version>
                         <executions>
                             <execution>
                                 <id>release-assets</id>
@@ -179,31 +312,21 @@
                                             <!-- Fix default value -->
                                             <armored>true</armored>
                                         </signing>
-<!--                                        <announce>-->
-<!--                                            <discussions>-->
-<!--                                                <active>ALWAYS</active>-->
-<!--                                                <organization>nbbrd</organization>-->
-<!--                                                <team>sandbox</team>-->
-<!--                                                <message>🚀 {{projectNameCapitalized}} {{projectVersion}} has been-->
-<!--                                                    released!-->
-<!--                                                    {{releaseNotesUrl}}-->
-<!--                                                </message>-->
-<!--                                            </discussions>-->
-<!--                                        </announce>-->
                                         <distributions>
                                             <!-- Name is here ! -->
-                                            <hello-nbbrd>
+                                            <hello-nbbrd-picocli>
                                                 <type>SINGLE_JAR</type>
+                                                <stereotype>CLI</stereotype>
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
-                                                            ${project.parent.basedir}/sandbox-cli/target/sandbox-cli-${project.version}-bin.jar
+                                                            ${project.parent.basedir}/sandbox-picocli/target/sandbox-picocli-${project.version}-bin.jar
                                                         </path>
                                                     </artifact>
                                                 </artifacts>
                                                 <java>
-                                                    <mainClass>nbbrd.sandbox.cli.MainCommand</mainClass>
-                                                    <artifactId>sandbox-cli</artifactId>
+                                                    <mainClass>nbbrd.sandbox.picocli.PicocliLauncher</mainClass>
+                                                    <artifactId>sandbox-picocli</artifactId>
                                                 </java>
                                                 <scoop>
                                                     <active>RELEASE</active>
@@ -214,14 +337,15 @@
                                                 <jbang>
                                                     <active>RELEASE</active>
                                                 </jbang>
-                                            </hello-nbbrd>
+                                            </hello-nbbrd-picocli>
                                             <!-- Name is here ! -->
-                                            <hellow-nbbrd>
+                                            <hello-nbbrd-swing>
                                                 <type>SINGLE_JAR</type>
+                                                <stereotype>DESKTOP</stereotype>
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
-                                                            ${project.parent.basedir}/sandbox-desktop/target/sandbox-desktop-${project.version}-bin.jar
+                                                            ${project.parent.basedir}/sandbox-swing/target/sandbox-swing-${project.version}-bin.jar
                                                         </path>
                                                     </artifact>
                                                 </artifacts>
@@ -231,7 +355,58 @@
                                                 <brew>
                                                     <active>RELEASE</active>
                                                 </brew>
-                                            </hellow-nbbrd>
+                                            </hello-nbbrd-swing>
+                                            <!-- Name is here ! -->
+                                            <hello-nbbrd-netbeans>
+                                                <type>BINARY</type>
+                                                <stereotype>DESKTOP</stereotype>
+                                                <executable>
+                                                    <name>sandboxnetbeans</name>
+                                                    <unixExtension/>
+                                                    <windowsExtension>exe</windowsExtension>
+                                                </executable>
+                                                <artifacts>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-windows-x86_64.zip
+                                                        </path>
+                                                        <platform>windows-x86_64</platform>
+                                                    </artifact>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-linux-x86_64.zip
+                                                        </path>
+                                                        <platform>linux-x86_64</platform>
+                                                    </artifact>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-linux-aarch64.zip
+                                                        </path>
+                                                        <platform>linux-aarch_64</platform>
+                                                    </artifact>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-mac-x86_64.zip
+                                                        </path>
+                                                        <platform>osx-x86_64</platform>
+                                                    </artifact>
+                                                    <artifact>
+                                                        <path>
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-mac-aarch64.zip
+                                                        </path>
+                                                        <platform>osx-aarch_64</platform>
+                                                    </artifact>
+                                                </artifacts>
+                                                <scoop>
+                                                    <active>RELEASE</active>
+                                                </scoop>
+                                                <brew>
+                                                    <active>RELEASE</active>
+<!--                                                    <repository>-->
+<!--                                                        <multiPlatform>true</multiPlatform>-->
+<!--                                                    </repository>-->
+                                                </brew>
+                                            </hello-nbbrd-netbeans>
                                         </distributions>
                                     </jreleaser>
                                 </configuration>

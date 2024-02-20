@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>2.3.4</version>
+        <version>2.4.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,6 +14,15 @@
     <name>sandbox-api</name>
     <description>Sandbox - API</description>
     <url>https://github.com/nbbrd/sandbox</url>
+
+    <dependencies>
+        <!-- compile only -->
+        <dependency>
+            <groupId>com.github.nbbrd.java-service-util</groupId>
+            <artifactId>java-service-processor</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

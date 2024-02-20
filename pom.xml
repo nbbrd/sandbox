@@ -5,12 +5,12 @@
 
     <groupId>com.github.nbbrd.sandbox</groupId>
     <artifactId>sandbox-parent</artifactId>
-    <version>2.3.4</version>
+    <version>2.4.0</version>
     <packaging>pom</packaging>
 
     <name>sandbox</name>
     <description>Sandbox application</description>
-    <url>https://github.com/nbbrd/sandbox</url>
+    <url>https://github.com/${x.github.user}/${x.github.repo}</url>
     <inceptionYear>2020</inceptionYear>
 
     <licenses>
@@ -30,14 +30,34 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/nbbrd/sandbox.git</connection>
-        <developerConnection>scm:git:ssh://github.com:nbbrd/sandbox.git</developerConnection>
-        <url>http://github.com/nbbrd/sandbox/tree/master</url>
+        <connection>scm:git:git://github.com/${x.github.user}/${x.github.repo}.git</connection>
+        <developerConnection>scm:git:ssh://github.com:${x.github.user}/${x.github.repo}.git</developerConnection>
+        <url>http://github.com/${x.github.user}/${x.github.repo}/tree/master</url>
     </scm>
 
     <properties>
-        <project.build.outputTimestamp>2024-02-08T15:10:11Z</project.build.outputTimestamp>
+        <!-- Java 8+ config -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputTimestamp>2024-02-20T10:31:02Z</project.build.outputTimestamp>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+
+        <!-- GitHub hosting -->
+        <x.github.user>nbbrd</x.github.user>
+        <x.github.repo>sandbox</x.github.repo>
+
+        <!-- test frameworks -->
+        <junit.version>5.10.2</junit.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <pluginManagement>
@@ -93,13 +113,28 @@
                 <!-- Other plugins -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.5.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>3.6.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.5.1</version>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.4.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.gaul</groupId>
+                    <artifactId>modernizer-maven-plugin</artifactId>
+                    <version>2.7.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>de.thetaphi</groupId>
+                    <artifactId>forbiddenapis</artifactId>
+                    <version>3.6</version>
                 </plugin>
                 <plugin>
                     <groupId>com.github.nbbrd.heylogs</groupId>
@@ -107,9 +142,40 @@
                     <version>0.7.2</version>
                 </plugin>
                 <plugin>
-                    <groupId>de.thetaphi</groupId>
-                    <artifactId>forbiddenapis</artifactId>
-                    <version>3.6</version>
+                    <groupId>com.amashchenko.maven.plugin</groupId>
+                    <artifactId>gitflow-maven-plugin</artifactId>
+                    <version>1.21.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.6.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.simplify4u.plugins</groupId>
+                    <artifactId>sign-maven-plugin</artifactId>
+                    <version>1.0.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jreleaser</groupId>
+                    <artifactId>jreleaser-maven-plugin</artifactId>
+                    <version>1.10.0</version>
+                </plugin>
+                <!-- Experimental plugins -->
+                <plugin>
+                    <groupId>com.github.siom79.japicmp</groupId>
+                    <artifactId>japicmp-maven-plugin</artifactId>
+                    <version>0.18.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.simplify4u.plugins</groupId>
+                    <artifactId>pgpverify-maven-plugin</artifactId>
+                    <version>1.17.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -157,7 +223,7 @@
 
     <modules>
         <module>sandbox-api</module>
-        <module>sandbox-impl</module>
+        <module>sandbox-figlet</module>
     </modules>
 
     <profiles>
@@ -170,8 +236,9 @@
                 </property>
             </activation>
             <modules>
-                <module>sandbox-cli</module>
-                <module>sandbox-desktop</module>
+                <module>sandbox-picocli</module>
+                <module>sandbox-swing</module>
+                <module>sandbox-netbeans</module>
                 <module>sandbox-bom</module>
             </modules>
         </profile>
@@ -184,11 +251,6 @@
                     <name>!skipBaseJava8</name>
                 </property>
             </activation>
-            <properties>
-                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-                <maven.compiler.target>1.8</maven.compiler.target>
-                <maven.compiler.source>1.8</maven.compiler.source>
-            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -212,6 +274,7 @@
             </activation>
             <properties>
                 <lombok.version>1.18.30</lombok.version>
+                <java-service.version>1.9.0</java-service.version>
             </properties>
             <dependencyManagement>
                 <dependencies>
@@ -219,6 +282,13 @@
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
                         <version>${lombok.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.nbbrd.java-service-util</groupId>
+                        <artifactId>java-service-bom</artifactId>
+                        <version>${java-service.version}</version>
+                        <type>pom</type>
+                        <scope>import</scope>
                     </dependency>
                 </dependencies>
             </dependencyManagement>
@@ -233,6 +303,11 @@
                                     <groupId>org.projectlombok</groupId>
                                     <artifactId>lombok</artifactId>
                                     <version>${lombok.version}</version>
+                                </path>
+                                <path>
+                                    <groupId>com.github.nbbrd.java-service-util</groupId>
+                                    <artifactId>java-service-processor</artifactId>
+                                    <version>${java-service.version}</version>
                                 </path>
                             </annotationProcessorPaths>
                         </configuration>
@@ -319,7 +394,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>3.4.1</version>
                         <dependencies>
                             <dependency>
                                 <groupId>org.kordamp.maven</groupId>
@@ -380,7 +454,6 @@
                     <plugin>
                         <groupId>org.gaul</groupId>
                         <artifactId>modernizer-maven-plugin</artifactId>
-                        <version>2.7.0</version>
                         <configuration>
                             <javaVersion>1.8</javaVersion>
                         </configuration>
@@ -416,7 +489,6 @@
                     <plugin>
                         <groupId>com.amashchenko.maven.plugin</groupId>
                         <artifactId>gitflow-maven-plugin</artifactId>
-                        <version>1.21.0</version>
                         <configuration>
                             <gitFlowConfig>
                                 <versionTagPrefix>v</versionTagPrefix>
@@ -440,7 +512,6 @@
                     <plugin>
                         <groupId>com.github.siom79.japicmp</groupId>
                         <artifactId>japicmp-maven-plugin</artifactId>
-                        <version>0.18.3</version>
                         <configuration>
                             <parameter>
                                 <breakBuildBasedOnSemanticVersioning>true</breakBuildBasedOnSemanticVersioning>
@@ -475,7 +546,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.0</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -488,7 +558,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.6.3</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -504,7 +573,6 @@
                     <plugin>
                         <groupId>org.simplify4u.plugins</groupId>
                         <artifactId>sign-maven-plugin</artifactId>
-                        <version>1.0.1</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -516,7 +584,6 @@
                     <plugin>
                         <groupId>org.simplify4u.plugins</groupId>
                         <artifactId>pgpverify-maven-plugin</artifactId>
-                        <version>1.17.0</version>
                         <executions>
                             <execution>
                                 <goals>
