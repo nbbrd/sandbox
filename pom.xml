@@ -45,7 +45,19 @@
         <!-- GitHub hosting -->
         <x.github.user>nbbrd</x.github.user>
         <x.github.repo>sandbox</x.github.repo>
+
+        <!-- test frameworks -->
+        <junit.version>5.10.2</junit.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <pluginManagement>
