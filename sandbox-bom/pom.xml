@@ -7,7 +7,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>2.4.1</version>
+        <version>2.4.2</version>
     </parent>
 
     <artifactId>sandbox-bom</artifactId>
@@ -195,7 +195,7 @@
                                             <archiveType>tar.gz</archiveType>
                                         </pkg>
                                         <pkg>
-                                            <name>temurin-linux-aarch64</name>
+                                            <name>temurin-linux-aarch_64</name>
                                             <distribution>temurin</distribution>
                                             <platform>linux-aarch64</platform>
                                             <version>${java.bundled.version}</version>
@@ -203,17 +203,17 @@
                                             <archiveType>tar.gz</archiveType>
                                         </pkg>
                                         <pkg>
-                                            <name>temurin-mac-x86_64</name>
+                                            <name>temurin-osx-x86_64</name>
                                             <distribution>temurin</distribution>
-                                            <platform>mac-x86_64</platform>
+                                            <platform>osx-x86_64</platform>
                                             <version>${java.bundled.version}</version>
                                             <packageType>jre</packageType>
                                             <archiveType>tar.gz</archiveType>
                                         </pkg>
                                         <pkg>
-                                            <name>temurin-mac-aarch64</name>
+                                            <name>temurin-osx-aarch_64</name>
                                             <distribution>temurin</distribution>
-                                            <platform>mac-aarch64</platform>
+                                            <platform>osx-aarch64</platform>
                                             <version>${java.bundled.version}</version>
                                             <packageType>jre</packageType>
                                             <archiveType>tar.gz</archiveType>
@@ -268,11 +268,11 @@
                                             <bundle-desktop platform="windows-x86_64" extension="zip" dir="${jdkname}"/>
                                             <bundle-desktop platform="linux-x86_64" extension="tar.gz"
                                                             dir="${jdkname}"/>
-                                            <bundle-desktop platform="linux-aarch64" extension="tar.gz"
+                                            <bundle-desktop platform="linux-aarch_64" extension="tar.gz"
                                                             dir="${jdkname}"/>
-                                            <bundle-desktop platform="mac-x86_64" extension="tar.gz"
+                                            <bundle-desktop platform="osx-x86_64" extension="tar.gz"
                                                             dir="${jdkname}/Contents/Home"/>
-                                            <bundle-desktop platform="mac-aarch64" extension="tar.gz"
+                                            <bundle-desktop platform="osx-aarch_64" extension="tar.gz"
                                                             dir="${jdkname}/Contents/Home"/>
                                         </parallel>
                                     </target>
@@ -361,7 +361,7 @@
                                                 <type>BINARY</type>
                                                 <stereotype>DESKTOP</stereotype>
                                                 <executable>
-                                                    <name>sandboxnetbeans</name>
+<!--                                                    <name>sandboxnetbeans</name>-->
                                                     <unixExtension/>
                                                     <windowsExtension>exe</windowsExtension>
                                                 </executable>
@@ -380,19 +380,19 @@
                                                     </artifact>
                                                     <artifact>
                                                         <path>
-                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-linux-aarch64.zip
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-linux-aarch_64.zip
                                                         </path>
                                                         <platform>linux-aarch_64</platform>
                                                     </artifact>
                                                     <artifact>
                                                         <path>
-                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-mac-x86_64.zip
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-osx-x86_64.zip
                                                         </path>
                                                         <platform>osx-x86_64</platform>
                                                     </artifact>
                                                     <artifact>
                                                         <path>
-                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-mac-aarch64.zip
+                                                            ${project.build.directory}/sandbox-netbeans-app-${project.version}-osx-aarch_64.zip
                                                         </path>
                                                         <platform>osx-aarch_64</platform>
                                                         <extraProperties>
