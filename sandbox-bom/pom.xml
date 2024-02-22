@@ -361,7 +361,7 @@
                                                 <type>BINARY</type>
                                                 <stereotype>DESKTOP</stereotype>
                                                 <executable>
-                                                    <name>sandboxnetbeans</name>
+<!--                                                    <name>sandboxnetbeans</name>-->
                                                     <unixExtension/>
                                                     <windowsExtension>exe</windowsExtension>
                                                 </executable>
