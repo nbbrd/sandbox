@@ -373,6 +373,10 @@
                                                         <path>
                                                             ${project.build.directory}/sandbox-netbeans-${project.version}.zip
                                                         </path>
+                                                        <extraProperties>
+                                                            <skipBrew>true</skipBrew>
+                                                            <skipScoop>true</skipScoop>
+                                                        </extraProperties>
                                                     </artifact>
                                                     <artifact>
                                                         <path>
