@@ -37,7 +37,7 @@
     </modules>
 
     <properties>
-        <netbeans.version>RELEASE200</netbeans.version>
+        <netbeans.version>RELEASE210</netbeans.version>
         <brandingToken>sandboxnetbeans</brandingToken>
     </properties>
 </project>
