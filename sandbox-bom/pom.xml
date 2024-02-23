@@ -49,6 +49,11 @@
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <artifactId>sandbox-netbeans-app</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -165,6 +170,42 @@
 
                     <!-- Gather binaries and JRE -->
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-binaries</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <artifactId>sandbox-picocli</artifactId>
+                                            <groupId>${project.groupId}</groupId>
+                                            <type>jar</type>
+                                            <classifier>bin</classifier>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <artifactId>sandbox-swing</artifactId>
+                                            <groupId>${project.groupId}</groupId>
+                                            <type>jar</type>
+                                            <classifier>bin</classifier>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <artifactId>sandbox-netbeans-app</artifactId>
+                                            <groupId>${project.groupId}</groupId>
+                                            <type>zip</type>
+                                            <destFileName>sandbox-netbeans-${project.version}.zip</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>org.jreleaser</groupId>
                         <artifactId>jdks-maven-plugin</artifactId>
                         <executions>
@@ -236,9 +277,6 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy file="${project.basedir}/../sandbox-netbeans/application/target/sandbox-netbeans-app-${project.version}.zip"
-                                              tofile="${project.build.directory}/sandbox-netbeans-${project.version}.zip"/>
-
                                         <macrodef name="bundle-desktop">
                                             <attribute name="platform"/>
                                             <attribute name="extension"/>
@@ -247,8 +285,7 @@
                                                 <echo message="Bundling @{platform}" level="info"/>
                                                 <pathconvert property="jdk.@{platform}">
                                                     <first>
-                                                        <fileset
-                                                                dir="${project.build.directory}/jdks/jdk-@{platform}"/>
+                                                        <fileset dir="${project.build.directory}/jdks/jdk-@{platform}"/>
                                                     </first>
                                                 </pathconvert>
                                                 <ant antfile="${project.basedir}/src/antrun/bundle-netbeans.xml">
@@ -320,7 +357,7 @@
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
-                                                            ${project.parent.basedir}/sandbox-picocli/target/sandbox-picocli-${project.version}-bin.jar
+                                                            ${project.build.directory}/sandbox-picocli-${project.version}-bin.jar
                                                         </path>
                                                     </artifact>
                                                 </artifacts>
@@ -345,7 +382,7 @@
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
-                                                            ${project.parent.basedir}/sandbox-swing/target/sandbox-swing-${project.version}-bin.jar
+                                                            ${project.build.directory}/sandbox-swing-${project.version}-bin.jar
                                                         </path>
                                                     </artifact>
                                                 </artifacts>
@@ -361,7 +398,7 @@
                                                 <type>BINARY</type>
                                                 <stereotype>DESKTOP</stereotype>
                                                 <executable>
-<!--                                                    <name>sandboxnetbeans</name>-->
+                                                    <!--                                                    <name>sandboxnetbeans</name>-->
                                                     <unixExtension/>
                                                     <windowsExtension>exe</windowsExtension>
                                                 </executable>
@@ -414,9 +451,9 @@
                                                 </scoop>
                                                 <brew>
                                                     <active>RELEASE</active>
-<!--                                                    <repository>-->
-<!--                                                        <multiPlatform>true</multiPlatform>-->
-<!--                                                    </repository>-->
+                                                    <!--                                                    <repository>-->
+                                                    <!--                                                        <multiPlatform>true</multiPlatform>-->
+                                                    <!--                                                    </repository>-->
                                                 </brew>
                                             </hello-nbbrd-netbeans>
                                         </distributions>
