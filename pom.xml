@@ -166,6 +166,21 @@
                     <artifactId>jreleaser-maven-plugin</artifactId>
                     <version>1.10.0</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.jreleaser</groupId>
+                    <artifactId>jdks-maven-plugin</artifactId>
+                    <version>1.10.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.googlecode.maven-download-plugin</groupId>
+                    <artifactId>download-maven-plugin</artifactId>
+                    <version>1.8.1</version>
+                </plugin>
                 <!-- Experimental plugins -->
                 <plugin>
                     <groupId>com.github.siom79.japicmp</groupId>
