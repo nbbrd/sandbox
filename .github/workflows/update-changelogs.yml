@@ -1,0 +1,28 @@
+name: Update changelogs
+
+on: workflow_dispatch
+
+jobs:
+  update-changelogs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download
+        run: |
+          curl -s -o jdplus-benchmarking.md https://raw.githubusercontent.com/jdemetra/jdplus-benchmarking/develop/CHANGELOG.md
+          curl -s -o jdplus-incubator.md https://raw.githubusercontent.com/jdemetra/jdplus-incubator/develop/CHANGELOG.md
+          curl -s -o jdplus-experimental.md https://raw.githubusercontent.com/jdemetra/jdplus-experimental/develop/CHANGELOG.md
+          curl -s -o jdplus-revisions.md https://raw.githubusercontent.com/jdemetra/jdplus-revisions/develop/CHANGELOG.md
+          curl -s -o jdplus-nowcasting.md https://raw.githubusercontent.com/jdemetra/jdplus-nowcasting/develop/CHANGELOG.md
+
+      - name: Scan
+        uses: jbangdev/jbang-action@v0.115.0
+        with:
+          script: com.github.nbbrd.heylogs:heylogs-cli:0.8.0:bin
+          scriptargs: "scan . -f json -o changelogs/scan.json"
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./changelogs
+          destination_dir: ./changelogs
