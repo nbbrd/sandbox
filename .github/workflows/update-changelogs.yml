@@ -14,6 +14,9 @@ jobs:
           curl -s -o jdplus-revisions.md https://raw.githubusercontent.com/jdemetra/jdplus-revisions/develop/CHANGELOG.md
           curl -s -o jdplus-nowcasting.md https://raw.githubusercontent.com/jdemetra/jdplus-nowcasting/develop/CHANGELOG.md
 
+      - name: Prepare
+        run: mkdir changelogs
+
       - name: Scan
         uses: jbangdev/jbang-action@v0.115.0
         with:
