@@ -1,0 +1,87 @@
+[
+  {
+    "filePath": "./jdplus-nowcasting.md",
+    "summary": {
+      "valid": true,
+      "releaseCount": 3,
+      "timeRange": {
+        "from": "2023-12-19",
+        "to": "2023-12-19"
+      },
+      "compatibilities": [
+        "Semantic Versioning"
+      ],
+      "unreleasedChanges": 1,
+      "forgeName": "GitHub",
+      "forgeURL": "https://github.com"
+    }
+  },
+  {
+    "filePath": "./jdplus-revisions.md",
+    "summary": {
+      "valid": true,
+      "releaseCount": 2,
+      "timeRange": {
+        "from": "2023-06-15",
+        "to": "2023-06-15"
+      },
+      "compatibilities": [
+        "Semantic Versioning"
+      ],
+      "unreleasedChanges": 0,
+      "forgeName": "GitHub",
+      "forgeURL": "https://github.com"
+    }
+  },
+  {
+    "filePath": "./jdplus-benchmarking.md",
+    "summary": {
+      "valid": true,
+      "releaseCount": 2,
+      "timeRange": {
+        "from": "2023-12-12",
+        "to": "2023-12-12"
+      },
+      "compatibilities": [
+        "Semantic Versioning"
+      ],
+      "unreleasedChanges": 0,
+      "forgeName": "GitHub",
+      "forgeURL": "https://github.com"
+    }
+  },
+  {
+    "filePath": "./jdplus-experimental.md",
+    "summary": {
+      "valid": true,
+      "releaseCount": 2,
+      "timeRange": {
+        "from": "2023-06-15",
+        "to": "2023-06-15"
+      },
+      "compatibilities": [
+        "Semantic Versioning"
+      ],
+      "unreleasedChanges": 2,
+      "forgeName": "GitHub",
+      "forgeURL": "https://github.com"
+    }
+  },
+  {
+    "filePath": "./jdplus-incubator.md",
+    "summary": {
+      "valid": true,
+      "releaseCount": 2,
+      "timeRange": {
+        "from": "2023-06-15",
+        "to": "2023-12-07"
+      },
+      "compatibilities": [
+        "Semantic Versioning"
+      ],
+      "unreleasedChanges": 2,
+      "forgeName": "GitHub",
+      "forgeURL": "https://github.com"
+    }
+  }
+]
