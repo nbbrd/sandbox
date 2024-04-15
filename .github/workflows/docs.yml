@@ -3,6 +3,18 @@ name: Documentation deployment
 on: [ push ]
 
 jobs:
+  check:
+    name: Check resources
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check jbang-action
+        uses: jbangdev/jbang-action@v0.116.0
+        with:
+          trust: https://github.com/nbbrd/jbang-catalog/
+          script: heylogs@nbbrd
+          scriptargs: "--version"
+
   deploy:
     if: startsWith(github.repository, 'nbbrd/') && ((github.ref == 'refs/heads/develop') || startsWith(github.ref, 'refs/tags/v'))
     name: Deploy to GitHub Pages
