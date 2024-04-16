@@ -1,0 +1,32 @@
+[
+  {
+    "filePath": "./CHANGELOG.md",
+    "summary": {
+      "valid": true,
+      "releaseCount": 10,
+      "timeRange": {
+        "from": "2021-04-23",
+        "to": "2023-06-28"
+      },
+      "compatibilities": [
+        "Semantic Versioning"
+      ],
+      "unreleasedChanges": 0,
+      "forgeName": "GitHub",
+      "forgeURL": "https://github.com"
+    }
+  },
+  {
+    "filePath": "./README.md",
+    "summary": {
+      "valid": false,
+      "releaseCount": 0,
+      "timeRange": {
+        "from": "-999999999-01-01",
+        "to": "+999999999-12-31"
+      },
+      "compatibilities": [],
+      "unreleasedChanges": 0
+    }
+  }
+]
