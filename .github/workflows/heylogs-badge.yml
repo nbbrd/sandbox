@@ -15,8 +15,8 @@ jobs:
 
       - name: Scan changelog
         run: |
-          - mvn dependency:copy -Dartifact=com.github.nbbrd.heylogs:heylogs-cli:0.8.0:jar:bin -DoutputDirectory=. -Dmdep.stripVersion -q
-          - java -jar heylogs-cli-bin.jar scan . -f json -o heylogs/scan.json
+          mvn dependency:copy -Dartifact=com.github.nbbrd.heylogs:heylogs-cli:0.8.0:jar:bin -DoutputDirectory=. -Dmdep.stripVersion -q
+          java -jar heylogs-cli-bin.jar scan . -f json -o heylogs/scan.json
 
       - name: Deploy scan summary
         uses: peaceiris/actions-gh-pages@v4
