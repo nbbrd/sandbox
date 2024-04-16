@@ -18,7 +18,7 @@ jobs:
           mkdir heylogs
           mvn dependency:copy -Dartifact=com.github.nbbrd.heylogs:heylogs-cli:0.8.0:jar:bin -DoutputDirectory=. -Dmdep.stripVersion -q
           java -jar heylogs-cli-bin.jar scan -f json -o heylogs/scan.json
-          jq '{schemaVersion: 1, label: "unreleased changes", message: "#\(.[0].summary.unreleasedChanges)", color: "E05735", labelColor: "white", namedLogo: "keepachangelog"}' heylogs/scan.json > heylogs/badge.json
+          jq '{schemaVersion: 1, label: "unreleased changes", message: "#\(.[0].summary.unreleasedChanges)", color: "E05735", namedLogo: "keepachangelog"}' heylogs/scan.json > heylogs/badge.json
 
       - name: Deploy scan summary
         uses: peaceiris/actions-gh-pages@v4
