@@ -1,6 +1,6 @@
 [
   {
-    "filePath": "./CHANGELOG.md",
+    "filePath": "CHANGELOG.md",
     "summary": {
       "valid": true,
       "releaseCount": 10,
@@ -14,19 +14,6 @@
       "unreleasedChanges": 0,
       "forgeName": "GitHub",
       "forgeURL": "https://github.com"
-    }
-  },
-  {
-    "filePath": "./README.md",
-    "summary": {
-      "valid": false,
-      "releaseCount": 0,
-      "timeRange": {
-        "from": "-999999999-01-01",
-        "to": "+999999999-12-31"
-      },
-      "compatibilities": [],
-      "unreleasedChanges": 0
     }
   }
 ]
