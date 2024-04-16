@@ -1,7 +1,7 @@
 # sandbox
 
 [![Download](https://img.shields.io/github/release/nbbrd/sandbox.svg)](https://github.com/nbbrd/sandbox/releases/latest)
-[![Changes](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnbbrd%2Fsandbox%2Fgh-pages%2Fheylogs%2Fscan.json&query=%24%5B0%3A1%5D.summary.unreleasedChanges&prefix=%23&label=unreleased%20changes&logo=keepachangelog&logoColor=white&color=E05735)](https://github.com/nbbrd/sandbox/blob/develop/CHANGELOG.md)
+[![Changes](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnbbrd%2Fsandbox%2Fgh-pages%2Fheylogs%2Fscan.json&query=0.summary.unreleasedChanges&prefix=%23&label=unreleased%20changes&logo=keepachangelog&logoColor=white&color=E05735)](https://github.com/nbbrd/sandbox/blob/develop/CHANGELOG.md)
 [![Qodana](https://github.com/nbbrd/sandbox/actions/workflows/qodana.yml/badge.svg)](https://github.com/nbbrd/sandbox/actions/workflows/qodana.yml)
 
 __This is not the project you are looking for.__
