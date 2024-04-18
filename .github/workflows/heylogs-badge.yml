@@ -10,9 +10,16 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          cache: 'maven'
+
       - name: Scan changelog and create badge content
         run: |
-          mvn com.github.nbbrd.heylogs:heylogs-maven-plugin:scan -Dheylogs.format.id=json -Dheylogs.output.file=heylogs/scan.json
+          mvn -B -ntp com.github.nbbrd.heylogs:heylogs-maven-plugin:scan -Dheylogs.format.id=json -Dheylogs.output.file=heylogs/scan.json
           jq '{schemaVersion: 1, label: "unreleased changes", message: "#\(.[0].summary.unreleasedChanges)", color: "E05735", logoColor: "white", namedLogo: "keepachangelog"}' heylogs/scan.json > heylogs/unreleased-changes.json
 
       - name: Deploy scan summary
