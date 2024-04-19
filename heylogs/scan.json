@@ -1,6 +1,6 @@
 [
   {
-    "filePath": "CHANGELOG.md",
+    "filePath": "/home/runner/work/sandbox/sandbox/CHANGELOG.md",
     "summary": {
       "valid": true,
       "releaseCount": 10,
@@ -13,7 +13,7 @@
       ],
       "unreleasedChanges": 1,
       "forgeName": "GitHub",
-      "forgeURL": "https://github.com"
+      "forgeURL": "https://github.com/nbbrd/sandbox"
     }
   }
 ]
