@@ -25,6 +25,7 @@ jobs:
 
   scan-job:
     needs: check-job
+    if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
