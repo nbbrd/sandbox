@@ -17,7 +17,7 @@ jobs:
           cache: 'maven'
           
       - name: Check changelog
-        run: mvn -B -ntp com.github.nbbrd.heylogs:heylogs-maven-plugin:0.8.1:check -Dheylogs.output.file=check.txt
+        run: mvn -B -ntp -U com.github.nbbrd.heylogs:heylogs-maven-plugin::check -Dheylogs.output.file=check.txt
         
       - name: Create summary
         if: always()
@@ -39,7 +39,7 @@ jobs:
           cache: 'maven'
           
       - name: Scan changelog
-        run: mvn -B -ntp com.github.nbbrd.heylogs:heylogs-maven-plugin:0.8.1:scan -Dheylogs.output.file=scan.json -Dheylogs.format.id=json
+        run: mvn -B -ntp -U com.github.nbbrd.heylogs:heylogs-maven-plugin::scan -Dheylogs.output.file=scan.json -Dheylogs.format.id=json
         
       - name: Create badges endpoint json
         run: |
@@ -50,5 +50,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: badges
           publish_dir: ./heylogs
-          destination_dir: ./heylogs
