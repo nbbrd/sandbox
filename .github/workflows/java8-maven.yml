@@ -35,7 +35,7 @@ jobs:
         with:
           command: mvn -U -B -ntp dependency:go-offline
           max_attempts: 3
-          timeout_seconds: 15
+          timeout_minutes: 5
 
       - name: Build and (headless) test with Maven
         uses: smithki/xvfb-action@v1.1.2
@@ -59,7 +59,7 @@ jobs:
         with:
           command: gh pr merge --auto --rebase "$PR_URL"
           max_attempts: 3
-          timeout_seconds: 15
+          timeout_minutes: 5
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
