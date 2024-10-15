@@ -38,7 +38,7 @@ jobs:
           timeout_minutes: 5
 
       - name: Build and (headless) test with Maven
-        run: xvfb-run mvn -U -B -ntp verify
+        run: if [ runner.os == 'Linux' ]; then xvfb-run mvn -U -B -ntp verify; else mvn -U -B -ntp verify; fi
 
 #      - name: Ensure reproducible builds with Maven
 #        run: mvn -U -B -ntp clean verify artifact:compare -DskipTests
