@@ -7,7 +7,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>2.4.4</version>
+        <version>2.4.5</version>
     </parent>
 
     <artifactId>sandbox-bom</artifactId>
@@ -18,7 +18,7 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <hugo-geekdoc.version>v0.44.1</hugo-geekdoc.version>
+        <hugo-geekdoc.version>v1.1.0</hugo-geekdoc.version>
         <java.bundled.version>jdk-21.0.2+13</java.bundled.version>
     </properties>
 
@@ -46,6 +46,11 @@
             </dependency>
             <dependency>
                 <artifactId>sandbox-netbeans</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>sandbox-netbeans-app</artifactId>
                 <groupId>${project.groupId}</groupId>
                 <version>${project.version}</version>
             </dependency>
@@ -115,7 +120,6 @@
                     <plugin>
                         <groupId>com.googlecode.maven-download-plugin</groupId>
                         <artifactId>download-maven-plugin</artifactId>
-                        <version>1.8.1</version>
                         <executions>
                             <execution>
                                 <id>download-hugo-theme</id>
@@ -146,7 +150,7 @@
             </properties>
             <build>
                 <plugins>
-                    <!-- Extract changelog for release -->
+                    <!-- Extract changelog -->
                     <plugin>
                         <groupId>com.github.nbbrd.heylogs</groupId>
                         <artifactId>heylogs-maven-plugin</artifactId>
@@ -166,12 +170,47 @@
 
                     <!-- Gather binaries and JRE -->
                     <plugin>
-                        <groupId>org.jreleaser</groupId>
-                        <artifactId>jdks-maven-plugin</artifactId>
-                        <version>1.10.0</version>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>download-windows-jre</id>
+                                <id>copy-binaries</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <artifactId>sandbox-picocli</artifactId>
+                                            <groupId>${project.groupId}</groupId>
+                                            <type>jar</type>
+                                            <classifier>bin</classifier>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <artifactId>sandbox-swing</artifactId>
+                                            <groupId>${project.groupId}</groupId>
+                                            <type>jar</type>
+                                            <classifier>bin</classifier>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <artifactId>sandbox-netbeans-app</artifactId>
+                                            <groupId>${project.groupId}</groupId>
+                                            <type>zip</type>
+                                            <destFileName>sandbox-netbeans-${project.version}.zip</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jreleaser</groupId>
+                        <artifactId>jdks-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>download-jre</id>
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>setup-disco</goal>
@@ -179,7 +218,7 @@
                                 <configuration>
                                     <pkgs>
                                         <pkg>
-                                            <name>temurin-windows-x86_64</name>
+                                            <name>jdk-windows-x86_64</name>
                                             <distribution>temurin</distribution>
                                             <platform>windows-x86_64</platform>
                                             <version>${java.bundled.version}</version>
@@ -187,7 +226,7 @@
                                             <archiveType>zip</archiveType>
                                         </pkg>
                                         <pkg>
-                                            <name>temurin-linux-x86_64</name>
+                                            <name>jdk-linux-x86_64</name>
                                             <distribution>temurin</distribution>
                                             <platform>linux-x86_64</platform>
                                             <version>${java.bundled.version}</version>
@@ -195,7 +234,7 @@
                                             <archiveType>tar.gz</archiveType>
                                         </pkg>
                                         <pkg>
-                                            <name>temurin-linux-aarch_64</name>
+                                            <name>jdk-linux-aarch_64</name>
                                             <distribution>temurin</distribution>
                                             <platform>linux-aarch64</platform>
                                             <version>${java.bundled.version}</version>
@@ -203,7 +242,7 @@
                                             <archiveType>tar.gz</archiveType>
                                         </pkg>
                                         <pkg>
-                                            <name>temurin-osx-x86_64</name>
+                                            <name>jdk-osx-x86_64</name>
                                             <distribution>temurin</distribution>
                                             <platform>osx-x86_64</platform>
                                             <version>${java.bundled.version}</version>
@@ -211,7 +250,7 @@
                                             <archiveType>tar.gz</archiveType>
                                         </pkg>
                                         <pkg>
-                                            <name>temurin-osx-aarch_64</name>
+                                            <name>jdk-osx-aarch_64</name>
                                             <distribution>temurin</distribution>
                                             <platform>osx-aarch64</platform>
                                             <version>${java.bundled.version}</version>
@@ -229,7 +268,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>pack-desktop-binaries</id>
@@ -239,19 +277,15 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy file="${project.basedir}/../sandbox-netbeans/application/target/sandbox-netbeans-app-${project.version}.zip"
-                                              tofile="${project.build.directory}/sandbox-netbeans-${project.version}.zip"/>
-
                                         <macrodef name="bundle-desktop">
                                             <attribute name="platform"/>
                                             <attribute name="extension"/>
                                             <attribute name="dir"/>
                                             <sequential>
-                                                <echo message="Bundling jdemetra for @{platform}" level="info"/>
-                                                <pathconvert property="temurin.@{platform}">
+                                                <echo message="Bundling @{platform}" level="info"/>
+                                                <pathconvert property="jdk.@{platform}">
                                                     <first>
-                                                        <fileset
-                                                                dir="${project.build.directory}/jdks/temurin-@{platform}"/>
+                                                        <fileset dir="${project.build.directory}/jdks/jdk-@{platform}"/>
                                                     </first>
                                                 </pathconvert>
                                                 <ant antfile="${project.basedir}/src/antrun/bundle-netbeans.xml">
@@ -260,7 +294,7 @@
                                                     <property name="x.bundleOutput"
                                                               value="${project.build.directory}/sandbox-netbeans-standalone-${project.version}-@{platform}.zip"/>
                                                     <property name="x.branding" value="sandboxnetbeans"/>
-                                                    <property name="x.jdkArchive" value="${temurin.@{platform}}"/>
+                                                    <property name="x.jdkArchive" value="${jdk.@{platform}}"/>
                                                     <property name="x.jdkDirectory" value="@{dir}"/>
                                                     <target name="bundle.@{extension}"/>
                                                 </ant>
@@ -323,7 +357,7 @@
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
-                                                            ${project.parent.basedir}/sandbox-picocli/target/sandbox-picocli-${project.version}-bin.jar
+                                                            ${project.build.directory}/sandbox-picocli-${project.version}-bin.jar
                                                         </path>
                                                     </artifact>
                                                 </artifacts>
@@ -348,7 +382,7 @@
                                                 <artifacts>
                                                     <artifact>
                                                         <path>
-                                                            ${project.parent.basedir}/sandbox-swing/target/sandbox-swing-${project.version}-bin.jar
+                                                            ${project.build.directory}/sandbox-swing-${project.version}-bin.jar
                                                         </path>
                                                     </artifact>
                                                 </artifacts>
@@ -364,7 +398,7 @@
                                                 <type>BINARY</type>
                                                 <stereotype>DESKTOP</stereotype>
                                                 <executable>
-<!--                                                    <name>sandboxnetbeans</name>-->
+                                                    <!--                                                    <name>sandboxnetbeans</name>-->
                                                     <unixExtension/>
                                                     <windowsExtension>exe</windowsExtension>
                                                 </executable>
@@ -417,9 +451,9 @@
                                                 </scoop>
                                                 <brew>
                                                     <active>RELEASE</active>
-<!--                                                    <repository>-->
-<!--                                                        <multiPlatform>true</multiPlatform>-->
-<!--                                                    </repository>-->
+                                                    <!--                                                    <repository>-->
+                                                    <!--                                                        <multiPlatform>true</multiPlatform>-->
+                                                    <!--                                                    </repository>-->
                                                 </brew>
                                             </hello-nbbrd-netbeans>
                                         </distributions>

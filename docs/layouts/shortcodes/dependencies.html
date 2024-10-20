@@ -7,9 +7,9 @@
     </tr>
     </thead>
     <tbody>
-    {{ $url := "static/dependencies.csv" }}
+    {{ $url := "dependencies.csv" }}
     {{ $sep := "," }}
-    {{ range $i, $r := getCSV $sep $url }}
+    {{ range $i, $r := resources.Get $url | transform.Unmarshal (dict "delimiter" $sep) }}
     <tr>
         {{ if ne $i 0 }}
         <td>{{ index $r 0 }}</td>

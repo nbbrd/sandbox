@@ -1,10 +1,17 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.4.5] - 2024-10-20
+
+### Added
+
+- Add Heylogs badge
 
 ## [2.3.0] - 2023-06-28
 
@@ -15,65 +22,79 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.2.3] - 2022-09-28
 
 ### Changed
+
 - Use heylogs to check and extract changelog
 
 ## [2.0.1] - 2021-10-19
 
 ### Fixed
+
 - Fix artifactId for JBang
 
 ## [2.0.0] - 2021-10-19
 
 ### Changed
+
 - New API
 
 ### Added
+
 - GUI application
 - Add distribution to JBang
 
 ## [1.17.4] - 2021-07-16
 
 ### Added
+
 - Add version option to CLI
 
 ## [1.17.3] - 2021-07-15
 
 ### Added
+
 - Add distribution to Homebrew
 
 ### Changed
+
 - Set checksums as individual files
 
 ## [1.17.2] - 2021-07-15
 
 ### Fixed
+
 - Fix distribution name
 
 ## [1.17.1] - 2021-07-15
 
 ### Added
+
 - Enable semver check by using jitpack.io
 - Add distribution to Scoop
 
 ## [1.16.7] - 2021-07-15
 
 ### Added
+
 - Add semver check (disabled by default)
 - Add basic check of PGP signatures
 
 ### Changed
+
 - Remove deployment to GitHub packages
 - Release assets with JReleaser
 
 ## [1.15.0] - 2021-04-23
 
 ### Added
+
 - Add release deploy to GitHub Packages
 
 ### Fixed
+
 - Fix logic in maven deploy script
 
-[Unreleased]: https://github.com/nbbrd/sandbox/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/nbbrd/sandbox/compare/v2.4.5...HEAD
+[2.4.5]: https://github.com/nbbrd/sandbox/compare/v2.3.0...v2.4.5
 [2.3.0]: https://github.com/nbbrd/sandbox/compare/v2.2.3...v2.3.0
 [2.2.3]: https://github.com/nbbrd/sandbox/compare/v2.0.1...v2.2.3
 [2.0.1]: https://github.com/nbbrd/sandbox/compare/v2.0.0...v2.0.1
