@@ -75,7 +75,7 @@ jobs:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
     strategy:
       matrix:
-        java: [ ${{ env.JAVA_MAX }} ]
+        java: [ '${{ env.JAVA_MAX }}' ]
         os: [ ubuntu-latest ]
 
     name: Snapshot on develop
@@ -125,7 +125,7 @@ jobs:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
-        java: [ ${{ env.JAVA_MAX }} ]
+        java: [ '${{ env.JAVA_MAX }}' ]
         os: [ ubuntu-latest ]
 
     name: Release on tag
