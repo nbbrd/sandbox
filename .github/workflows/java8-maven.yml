@@ -98,7 +98,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: ${{ needs.variables-job.outputs.java_max }}
+          java-version: ${{ env.JAVA_MAX }}
           cache: 'maven'
 
       - name: Deploy snapshot with Maven if settings defined
@@ -144,7 +144,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: ${{ needs.variables-job.outputs.java_max }}
+          java-version: ${{ env.JAVA_MAX }}
           cache: 'maven'
 
       - name: Deploy with Maven if settings defined
