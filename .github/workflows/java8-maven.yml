@@ -4,6 +4,8 @@ on: [ push, pull_request ]
 
 env:
   MAVEN_ARGS: "-B -ntp"
+  JAVA_MIN: 8
+  JAVA_MAX: 21
 
 jobs:
   build-and-test-job:
@@ -13,7 +15,7 @@ jobs:
       matrix:
 #        java: [ 8, 21 ]
 #        os: [ ubuntu-latest, macos-13, windows-latest ]
-        java: [ 21 ]
+        java: [ ${{ env.JAVA_MAX }} ]
         os: [ ubuntu-latest ]
 
     name: JDK${{ matrix.java }} on ${{ matrix.os }}
@@ -75,7 +77,7 @@ jobs:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
     strategy:
       matrix:
-        java: [ 21 ]
+        java: [ ${{ env.JAVA_MAX }} ]
         os: [ ubuntu-latest ]
 
     name: Snapshot on develop
@@ -125,7 +127,7 @@ jobs:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
-        java: [ 21 ]
+        java: [ ${{ env.JAVA_MAX }} ]
         os: [ ubuntu-latest ]
 
     name: Release on tag
