@@ -15,12 +15,13 @@ jobs:
       java_min: ${{ env.JAVA_MIN }}
       java_max: ${{ env.JAVA_MAX }}
       is_pull_request: ${{ github.event_name == 'pull_request' }}
+      is_main_branch: startsWith(github.ref, 'refs/heads/develop')
     steps:
       - run: echo
       
   build-and-test-job:
     needs: variables-job
-    if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/tags/v')
+    if: needs.variables-job.outputs.is_pull_request || needs.variables-job.outputs.is_main_branch || startsWith(github.ref, 'refs/tags/v')
     strategy:
       fail-fast: false
       matrix:
