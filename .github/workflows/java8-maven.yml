@@ -14,15 +14,12 @@ jobs:
     outputs:
       java_min: ${{ env.JAVA_MIN }}
       java_max: ${{ env.JAVA_MAX }}
-      is_pull_request: ${{ github.event_name == 'pull_request' }}
-      is_main_branch: ${{ startsWith(github.ref, 'refs/heads/develop') }}
-      is_release_tag: ${{ startsWith(github.ref, 'refs/tags/v') }}
     steps:
       - run: echo
       
   build-and-test-job:
     needs: vars-job
-    if: needs.vars-job.outputs.is_pull_request || needs.vars-job.outputs.is_main_branch || needs.vars-job.outputs.is_release_tag
+    if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/tags/v')
     strategy:
       fail-fast: false
       matrix:
@@ -34,7 +31,7 @@ jobs:
 
     steps:
       - name: hello
-        run: echo ${{ needs.vars-job.outputs }}
+        run: echo ${{ needs.vars-job.outputs.java_min }}
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
@@ -67,8 +64,8 @@ jobs:
 #        run: mvn -U clean verify artifact:compare -DskipTests
 
   auto-merge-job:
-    needs: [ vars-job, build-and-test-job ]
-    if: startsWith(github.repository, 'nbbrd/') && needs.vars-job.outputs.is_pull_request && github.actor == 'dependabot[bot]'
+    needs: build-and-test-job
+    if: startsWith(github.repository, 'nbbrd/') && github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
     permissions:
       contents: write
       pull-requests: write
@@ -86,8 +83,8 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   snapshot-job:
-    needs: [ vars-job, build-and-test-job ]
-    if: startsWith(github.repository, 'nbbrd/') && needs.vars-job.outputs.is_main_branch
+    needs: build-and-test-job
+    if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
 
     name: Snapshot on develop
     runs-on: ubuntu-latest
@@ -132,8 +129,8 @@ jobs:
             out/jreleaser/output.properties
 
   release-job:
-    needs: [ vars-job, build-and-test-job ]
-    if: startsWith(github.repository, 'nbbrd/') && needs.vars-job.outputs.is_release_tag
+    needs: build-and-test-job
+    if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
 
     name: Release on tag
     runs-on: ubuntu-latest
