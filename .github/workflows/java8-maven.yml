@@ -11,7 +11,11 @@ jobs:
   variables-job:
     runs-on: ubuntu-latest
     outputs:
-      java_min: ${{ env.JAVA_MIN }}  
+      java_min: ${{ env.JAVA_MIN }}
+    steps:
+      - name: Dummy job when we have just simple variables
+        if: false
+        run: echo
       
   build-and-test-job:
     needs: variables-job
@@ -19,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '${{ needs.variables.outputs.java_min }}' ]
+        java: [ '${{ needs.variables-job.outputs.java_min }}' ]
         os: [ ubuntu-latest ]
 
     name: JDK${{ matrix.java }} on ${{ matrix.os }}
