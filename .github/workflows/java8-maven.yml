@@ -14,6 +14,7 @@ jobs:
     outputs:
       java_min: ${{ env.JAVA_MIN }}
       java_max: ${{ env.JAVA_MAX }}
+      is_pull_request: ${{ github.event_name == 'pull_request' }}
     steps:
       - run: echo
       
@@ -30,6 +31,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: hello
+        run: echo ${{ needs.variables-job.outputs.is_pull_request }}
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
