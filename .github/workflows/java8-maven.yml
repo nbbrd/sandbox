@@ -13,9 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-#        java: [ 8, 21 ]
-#        os: [ ubuntu-latest, macos-13, windows-latest ]
-        java: [ ${{ env.JAVA_MAX }} ]
+        java: [ '${{ env.JAVA_MIN }}', '${{ env.JAVA_MAX }}' ]
         os: [ ubuntu-latest ]
 
     name: JDK${{ matrix.java }} on ${{ matrix.os }}
