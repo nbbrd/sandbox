@@ -1,4 +1,4 @@
-name: Java8+ with Maven
+name: Java with Maven
 
 on: [ push, pull_request ]
 
@@ -9,13 +9,13 @@ env:
 
 jobs:
   variables-job:
+    name: Compute variables
     runs-on: ubuntu-latest
     outputs:
       java_min: ${{ env.JAVA_MIN }}
+      java_max: ${{ env.JAVA_MAX }}
     steps:
-      - name: Dummy job when we have just simple variables
-        if: false
-        run: echo
+      - run: echo
       
   build-and-test-job:
     needs: variables-job
@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '${{ needs.variables-job.outputs.java_min }}' ]
+        java: [ '${{ needs.variables-job.outputs.java_min }}', '${{ needs.variables-job.outputs.java_max }}' ]
         os: [ ubuntu-latest ]
 
     name: JDK${{ matrix.java }} on ${{ matrix.os }}
@@ -83,13 +83,9 @@ jobs:
   snapshot-job:
     needs: build-and-test-job
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
-    strategy:
-      matrix:
-        java: [ 21 ]
-        os: [ ubuntu-latest ]
 
     name: Snapshot on develop
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
@@ -102,7 +98,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: ${{ matrix.java }}
+          java-version: ${{ needs.variables-job.outputs.java_max }}
           cache: 'maven'
 
       - name: Deploy snapshot with Maven if settings defined
@@ -133,13 +129,9 @@ jobs:
   release-job:
     needs: build-and-test-job
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
-    strategy:
-      matrix:
-        java: [ 21 ]
-        os: [ ubuntu-latest ]
 
     name: Release on tag
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
@@ -152,7 +144,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: ${{ matrix.java }}
+          java-version: ${{ needs.variables-job.outputs.java_max }}
           cache: 'maven'
 
       - name: Deploy with Maven if settings defined
