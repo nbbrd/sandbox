@@ -14,6 +14,7 @@ jobs:
     outputs:
       java_min: ${{ env.JAVA_MIN }}
       java_max: ${{ env.JAVA_MAX }}
+      origin: 'nbbrd/'
     steps:
       - run: echo
       
@@ -31,7 +32,7 @@ jobs:
 
     steps:
       - name: hello
-        run: echo ${{ needs.vars-job.outputs.java_min }}
+        run: echo ${{ needs.vars-job.outputs.origin }}
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
@@ -83,8 +84,8 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   snapshot-job:
-    needs: build-and-test-job
-    if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
+    needs: [ vars-job, build-and-test-job ]
+    if: startsWith(github.repository, needs.vars-job.outputs.origin) && startsWith(github.ref, 'refs/heads/develop')
 
     name: Snapshot on develop
     runs-on: ubuntu-latest
