@@ -1,6 +1,6 @@
 name: Java with Maven
 
-on: [ push, pull_request ]
+on: [ push, pull_request, workflow_dispatch ]
 
 env:
   MAVEN_ARGS: "-B -ntp"
@@ -51,33 +51,14 @@ jobs:
 
       - name: Build and (headless) test with Maven (Linux)
         if: ${{ runner.os == 'Linux' }}
-        run: xvfb-run mvn -U verify
+        run: xvfb-run mvn verify
 
       - name: Build and (headless) test with Maven (Windows and macOS)
         if: ${{ runner.os != 'Linux' }}
-        run: mvn -U verify
+        run: mvn verify
 
 #      - name: Ensure reproducible builds with Maven
 #        run: mvn -U clean verify artifact:compare -DskipTests
-
-  auto-merge-job:
-    needs: [ vars-job, build-and-test-job ]
-    if: startsWith(github.repository, needs.vars-job.outputs.origin) && github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
-    permissions:
-      contents: write
-      pull-requests: write
-    name: Auto-merge on dependabot PR
-    runs-on: ubuntu-latest
-    steps:
-      - name: Merge PR
-        uses: nick-fields/retry@v3
-        with:
-          command: gh pr merge --auto --rebase "$PR_URL"
-          max_attempts: 3
-          timeout_minutes: 5
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   snapshot-job:
     needs: [ vars-job, build-and-test-job ]
@@ -172,3 +153,24 @@ jobs:
           path: |
             out/jreleaser/trace.log
             out/jreleaser/output.properties
+
+  auto-merge-job:
+    needs: [ vars-job, build-and-test-job ]
+    if: startsWith(github.repository, needs.vars-job.outputs.origin) && github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
+    permissions:
+      contents: write
+      pull-requests: write
+
+    name: Auto-merge on dependabot PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Merge PR
+        uses: nick-fields/retry@v3
+        with:
+          command: gh pr merge --auto --rebase "$PR_URL"
+          max_attempts: 3
+          timeout_minutes: 5
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
