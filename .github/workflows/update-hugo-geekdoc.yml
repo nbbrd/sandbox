@@ -1,32 +1,23 @@
-name: Update java.bundled
+name: Update hugo-geekdoc
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * SAT'
 
+env:
+  MAVEN_ARGS: "-B -ntp"
+  DEP_PROP: hugo-geekdoc.version
+  DEP_REPO: thegeeklab/hugo-geekdoc
+
 jobs:
-  update-mvn-property:
+  update-mvn-property-job:
     runs-on: ubuntu-latest
     name: Update Maven property using the latest release version (tag) of a GitHub repository
 
-    env:
-      DEP_PROP: java.bundled.version
-      DEP_REPO: adoptium/temurin21-binaries
-
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 0
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 21
-          cache: 'maven'
+      - name: Checkout and Setup Maven
+        uses: s4u/setup-maven-action@v1.18.0
 
       - name: Get latest release version
         id: lr
@@ -36,7 +27,7 @@ jobs:
 
       - name: Apply latest release version on Maven property
         run: >
-          mvn -B -ntp versions:set-property 
+          mvn versions:set-property 
           -Dproperty=${{ env.DEP_PROP }}
           -DnewVersion=${{ steps.lr.outputs.release }} 
           -DgenerateBackupPoms=false

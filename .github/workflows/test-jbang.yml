@@ -1,9 +1,9 @@
-name: JBang example
+name: Test JBang
 
 on: workflow_dispatch
 
 jobs:
-  run-job:
+  test-jbang-job:
     runs-on: ubuntu-latest
     name: heylogs version
     steps:

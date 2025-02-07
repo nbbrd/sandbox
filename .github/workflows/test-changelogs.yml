@@ -1,9 +1,9 @@
-name: Update changelogs
+name: Test changelogs
 
 on: workflow_dispatch
 
 jobs:
-  update-changelogs:
+  test-changelogs-job:
     runs-on: ubuntu-latest
     steps:
       - name: Download
