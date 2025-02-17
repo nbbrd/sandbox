@@ -34,7 +34,6 @@ jobs:
         with:
           checkout-submodules: true
           checkout-fetch-depth: 0
-          java-distribution: 'temurin'
           java-version: ${{ matrix.java }}
 
       - name: Pre-download dependencies with Maven
@@ -68,7 +67,6 @@ jobs:
         with:
           checkout-submodules: true
           checkout-fetch-depth: 0
-          java-distribution: 'temurin'
           java-version: ${{ needs.vars-job.outputs.java_max }}
 
       - name: Deploy snapshot with Maven if settings defined
@@ -109,7 +107,6 @@ jobs:
         with:
           checkout-submodules: true
           checkout-fetch-depth: 0
-          java-distribution: 'temurin'
           java-version: ${{ needs.vars-job.outputs.java_max }}
 
       - name: Deploy with Maven if settings defined
