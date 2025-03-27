@@ -15,6 +15,10 @@
     <description>Sandbox - Figlet</description>
     <url>https://github.com/nbbrd/sandbox</url>
 
+    <properties>
+        <picocsv.version>2.5.1</picocsv.version>
+    </properties>
+
     <dependencies>
         <!-- compile only -->
         <dependency>
@@ -38,6 +42,11 @@
             <groupId>com.github.lalyos</groupId>
             <artifactId>jfiglet</artifactId>
             <version>0.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.nbbrd.picocsv</groupId>
+            <artifactId>picocsv</artifactId>
+            <version>${picocsv.version}</version>
         </dependency>
     </dependencies>
 </project>
