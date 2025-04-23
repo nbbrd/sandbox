@@ -1,0 +1,38 @@
+name: Check compatibility step 1
+
+on:
+  pull_request:
+
+env:
+  MAVEN_ARGS: "-B -ntp"
+
+jobs:
+  checking-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⚙️ Checkout and Setup Maven
+        uses: s4u/setup-maven-action@v1.18.0
+        with:
+          checkout-submodules: true
+          checkout-fetch-depth: 0
+          java-version: 17
+          settings-pluginRepositories: '[{"id":"nbbrd-snapshots","name":"nbbrd-snapshots","url":"https://s01.oss.sonatype.org/content/repositories/snapshots","snapshots":{"enabled":true}}]'
+
+      - name: ❓ Check if profile exists
+        run: mvn help:all-profiles | grep -q check-compatibility && touch continue
+
+      - if: ${{ hashFiles('continue') != '' }}
+        name: ☕ Check compatibility on PR
+        run: mvn -U verify -D skipTests -P check-compatibility -D compatibility.report.file=$PWD/compatibility.md
+
+      - if: ${{ hashFiles('continue') != '' }}
+        name: ⚙️ Store PR number
+        run: echo ${{ github.event.number }} > pr_number.txt
+
+      - if: ${{ hashFiles('continue') != '' }}
+        name: ⬆️ Upload compatibility report and PR number
+        uses: actions/upload-artifact@v4
+        with:
+          path: |
+            compatibility.md
+            pr_number.txt
