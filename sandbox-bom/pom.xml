@@ -465,5 +465,60 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>check-compatibility</id>
+            <properties>
+                <checkoutDir>${project.build.directory}</checkoutDir>
+                <checkoutUri>${project.baseUri}/target</checkoutUri>
+                <mockedBaseDir>${checkoutDir}/project</mockedBaseDir>
+                <mockedBaseUri>${checkoutUri}/project</mockedBaseUri>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <version>2.1.0</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>checkout</goal>
+                                </goals>
+                                <configuration>
+                                    <checkoutDirectory>${mockedBaseDir}</checkoutDirectory>
+                                    <connectionUrl>scm:git:https://github.com/jdemetra/jdplus-main.git</connectionUrl>
+                                    <scmVersion>develop</scmVersion>
+                                    <scmVersionType>branch</scmVersionType>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.nbbrd.nbbrd-maven-tools</groupId>
+                        <artifactId>compatibility-maven-plugin</artifactId>
+                        <version>1.0.0-SNAPSHOT</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check-downstream</goal>
+                                </goals>
+                                <configuration>
+                                    <source>${mockedBaseUri}</source>
+                                    <targets>
+                                        <target>https://github.com/jdemetra/jdplus-nowcasting</target>
+                                        <target>https://github.com/nbbrd/jdplus-sdmx</target>
+                                    </targets>
+                                    <property>jdplus-main.version</property>
+                                    <targetLimit>1</targetLimit>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>

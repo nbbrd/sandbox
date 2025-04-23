@@ -1,0 +1,54 @@
+name: Check compatibility
+
+on:
+  pull_request
+
+env:
+  MAVEN_ARGS: "-B -ntp"
+
+jobs:
+  compatibility-check-job:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout and Setup Maven
+        uses: s4u/setup-maven-action@v1.18.0
+        with:
+          checkout-submodules: true
+          checkout-fetch-depth: 0
+          java-version: 17
+          settings-pluginRepositories: '[{"id":"nbbrd-snapshots","name":"nbbrd-snapshots","url":"https://s01.oss.sonatype.org/content/repositories/snapshots","snapshots":{"enabled":true}}]'
+
+      - name: Check if profile exists
+        run: mvn help:all-profiles | grep -q check-compatibility && touch continue
+
+      - if: ${{ hashFiles('continue') != '' }}
+        name: Predict run time
+        id: predict_run_time
+        uses: jerome-1010/workflow-time-predictor@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          owner: ${{ github.repository_owner }}
+          repository: ${{ github.event.repository.name }}
+          workflow-file-name: "check-compatibility.yml"
+
+      - if: ${{ hashFiles('continue') != '' }}
+        name: Notify about compatibility check
+        uses: peter-evans/create-or-update-comment@v4
+        id: notification
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: "⚠️ Checking compatibility on this PR (median duration: ${{steps.predict_run_time.outputs.succeed_median_time}}min) ⚠️"
+
+      - if: ${{ hashFiles('continue') != '' }}
+        name: Check compatibility on PR
+        run: mvn -U verify -D skipTests -P check-compatibility -D compatibility.report.file=$PWD/compatibility.md
+
+      - if: ${{ hashFiles('continue') != '' }}
+        name: Replace notification with compatibility report
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.notification.outputs.comment-id }}
+          body-path: 'compatibility.md'
+          edit-mode: replace
