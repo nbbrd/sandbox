@@ -511,7 +511,7 @@
                                         <target>https://github.com/jdemetra/jdplus-nowcasting</target>
                                         <target>https://github.com/nbbrd/jdplus-sdmx</target>
                                     </targets>
-                                    <property>jdplus-main.version</property>
+                                    <targetBinding>eu.europa.ec.joinup.sat</targetBinding>
                                     <targetLimit>1</targetLimit>
                                 </configuration>
                             </execution>
