@@ -507,12 +507,12 @@
                                 </goals>
                                 <configuration>
                                     <source>${mockedBaseUri}</source>
+                                    <sourceBinding>eu.europa.ec.joinup.sat</sourceBinding>
                                     <targets>
                                         <target>https://github.com/jdemetra/jdplus-nowcasting</target>
                                         <target>https://github.com/nbbrd/jdplus-sdmx</target>
                                     </targets>
-                                    <targetBinding>eu.europa.ec.joinup.sat</targetBinding>
-                                    <targetLimit>1</targetLimit>
+                                    <targetLimits>1,1</targetLimits>
                                 </configuration>
                             </execution>
                         </executions>

@@ -23,7 +23,7 @@ jobs:
 
       - if: ${{ hashFiles('continue') != '' }}
         name: ☕ Check compatibility on PR
-        run: mvn -U verify -D skipTests -P check-compatibility -D compatibility.reportFile=$PWD/compatibility.md
+        run: mvn -U verify -D skipTests -P check-compatibility -D compatibility.reportFile=$PWD/report.md
 
       - if: ${{ hashFiles('continue') != '' }}
         name: ⚙️ Store PR number
@@ -34,5 +34,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: |
-            compatibility.md
+            report.md
             pr_number.txt
