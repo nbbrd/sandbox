@@ -16,7 +16,7 @@ jobs:
             ${{ runner.os }}-jbang-
 
       - name: Print latest stable version of heylogs using catalog
-        uses: jbangdev/jbang-action@v0.126.0
+        uses: jbangdev/jbang-action@v0.126.1
         with:
           trust: https://github.com/nbbrd/jbang-catalog/
           script: heylogs@nbbrd
@@ -25,7 +25,7 @@ jobs:
           JBANG_REPO: ~/.jbang/repository
 
       - name: Print latest stable version of sdmx-dl using Maven coordinate
-        uses: jbangdev/jbang-action@v0.126.0
+        uses: jbangdev/jbang-action@v0.126.1
         with:
           script: com.github.nbbrd.sdmx-dl:sdmx-dl-cli:RELEASE:bin
           scriptargs: "--version"
