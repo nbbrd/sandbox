@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.2] - 2025-05-19
+
 ## [2.5.0] - 2024-10-21
 
 ### Added
@@ -99,7 +101,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix logic in maven deploy script
 
-[Unreleased]: https://github.com/nbbrd/sandbox/compare/v2.5.0...HEAD
+[Unreleased]: https://github.com/nbbrd/sandbox/compare/v2.5.2...HEAD
+[2.5.2]: https://github.com/nbbrd/sandbox/compare/v2.5.0...v2.5.2
 [2.5.0]: https://github.com/nbbrd/sandbox/compare/v2.4.5...v2.5.0
 [2.4.5]: https://github.com/nbbrd/sandbox/compare/v2.3.0...v2.4.5
 [2.3.0]: https://github.com/nbbrd/sandbox/compare/v2.2.3...v2.3.0
