@@ -2,23 +2,19 @@ name: Heylogs
 
 on: [ push ]
 
+env:
+  MAVEN_ARGS: "-B -ntp"
+
 jobs:
   badge-job:
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 21
-          cache: 'maven'
+      - name: Checkout and Setup Maven
+        uses: s4u/setup-maven-action@v1.18.0
 
       - name: Scan changelog
-        run: mvn -B -ntp -U com.github.nbbrd.heylogs:heylogs-maven-plugin::scan -Dheylogs.output.file=scan.json -Dheylogs.format.id=json
+        run: mvn -U com.github.nbbrd.heylogs:heylogs-maven-plugin::scan -Dheylogs.output.file=scan.json -Dheylogs.format.id=json
 
       - name: Create badges endpoint json
         run: |

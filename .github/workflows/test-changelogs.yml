@@ -1,9 +1,9 @@
-name: Update changelogs
+name: Test changelogs
 
 on: workflow_dispatch
 
 jobs:
-  update-changelogs:
+  test-changelogs-job:
     runs-on: ubuntu-latest
     steps:
       - name: Download
@@ -18,7 +18,7 @@ jobs:
         run: mkdir changelogs
 
       - name: Scan
-        uses: jbangdev/jbang-action@v0.119.0
+        uses: jbangdev/jbang-action@v0.126.1
         with:
           script: com.github.nbbrd.heylogs:heylogs-cli:0.8.0:bin
           scriptargs: "scan . -f json -o changelogs/scan.json"

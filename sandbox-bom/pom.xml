@@ -7,7 +7,7 @@
     <parent>
         <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
-        <version>2.5.0</version>
+        <version>2.5.1</version>
     </parent>
 
     <artifactId>sandbox-bom</artifactId>
@@ -18,8 +18,8 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <hugo-geekdoc.version>v1.1.0</hugo-geekdoc.version>
-        <java.bundled.version>jdk-21.0.2+13</java.bundled.version>
+        <hugo-geekdoc.version>v1.5.1</hugo-geekdoc.version>
+        <java.bundled.version>jdk-21.0.7+6</java.bundled.version>
     </properties>
 
     <dependencyManagement>
@@ -62,7 +62,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>1.7.0</version>
                 <configuration>
                     <flattenMode>bom</flattenMode>
                     <outputDirectory>${project.build.directory}</outputDirectory>
@@ -458,6 +458,61 @@
                                             </hello-nbbrd-netbeans>
                                         </distributions>
                                     </jreleaser>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>check-compatibility</id>
+            <properties>
+                <checkoutDir>${project.build.directory}</checkoutDir>
+                <checkoutUri>${project.baseUri}/target</checkoutUri>
+                <mockedBaseDir>${checkoutDir}/project</mockedBaseDir>
+                <mockedBaseUri>${checkoutUri}/project</mockedBaseUri>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <version>2.1.0</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>checkout</goal>
+                                </goals>
+                                <configuration>
+                                    <checkoutDirectory>${mockedBaseDir}</checkoutDirectory>
+                                    <connectionUrl>scm:git:https://github.com/jdemetra/jdplus-main.git</connectionUrl>
+                                    <scmVersion>develop</scmVersion>
+                                    <scmVersionType>branch</scmVersionType>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.nbbrd.nbbrd-maven-tools</groupId>
+                        <artifactId>compatibility-maven-plugin</artifactId>
+                        <version>1.0.1</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check-downstream</goal>
+                                </goals>
+                                <configuration>
+                                    <source>${mockedBaseUri}</source>
+                                    <sourceBinding>eu.europa.ec.joinup.sat</sourceBinding>
+                                    <targets>
+                                        <target>https://github.com/jdemetra/jdplus-nowcasting</target>
+                                        <target>https://github.com/nbbrd/jdplus-sdmx</target>
+                                    </targets>
+                                    <targetLimits>1,1</targetLimits>
                                 </configuration>
                             </execution>
                         </executions>

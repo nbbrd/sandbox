@@ -2,6 +2,9 @@ name: Documentation deployment
 
 on: [ push ]
 
+env:
+  MAVEN_ARGS: "-B -ntp"
+
 jobs:
   check:
     name: Check resources
@@ -9,7 +12,7 @@ jobs:
 
     steps:
       - name: Check jbang-action
-        uses: jbangdev/jbang-action@v0.119.0
+        uses: jbangdev/jbang-action@v0.126.1
         with:
           trust: https://github.com/nbbrd/jbang-catalog/
           script: heylogs@nbbrd
@@ -26,21 +29,11 @@ jobs:
       DOC_URL: "http://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/${{ github.ref_name }}"
 
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 0
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 17
-          cache: 'maven'
+      - name: Checkout and Setup Maven
+        uses: s4u/setup-maven-action@v1.18.0
 
       - name: Setup docs with Maven
-        run: mvn -B -ntp install -DskipTests -P setup-docs
+        run: mvn install -DskipTests -P setup-docs
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
@@ -81,7 +74,7 @@ jobs:
             $-jbang-
 
       - name: Create index.html
-        uses: jbangdev/jbang-action@v0.119.0
+        uses: jbangdev/jbang-action@v0.126.1
         with:
           trust: https://gist.github.com/charphi/
           script: https://gist.github.com/charphi/f44a24eb35dbd61b9f1d7759f0e561bd
