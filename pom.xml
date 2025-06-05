@@ -233,7 +233,6 @@
     <modules>
         <module>sandbox-api</module>
         <module>sandbox-figlet</module>
-        <module>sandbox-protobuf</module>
     </modules>
 
     <profiles>
@@ -250,6 +249,17 @@
                 <module>sandbox-swing</module>
                 <module>sandbox-netbeans</module>
                 <module>sandbox-bom</module>
+            </modules>
+        </profile>
+
+        <!-- Java11 modules -->
+        <profile>
+            <id>java11-modules</id>
+            <activation>
+                <jdk>[11,)</jdk>
+            </activation>
+            <modules>
+                <module>sandbox-protobuf</module>
             </modules>
         </profile>
 
