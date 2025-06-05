@@ -22,7 +22,7 @@ jobs:
         include:
           - os: windows-11-arm    # Windows arm64
             java: 21
-            custom_args: -D \"os.arch=amd64\"
+            custom_args: -D "os.arch=amd64"
 
     name: JDK${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
