@@ -23,8 +23,11 @@ jobs:
           - os: windows-11-arm    # Windows arm64
             java: 21
             custom_args: -D "os.arch=amd64"  # Force x64 on Windows arm64
+          - os: windows-11-arm    # Windows arm64
+            java: 21
+            custom_args: -D "os.arch=x86_32"  # Force x86_32 on Windows arm64
 
-    name: JDK${{ matrix.java }} on ${{ matrix.os }}
+    name: JDK${{ matrix.java }} on ${{ matrix.os }} with [${{ matrix.custom_args }}]
     runs-on: ${{ matrix.os }}
 
     steps:
