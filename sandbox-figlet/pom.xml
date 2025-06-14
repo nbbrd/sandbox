@@ -16,7 +16,7 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <picocsv.version>2.5.1</picocsv.version>
+        <picocsv.version>2.6.0</picocsv.version>
     </properties>
 
     <dependencies>
