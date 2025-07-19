@@ -19,7 +19,7 @@
 
     <properties>
         <hugo-geekdoc.version>v1.5.1</hugo-geekdoc.version>
-        <java.bundled.version>jdk-21.0.7+6</java.bundled.version>
+        <java.bundled.version>jdk-21.0.8+9</java.bundled.version>
     </properties>
 
     <dependencyManagement>
