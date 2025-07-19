@@ -18,7 +18,7 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <hugo-geekdoc.version>v1.5.1</hugo-geekdoc.version>
+        <hugo-geekdoc.version>v1.6.1</hugo-geekdoc.version>
         <java.bundled.version>jdk-21.0.7+6</java.bundled.version>
     </properties>
 
