@@ -10,7 +10,7 @@ jobs:
     name: Compute variables
     runs-on: ubuntu-latest
     outputs:
-      java_min: '8'
+      java_min: '17'
       java_max: '21'
       origin: 'nbbrd/'
     steps:
