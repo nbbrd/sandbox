@@ -16,7 +16,7 @@
     <url>https://github.com/nbbrd/sandbox</url>
 
     <properties>
-        <protobuf.version>4.32.1</protobuf.version>
+        <protobuf.version>4.33.0</protobuf.version>
     </properties>
 
     <dependencies>
