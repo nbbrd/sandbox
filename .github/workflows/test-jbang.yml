@@ -8,7 +8,7 @@ jobs:
     name: heylogs version
     steps:
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.jbang
           key: ${{ runner.os }}-jbang-${{ hashFiles('*.java') }}
