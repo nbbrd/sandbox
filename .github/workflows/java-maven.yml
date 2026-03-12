@@ -1,66 +1,89 @@
-name: "🧩 Java with Maven"
+name: Java8+ with Maven
 
-on: [ push, pull_request, workflow_dispatch ]
+on: [ push, pull_request ]
 
 env:
   MAVEN_ARGS: "-B -ntp"
 
 jobs:
-  vars-job:
-    name: "🧮 Compute variables"
-    runs-on: ubuntu-latest
-    outputs:
-      java_min: '17'
-      java_max: '21'
-      origin: 'nbbrd/'
-    steps:
-      - run: echo
-      
   build-and-test-job:
-    needs: vars-job
     if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/tags/v')
     strategy:
       fail-fast: false
       matrix:
-        java: [ '${{ needs.vars-job.outputs.java_min }}', '${{ needs.vars-job.outputs.java_max }}' ]
-        os: [ ubuntu-latest, macos-15-intel ]
+        java: [ 17, 21 ]
+        os: [ ubuntu-latest, macos-15-intel, windows-latest ]
 
-    name: "☕ JDK${{ matrix.java }} on ${{ matrix.os }}"
+    name: JDK${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: "📦 Checkout and Setup Maven"
-        uses: s4u/setup-maven-action@v1.19.0
+      - name: Checkout source code
+        uses: actions/checkout@v6
         with:
-          checkout-submodules: true
-          checkout-fetch-depth: 0
-          java-version: ${{ matrix.java }}
+          submodules: true
+          fetch-depth: 0
 
-      - name: "📥 Pre-download dependencies with Maven"
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java }}
+          cache: 'maven'
+
+      - name: Pre-download dependencies with Maven
         run: mvn -U dependency:go-offline
 
       - name: Build and (headless) test with Maven
         run: ${{ runner.os == 'Linux' && 'xvfb-run' || '' }} mvn install
 
-#      - name: Ensure reproducible builds with Maven
-#        run: mvn -U clean verify artifact:compare -DskipTests
+  auto-merge-job:
+    needs: build-and-test-job
+    if: startsWith(github.repository, 'nbbrd/') && github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
+    permissions:
+      contents: write
+      pull-requests: write
 
-  snapshot-job:
-    needs: [ vars-job, build-and-test-job ]
-    if: startsWith(github.repository, needs.vars-job.outputs.origin) && startsWith(github.ref, 'refs/heads/develop')
-
-    name: "📸 Snapshot on develop"
+    name: Auto-merge on dependabot PR
     runs-on: ubuntu-latest
 
     steps:
-      - name: "📦 Checkout and Setup Maven"
-        uses: s4u/setup-maven-action@v1.19.0
+      - name: Merge PR
+        uses: nick-fields/retry@v3
         with:
-          checkout-submodules: true
-          checkout-fetch-depth: 0
-          java-version: ${{ needs.vars-job.outputs.java_max }}
+          command: gh pr merge --auto --rebase "$PR_URL"
+          max_attempts: 3
+          timeout_minutes: 5
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: "🚀 Deploy snapshot with Maven if settings defined"
+  snapshot-job:
+    needs: build-and-test-job
+    if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
+    strategy:
+      matrix:
+        java: [ 21 ]
+        os: [ ubuntu-latest ]
+
+    name: Snapshot on develop
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java }}
+          cache: 'maven'
+
+      - name: Deploy snapshot with Maven if settings defined
         run: test ! -f ci.settings.xml || mvn deploy -DskipTests -s ci.settings.xml -P base-deploy,snapshot-deploy,!non-deployable-modules
         env:
           CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
@@ -68,7 +91,7 @@ jobs:
           SIGN_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
-      - name: "📦 Dryrun release assets with Maven"
+      - name: Dryrun release assets with Maven
         run: mvn install -DskipTests -P full-release -Djreleaser.output.directory=$PWD/out/jreleaser -Djreleaser.dry.run
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
@@ -76,7 +99,7 @@ jobs:
           JRELEASER_GPG_SECRET_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
-      - name: "⬆️ Upload JReleaser output"
+      - name: Upload JReleaser output
         if: always()
         uses: actions/upload-artifact@v7
         with:
@@ -86,21 +109,31 @@ jobs:
             out/jreleaser/output.properties
 
   release-job:
-    needs: [ vars-job, build-and-test-job ]
-    if: startsWith(github.repository, needs.vars-job.outputs.origin) && startsWith(github.ref, 'refs/tags/v')
+    needs: build-and-test-job
+    if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
+    strategy:
+      matrix:
+        java: [ 21 ]
+        os: [ ubuntu-latest ]
 
-    name: "🏷️ Release on tag"
-    runs-on: ubuntu-latest
+    name: Release on tag
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - name: "📦 Checkout and Setup Maven"
-        uses: s4u/setup-maven-action@v1.19.0
+      - name: Checkout source code
+        uses: actions/checkout@v6
         with:
-          checkout-submodules: true
-          checkout-fetch-depth: 0
-          java-version: ${{ needs.vars-job.outputs.java_max }}
+          submodules: true
+          fetch-depth: 0
 
-      - name: "🚀 Deploy with Maven if settings defined"
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java }}
+          cache: 'maven'
+
+      - name: Deploy with Maven if settings defined
         run: test ! -f ci.settings.xml || mvn deploy -DskipTests -s ci.settings.xml -P base-deploy,release-deploy,!non-deployable-modules
         env:
           CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
@@ -110,7 +143,7 @@ jobs:
           # Fix https://issues.sonatype.org/browse/OSSRH-66257
           MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
 
-      - name: "📦 Release assets with Maven"
+      - name: Release assets with Maven
         run: mvn install -DskipTests -P full-release -Djreleaser.output.directory=$PWD/out/jreleaser
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
@@ -118,7 +151,7 @@ jobs:
           JRELEASER_GPG_SECRET_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
-      - name: "⬆️ Upload JReleaser output"
+      - name: Upload JReleaser output
         if: always()
         uses: actions/upload-artifact@v7
         with:
@@ -126,24 +159,3 @@ jobs:
           path: |
             out/jreleaser/trace.log
             out/jreleaser/output.properties
-
-  auto-merge-job:
-    needs: [ vars-job, build-and-test-job ]
-    if: startsWith(github.repository, needs.vars-job.outputs.origin) && github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
-    permissions:
-      contents: write
-      pull-requests: write
-
-    name: "🤖 Auto-merge on dependabot PR"
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "🔀 Merge PR"
-        uses: nick-fields/retry@v3
-        with:
-          command: gh pr merge --auto --rebase "$PR_URL"
-          max_attempts: 3
-          timeout_minutes: 5
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
