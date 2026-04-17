@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout and Setup Maven
         uses: s4u/setup-maven-action@v1.19.0
+        with:
+          java-version: 21
 
       - name: Check compatibility
         run: |
