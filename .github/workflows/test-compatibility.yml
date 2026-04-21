@@ -16,7 +16,7 @@ jobs:
 
       - name: Check compatibility
         run: |
-          mvn com.github.nbbrd.nbbrd-maven-tools:compatibility-maven-plugin::check-downstream \
+          mvn com.github.nbbrd.nbbrd-maven-tools:compatibility-maven-plugin::check-downstream -U \
             -D "compatibility.source=https://github.com/jdemetra/jdplus-main" \
             -D "compatibility.sourceBinding=eu.europa.ec.joinup.sat:jdplus*" \
             -D "compatibility.sourceRef=v3.7.1" \
