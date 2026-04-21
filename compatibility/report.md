@@ -5,7 +5,7 @@ Compatibility matrix for **jdplus-main**
 | jdplus-benchmarking | **v2.1.0** | ✅      |
 | jdplus-incubator    | **v2.4.1** | ✅      |
 | jdplus-experimental | **v1.1.0** | 🔥     |
-| jdplus-revisions    | **v1.1.0** | 🔥     |
+| jdplus-revisions    | **v1.1.0** | ✅      |
 | jdplus-nowcasting   | **v2.0.0** | ✅      |
 | jdplus-sdmx         | **v3.3.4** | ✅      |
 
@@ -31,26 +31,5 @@ Compatibility matrix for **jdplus-main**
 [ERROR] 
 [ERROR] After correcting the problems, you can resume the build with the command
 [ERROR]   mvn <args> -rf :jdplus-toolkitx-base-core
-```
-</details>
-<details><summary>jdplus-revisions @ v1.1.0 -> v3.7.1</summary>
-
-```
-[ERROR] COMPILATION ERROR : 
-[ERROR] Lombok annotation handler class lombok.javac.handlers.HandleBuilder failed on /tmp/project14261446214968651096/jdplus-revisions-base/jdplus-revisions-base-parent/jdplus-revisions-base-api/src/main/java/jdplus/revisions/base/api/parametric/RegressionBasedAnalysis.java: java.lang.IllegalStateException: Lombok TreeMaker frontend issue: no match when looking for method: com.sun.tools.javac.tree.JCTree$JCCase com.sun.tools.javac.tree.TreeMaker.Case(com.sun.source.tree.CaseTree$CaseKind, com.sun.tools.javac.util.List, com.sun.tools.javac.util.List, com.sun.tools.javac.tree.JCTree)
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project jdplus-revisions-base-api: Compilation failure
-[ERROR] Lombok annotation handler class lombok.javac.handlers.HandleBuilder failed on /tmp/project14261446214968651096/jdplus-revisions-base/jdplus-revisions-base-parent/jdplus-revisions-base-api/src/main/java/jdplus/revisions/base/api/parametric/RegressionBasedAnalysis.java: java.lang.IllegalStateException: Lombok TreeMaker frontend issue: no match when looking for method: com.sun.tools.javac.tree.JCTree$JCCase com.sun.tools.javac.tree.TreeMaker.Case(com.sun.source.tree.CaseTree$CaseKind, com.sun.tools.javac.util.List, com.sun.tools.javac.util.List, com.sun.tools.javac.tree.JCTree)
-[ERROR] -> [Help 1]
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project jdplus-revisions-base-core: Fatal error compiling: java.lang.NoSuchFieldError: Class com.sun.tools.javac.tree.JCTree$JCImport does not have member field 'com.sun.tools.javac.tree.JCTree qualid' -> [Help 2]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
-[ERROR] [Help 2] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
-[ERROR] 
-[ERROR] After correcting the problems, you can resume the build with the command
-[ERROR]   mvn <args> -rf :jdplus-revisions-base-api
 ```
 </details>
