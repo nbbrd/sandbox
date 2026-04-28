@@ -13,4 +13,4 @@ jobs:
         uses: s4u/setup-maven-action@v1.19.0
 
       - name: Check changelog using Heylogs latest version
-        run: mvn -U com.github.nbbrd.heylogs:heylogs-maven-plugin:0.17.2-SNAPSHOT:check -Dheylogs.format=github-actions
+        run: mvn -U com.github.nbbrd.heylogs:heylogs-maven-plugin::check -Dheylogs.format=github-actions
