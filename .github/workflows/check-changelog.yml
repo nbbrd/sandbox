@@ -1,0 +1,16 @@
+name: Check changelog
+
+on: [ push, pull_request ]
+
+env:
+  MAVEN_ARGS: "-B -ntp"
+
+jobs:
+  check-changelog-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout and Setup Maven
+        uses: s4u/setup-maven-action@v1.19.0
+
+      - name: Check changelog using Heylogs latest version
+        run: mvn -U com.github.nbbrd.heylogs:heylogs-maven-plugin::check -Dheylogs.format=github-actions
