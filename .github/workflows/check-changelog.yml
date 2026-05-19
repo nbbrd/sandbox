@@ -13,4 +13,7 @@ jobs:
         uses: s4u/setup-maven-action@v1.20.0
 
       - name: Check changelog using Heylogs latest version
-        run: mvn -U com.github.nbbrd.heylogs:heylogs-maven-plugin:0.18.0:check -Dheylogs.format=github-actions
+        uses: jbangdev/jbang-action@v0.138.0
+        with:
+          script: com.github.nbbrd.heylogs:heylogs-cli:0.18.0:bin
+          scriptargs: "check -f github-actions"
