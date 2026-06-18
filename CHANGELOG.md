@@ -45,14 +45,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0] - 2021-10-19
 
-### Changed
-
-- New API
-
 ### Added
 
 - GUI application
 - Add distribution to JBang
+
+### Changed
+
+- New API
 
 ## [1.17.4] - 2021-07-16
 

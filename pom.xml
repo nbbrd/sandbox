@@ -49,6 +49,7 @@
 
         <!-- test frameworks -->
         <junit.version>6.1.0</junit.version>
+        <heylogs.version>0.19.1</heylogs.version>
     </properties>
 
     <dependencies>
@@ -133,7 +134,7 @@
                 <plugin>
                     <groupId>com.github.nbbrd.heylogs</groupId>
                     <artifactId>heylogs-maven-plugin</artifactId>
-                    <version>0.18.1</version>
+                    <version>${heylogs.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>com.amashchenko.maven.plugin</groupId>
@@ -189,19 +190,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>com.github.nbbrd.heylogs</groupId>
-                <artifactId>heylogs-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>check-changelog</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <inherited>false</inherited>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>de.thetaphi</groupId>
                 <artifactId>forbiddenapis</artifactId>
@@ -432,6 +420,11 @@
                                 <artifactId>extra-enforcer-rules</artifactId>
                                 <version>1.12.0</version>
                             </dependency>
+                            <dependency>
+                                <groupId>com.github.nbbrd.heylogs</groupId>
+                                <artifactId>heylogs-enforcer-rules</artifactId>
+                                <version>${heylogs.version}</version>
+                            </dependency>
                         </dependencies>
                         <executions>
                             <execution>
@@ -459,6 +452,9 @@
                                                 <ignoreScope>test</ignoreScope>
                                             </ignoredScopes>
                                         </enforceBytecodeVersion>
+                                        <!-- heylogs-enforcer-rules -->
+                                        <checkChangelog/>
+                                        <formatChangelog/>
                                     </rules>
                                 </configuration>
                             </execution>
