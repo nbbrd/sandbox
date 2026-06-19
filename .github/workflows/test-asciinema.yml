@@ -17,7 +17,7 @@ jobs:
 
       - name: Create heylogs alias
         run: |
-          jbang alias add heylogs --catalog heylogs@nbbrd --force
+          jbang alias add --catalog heylogs@nbbrd --force heylogs
 
       - name: Install asciinema and expect
         run: |
