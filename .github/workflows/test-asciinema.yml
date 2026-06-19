@@ -28,7 +28,7 @@ jobs:
         run: mkdir -p docs
 
       - name: Run demo recording
-        run: bash scripts/generate-heylogs-demo.sh
+        run: expect scripts/generate-heylogs-demo.exp
 
       - name: ⬆️ Upload demo
         uses: actions/upload-artifact@v7

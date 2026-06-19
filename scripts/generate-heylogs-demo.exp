@@ -1,8 +1,4 @@
-#!/usr/bin/env expect -f
-
-spawn bash
-expect "\\$"
-after 500
+#!/usr/bin/expect -f
 
 # Start asciinema recording
 spawn asciinema rec --idle-time-limit 2 docs/demo.cast
