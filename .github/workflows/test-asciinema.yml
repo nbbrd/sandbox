@@ -1,0 +1,84 @@
+name: Generate heylogs CLI Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JBang
+        uses: jbangdev/setup-jbang@main
+
+      - name: Trust heylogs catalog
+        run: jbang trust add https://github.com/nbbrd/
+
+      - name: Create heylogs alias
+        run: |
+          jbang alias add heylogs heylogs@nbbrd --force
+
+      - name: Install asciinema and expect
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y expect asciinema
+
+      - name: Create demo expect script
+        run: |
+          mkdir -p scripts
+          cat > scripts/generate-heylogs-demo.sh << 'EOF'
+          #!/usr/bin/env expect -f
+
+          spawn asciinema rec --idle-time-limit 2 docs/demo.cast
+          expect "asciinema"
+          after 1000
+
+          # Display help
+          send "jbang heylogs --help\r"
+          after 1500
+
+          # Initialize changelog
+          send "jbang heylogs init --project-url https://github.com/nbbrd/heylogs\r"
+          after 2000
+
+          # Push an 'Added' change
+          send "jbang heylogs push -y added -m \"Add support for custom CLI workflows.\"\r"
+          after 2000
+
+          # Push a 'Fixed' change
+          send "jbang heylogs push -y fixed -m \"Fix bug in changelog parser.\"\r"
+          after 2000
+
+          # Check changelog format
+          send "jbang heylogs check --rule dot-space-link-style:WARN\r"
+          after 2000
+
+          # Extract latest version
+          send "jbang heylogs extract --limit 1\r"
+          after 2000
+
+          # Scan and export as JSON
+          send "jbang heylogs scan --format json\r"
+          after 2000
+
+          # Composition example: curl | heylogs | bat
+          send "curl -s https://raw.githubusercontent.com/olivierlacan/keep-a-changelog/main/CHANGELOG.md | jbang heylogs scan - -f json\r"
+          after 2000
+
+          send "exit\r"
+          expect eof
+          EOF
+          chmod +x scripts/generate-heylogs-demo.sh
+
+      - name: Create demo directory
+        run: mkdir -p docs
+
+      - name: Run demo recording
+        run: bash scripts/generate-heylogs-demo.sh
+
+      - name: ⬆️ Upload demo
+        uses: actions/upload-artifact@v7
+        with:
+          path: |
+            docs/demo.cast
