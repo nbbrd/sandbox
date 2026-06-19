@@ -1,0 +1,40 @@
+#!/usr/bin/env expect -f
+
+spawn asciinema rec --idle-time-limit 2 docs/demo.cast
+expect "asciinema"
+after 1000
+
+# Display help
+send "heylogs --help\r"
+after 1500
+
+# Initialize changelog
+send "heylogs init --project-url https://github.com/nbbrd/heylogs\r"
+after 2000
+
+# Push an 'Added' change
+send "heylogs push -y added -m \"Add support for custom CLI workflows.\"\r"
+after 2000
+
+# Push a 'Fixed' change
+send "heylogs push -y fixed -m \"Fix bug in changelog parser.\"\r"
+after 2000
+
+# Check changelog format
+send "heylogs check --rule dot-space-link-style:WARN\r"
+after 2000
+
+# Extract latest version
+send "heylogs extract --limit 1\r"
+after 2000
+
+# Scan and export as JSON
+send "heylogs scan --format json\r"
+after 2000
+
+# Composition example: curl | heylogs | bat
+send "curl -s https://raw.githubusercontent.com/olivierlacan/keep-a-changelog/main/CHANGELOG.md | heylogs scan - -f json\r"
+after 2000
+
+send "exit\r"
+expect eof
