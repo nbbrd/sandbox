@@ -13,7 +13,7 @@ jobs:
         uses: s4u/setup-maven-action@v1.20.0
 
       - name: Check changelog using Heylogs latest version
-        uses: jbangdev/jbang-action@v0.140.1
+        uses: jbangdev/jbang-action@v0.141.0
         with:
           script: com.github.nbbrd.heylogs:heylogs-cli:0.18.0:bin
           scriptargs: "check -f github-actions"
