@@ -652,19 +652,6 @@
                 <heylogs.skip>true</heylogs.skip>
             </properties>
         </profile>
-
-        <profile>
-            <id>run-tests-only</id>
-            <build>
-                <defaultGoal>surefire:test failsafe:integration-test failsafe:verify</defaultGoal>
-            </build>
-            <properties>
-                <maven.main.skip>true</maven.main.skip>
-                <compiler.skip>true</compiler.skip>
-                <maven.resources.skip>true</maven.resources.skip>
-                <protobuf.skip>true</protobuf.skip>
-            </properties>
-        </profile>
     </profiles>
 
     <repositories>

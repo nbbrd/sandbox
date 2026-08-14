@@ -6,15 +6,30 @@ env:
   MAVEN_ARGS: "-B -ntp"
 
 jobs:
+  validate-job:
+    name: Validate project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout and Setup Maven
+        uses: s4u/setup-maven-action@v1.20.0
+        with:
+          checkout-submodules: true
+          checkout-fetch-depth: 0
+          java-version: 21
+
+      - name: Validate project with Maven
+        run: mvn validate
+
   build-and-test-job:
+    needs: validate-job
     if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/tags/v')
     strategy:
       fail-fast: false
       matrix:
-        java: [ 21 ]
         os: [ ubuntu-latest, macos-15-intel, windows-latest ]
 
-    name: JDK${{ matrix.java }} on ${{ matrix.os }}
+    name: Build and test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -23,7 +38,7 @@ jobs:
         with:
           checkout-submodules: true
           checkout-fetch-depth: 0
-          java-version: ${{ matrix.java }}
+          java-version: 21
 
       - name: Pre-download dependencies with Maven
         run: mvn -U dependency:go-offline
@@ -55,13 +70,9 @@ jobs:
   snapshot-job:
     needs: build-and-test-job
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/heads/develop')
-    strategy:
-      matrix:
-        java: [ 21 ]
-        os: [ ubuntu-latest ]
 
     name: Snapshot on develop
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout and Setup Maven
@@ -69,7 +80,7 @@ jobs:
         with:
           checkout-submodules: true
           checkout-fetch-depth: 0
-          java-version: ${{ matrix.java }}
+          java-version: 21
 
       - name: Deploy snapshot with Maven if settings defined
         run: test ! -f ci.settings.xml || mvn deploy -DskipTests -s ci.settings.xml -P base-deploy,snapshot-deploy,!non-deployable-modules
@@ -79,7 +90,7 @@ jobs:
           SIGN_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
-      - name: Dryrun release assets with Maven
+      - name: Dry-run release assets with Maven
         run: mvn install -DskipTests -P full-release -Djreleaser.output.directory=$PWD/out/jreleaser -Djreleaser.dry.run
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
@@ -99,13 +110,9 @@ jobs:
   release-job:
     needs: build-and-test-job
     if: startsWith(github.repository, 'nbbrd/') && startsWith(github.ref, 'refs/tags/v')
-    strategy:
-      matrix:
-        java: [ 21 ]
-        os: [ ubuntu-latest ]
 
     name: Release on tag
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout and Setup Maven
@@ -113,7 +120,7 @@ jobs:
         with:
           checkout-submodules: true
           checkout-fetch-depth: 0
-          java-version: ${{ matrix.java }}
+          java-version: 21
 
       - name: Deploy with Maven if settings defined
         run: test ! -f ci.settings.xml || mvn deploy -DskipTests -s ci.settings.xml -P base-deploy,release-deploy,!non-deployable-modules
