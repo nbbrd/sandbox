@@ -9,24 +9,25 @@ env:
 jobs:
   build-job:
     if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/tags/v')
-    name: Compile & Package
+    name: 🛠️ Compile & Package
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout and Setup Maven
+      - name: ⚙️ Checkout and Setup Maven
         uses: s4u/setup-maven-action@v1.20.0
         with:
           checkout-submodules: true
           checkout-fetch-depth: 0
           java-version: 21
 
-      - name: Pre-download dependencies
+      - name: ☕ Pre-download dependencies
         run: mvn -U dependency:go-offline
 
-      - name: Build artifacts
+      - name: ☕ Build artifacts
         run: mvn package -DskipTests
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: ⬆️ Upload artifacts
+        uses: actions/upload-artifact@v7
         with:
           name: multi-module-compiled-assets
           path: |
@@ -35,26 +36,26 @@ jobs:
 
   test-job:
     needs: build-job
-    name: Test on ${{ matrix.os }}
+    name:  🧪 Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-15-intel, windows-latest ]
+        os: [ ubuntu-latest, macos-15-intel, macos-latest, windows-latest ]
 
     steps:
-      - name: Checkout and Setup Maven
+      - name: ⚙️ Checkout and Setup Maven
         uses: s4u/setup-maven-action@v1.20.0
         with:
           checkout-submodules: true
           checkout-fetch-depth: 0
           java-version: 21
 
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
+      - name: ⬇️ Download artifacts
+        uses: actions/download-artifact@v8
         with:
           name: multi-module-compiled-assets
 
-      - name: Headless test
+      - name: ☕ Headless test
         run: ${{ runner.os == 'Linux' && 'xvfb-run' || '' }} mvn test -Pyolo
