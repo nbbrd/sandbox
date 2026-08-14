@@ -489,7 +489,7 @@
                                 </goals>
                                 <configuration>
                                     <violationsFiles>
-<!--                                        <violationsFile>modernizer.xml</violationsFile>-->
+                                        <!--                                        <violationsFile>modernizer.xml</violationsFile>-->
                                     </violationsFiles>
                                 </configuration>
                             </execution>
@@ -650,6 +650,19 @@
                 <forbiddenapis.skip>true</forbiddenapis.skip>
                 <jacoco.skip>true</jacoco.skip>
                 <heylogs.skip>true</heylogs.skip>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>run-tests-only</id>
+            <build>
+                <defaultGoal>surefire:test failsafe:integration-test failsafe:verify</defaultGoal>
+            </build>
+            <properties>
+                <maven.main.skip>true</maven.main.skip>
+                <compiler.skip>true</compiler.skip>
+                <maven.resources.skip>true</maven.resources.skip>
+                <protobuf.skip>true</protobuf.skip>
             </properties>
         </profile>
     </profiles>
