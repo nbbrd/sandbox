@@ -22,7 +22,7 @@ jobs:
           - os: windows-11-arm    # Windows arm64
             java: 21
 
-    name: 🧪 Tests with {{ matrix.java }} on ${{ matrix.os }}
+    name: 🧪 Tests with ${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     steps:

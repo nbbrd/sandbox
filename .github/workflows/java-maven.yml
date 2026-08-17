@@ -53,7 +53,7 @@ jobs:
       contents: write
       pull-requests: write
 
-    name: 🤖 Auto-merge on dependabot PR
+    name: 🤖 Merge on dependabot PR
     runs-on: ubuntu-latest
 
     steps:
