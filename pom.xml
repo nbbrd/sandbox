@@ -431,33 +431,61 @@
                         </dependencies>
                         <executions>
                             <execution>
-                                <id>enforce</id>
+                                <id>enforce-on-validate</id>
                                 <goals>
                                     <goal>enforce</goal>
                                 </goals>
                                 <configuration>
                                     <rules>
+                                        <!-- Built-In Rules -->
+                                        <banDuplicatePomDependencyVersions/>
+                                        <dependencyConvergence/>
+                                        <reactorModuleConvergence/>
                                         <requireMavenVersion>
                                             <version>${requiredMavenVersion}</version>
                                         </requireMavenVersion>
-                                        <DependencyConvergence/>
+                                        <requireNoRepositories>
+                                            <allowSnapshotRepositories>true</allowSnapshotRepositories>
+                                            <allowedRepositories>
+                                                <allowedRepository>central</allowedRepository>
+                                                <allowedRepository>jitpack.io</allowedRepository>
+                                            </allowedRepositories>
+                                        </requireNoRepositories>
+                                        <requirePluginVersions/>
                                         <requireReleaseDeps>
                                             <onlyWhenRelease>true</onlyWhenRelease>
                                         </requireReleaseDeps>
-                                        <CheckMavenCentral
-                                                implementation="org.kordamp.maven.enforcer.checker.CheckMavenCentral">
+                                        <requireUpperBoundDeps/>
+                                        <!-- pomchecker-enforcer-rules -->
+                                        <checkMavenCentral>
                                             <release>false</release>
                                             <strict>false</strict>
-                                        </CheckMavenCentral>
+                                        </checkMavenCentral>
+                                        <!-- heylogs-enforcer-rules -->
+                                        <checkChangelog/>
+                                        <formatChangelog/>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>enforce-on-verify</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <!-- extra-enforcer-rules -->
+                                        <banCircularDependencies/>
+                                        <banDuplicateClasses>
+                                            <ignoredScopes>test</ignoredScopes>
+                                        </banDuplicateClasses>
                                         <enforceBytecodeVersion>
                                             <maxJdkVersion>8</maxJdkVersion>
                                             <ignoredScopes>
                                                 <ignoreScope>test</ignoreScope>
                                             </ignoredScopes>
                                         </enforceBytecodeVersion>
-                                        <!-- heylogs-enforcer-rules -->
-                                        <checkChangelog/>
-                                        <formatChangelog/>
                                     </rules>
                                 </configuration>
                             </execution>
