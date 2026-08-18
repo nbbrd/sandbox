@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>sandbox-parent</artifactId>
         <groupId>com.github.nbbrd.sandbox</groupId>
+        <artifactId>sandbox-parent</artifactId>
         <version>2.6.2-SNAPSHOT</version>
     </parent>
 
@@ -19,8 +17,8 @@
     <dependencies>
         <!-- compile and runtime -->
         <dependency>
-            <artifactId>sandbox-api</artifactId>
             <groupId>${project.groupId}</groupId>
+            <artifactId>sandbox-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -42,8 +40,8 @@
 
         <!-- runtime only -->
         <dependency>
-            <artifactId>sandbox-figlet</artifactId>
             <groupId>${project.groupId}</groupId>
+            <artifactId>sandbox-figlet</artifactId>
             <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
