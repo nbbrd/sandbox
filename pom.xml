@@ -284,22 +284,6 @@
     </build>
 
     <profiles>
-        <!-- Non-deployable modules -->
-        <profile>
-            <id>non-deployable-modules</id>
-            <activation>
-                <property>
-                    <name>!nonDeployableModules</name>
-                </property>
-            </activation>
-            <modules>
-                <module>sandbox-picocli</module>
-                <module>sandbox-swing</module>
-                <module>sandbox-netbeans</module>
-                <module>sandbox-bom</module>
-            </modules>
-        </profile>
-
         <!-- Java11 modules -->
         <profile>
             <id>java11-modules</id>

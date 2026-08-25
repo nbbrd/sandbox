@@ -49,6 +49,15 @@
 
     <build>
         <plugins>
+            <!-- do not deploy -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
             <!-- skip semver check -->
             <plugin>
                 <groupId>com.github.siom79.japicmp</groupId>
