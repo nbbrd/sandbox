@@ -17,7 +17,7 @@
 
     <properties>
         <hugo-geekdoc.version>v4.1.4</hugo-geekdoc.version>
-        <java.bundled.version>jdk-21.0.9+10</java.bundled.version>
+        <java.bundled.version>jdk-21.0.12.1+1</java.bundled.version>
     </properties>
 
     <dependencyManagement>
@@ -234,6 +234,14 @@
                                             <archiveType>zip</archiveType>
                                         </pkg>
                                         <pkg>
+                                            <name>jdk-windows-aarch_64</name>
+                                            <distribution>temurin</distribution>
+                                            <platform>windows-aarch64</platform>
+                                            <version>${java.bundled.version}</version>
+                                            <packageType>jre</packageType>
+                                            <archiveType>zip</archiveType>
+                                        </pkg>
+                                        <pkg>
                                             <name>jdk-linux-x86_64</name>
                                             <distribution>temurin</distribution>
                                             <platform>linux-x86_64</platform>
@@ -274,53 +282,23 @@
 
                     <!-- Create binaries bundled with JRE -->
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
+                        <groupId>com.github.nbbrd.nbbrd-maven-tools</groupId>
+                        <artifactId>bundle-maven-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>pack-desktop-binaries</id>
                                 <phase>prepare-package</phase>
                                 <goals>
-                                    <goal>run</goal>
+                                    <goal>bundle-jdk</goal>
                                 </goals>
                                 <configuration>
-                                    <target>
-                                        <macrodef name="bundle-desktop">
-                                            <attribute name="platform"/>
-                                            <attribute name="extension"/>
-                                            <attribute name="dir"/>
-                                            <sequential>
-                                                <echo message="Bundling @{platform}" level="info"/>
-                                                <pathconvert property="jdk.@{platform}">
-                                                    <first>
-                                                        <fileset dir="${project.build.directory}/jdks/jdk-@{platform}"/>
-                                                    </first>
-                                                </pathconvert>
-                                                <ant antfile="${project.basedir}/src/antrun/bundle-netbeans.xml">
-                                                    <property name="x.bundleInput"
-                                                              value="${project.build.directory}/sandbox-netbeans-${project.version}.zip"/>
-                                                    <property name="x.bundleOutput"
-                                                              value="${project.build.directory}/sandbox-netbeans-standalone-${project.version}-@{platform}.zip"/>
-                                                    <property name="x.branding" value="sandboxnetbeans"/>
-                                                    <property name="x.jdkArchive" value="${jdk.@{platform}}"/>
-                                                    <property name="x.jdkDirectory" value="@{dir}"/>
-                                                    <target name="bundle.@{extension}"/>
-                                                </ant>
-                                            </sequential>
-                                        </macrodef>
-
-                                        <parallel threadsPerProcessor="1">
-                                            <bundle-desktop platform="windows-x86_64" extension="zip" dir="${jdkname}"/>
-                                            <bundle-desktop platform="linux-x86_64" extension="tar.gz"
-                                                            dir="${jdkname}"/>
-                                            <bundle-desktop platform="linux-aarch_64" extension="tar.gz"
-                                                            dir="${jdkname}"/>
-                                            <bundle-desktop platform="osx-x86_64" extension="tar.gz"
-                                                            dir="${jdkname}/Contents/Home"/>
-                                            <bundle-desktop platform="osx-aarch_64" extension="tar.gz"
-                                                            dir="${jdkname}/Contents/Home"/>
-                                        </parallel>
-                                    </target>
+                                    <inputFile>${project.build.directory}/sandbox-netbeans-${project.version}.zip</inputFile>
+                                    <applicationRoot>sandboxnetbeans</applicationRoot>
+                                    <launcherId>netbeans</launcherId>
+                                    <appName>sandboxnetbeans</appName>
+                                    <archivePathTemplate>${project.build.directory}/jdks/jdk-{id}</archivePathTemplate>
+                                    <outputFileTemplate>${project.build.directory}/sandbox-netbeans-standalone-${project.version}-{id}.zip</outputFileTemplate>
+                                    <runtimeIds>windows-x86_64,windows-aarch_64,linux-x86_64,linux-aarch_64,osx-x86_64,osx-aarch_64</runtimeIds>
                                 </configuration>
                             </execution>
                         </executions>
@@ -506,7 +484,6 @@
                     <plugin>
                         <groupId>com.github.nbbrd.nbbrd-maven-tools</groupId>
                         <artifactId>compatibility-maven-plugin</artifactId>
-                        <version>1.3.1</version>
                         <executions>
                             <execution>
                                 <phase>verify</phase>
