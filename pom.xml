@@ -190,6 +190,11 @@
                     <version>3.11</version>
                 </plugin>
                 <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>4.10.5.0</version>
+                </plugin>
+                <plugin>
                     <groupId>com.github.nbbrd.heylogs</groupId>
                     <artifactId>heylogs-maven-plugin</artifactId>
                     <version>${heylogs.version}</version>
@@ -636,6 +641,36 @@
             </build>
         </profile>
 
+        <!-- Enforce no new SpotBugs issues (existing ones are listed in spotbugs-baseline.xml) -->
+        <profile>
+            <id>enforce-spotbugs</id>
+            <activation>
+                <property>
+                    <name>!skipEnforceSpotbugs</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <configuration>
+                            <excludeBugsFiles>${project.basedir}/spotbugs-baseline.xml</excludeBugsFiles>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>spotbugs</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <!-- Gitflow automation -->
         <profile>
             <id>gitflow-automation</id>
@@ -806,6 +841,7 @@
                 <enforcer.skip>true</enforcer.skip>
                 <modernizer.skip>true</modernizer.skip>
                 <forbiddenapis.skip>true</forbiddenapis.skip>
+                <spotbugs.skip>true</spotbugs.skip>
                 <jacoco.skip>true</jacoco.skip>
                 <heylogs.skip>true</heylogs.skip>
                 <tidy.skip>true</tidy.skip>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BugCollection>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="1f302e500a5aa267e79da426d494df89" cweid="374" rank="18" abbrev="EI" category="MALICIOUS_CODE" priority="2" type="EI_EXPOSE_REP" instanceOccurrenceMax="0">
+    <ShortMessage>May expose internal representation by returning reference to mutable object</ShortMessage>
+    <LongMessage>sandbox.protobuf.Mail.getDefaultInstanceForType() may expose internal representation by returning Mail.DEFAULT_INSTANCE</LongMessage>
+    <Class classname="sandbox.protobuf.Mail" primary="true">
+      <SourceLine classname="sandbox.protobuf.Mail" start="11" end="505" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java">
+        <Message>At Mail.java:[lines 11-505]</Message>
+      </SourceLine>
+      <Message>In class sandbox.protobuf.Mail</Message>
+    </Class>
+    <Method isStatic="false" classname="sandbox.protobuf.Mail" signature="()Lsandbox/protobuf/Mail;" name="getDefaultInstanceForType" primary="true">
+      <SourceLine endBytecode="45" classname="sandbox.protobuf.Mail" start="505" end="505" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java" startBytecode="0" />
+      <Message>In method sandbox.protobuf.Mail.getDefaultInstanceForType()</Message>
+    </Method>
+    <Field isStatic="true" classname="sandbox.protobuf.Mail" signature="Lsandbox/protobuf/Mail;" name="DEFAULT_INSTANCE" primary="true">
+      <SourceLine classname="sandbox.protobuf.Mail" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java">
+        <Message>In Mail.java</Message>
+      </SourceLine>
+      <Message>Field sandbox.protobuf.Mail.DEFAULT_INSTANCE</Message>
+    </Field>
+    <SourceLine endBytecode="3" classname="sandbox.protobuf.Mail" start="505" end="505" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java" startBytecode="3" primary="true">
+      <Message>At Mail.java:[line 505]</Message>
+    </SourceLine>
+  </BugInstance>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="e173db55beee505578640d1215dc58c8" cweid="493" rank="18" abbrev="MS" category="MALICIOUS_CODE" priority="2" type="MS_EXPOSE_REP" instanceOccurrenceMax="0">
+    <ShortMessage>Public static method may expose internal representation by returning a mutable object or array</ShortMessage>
+    <LongMessage>Public static sandbox.protobuf.Mail.getDefaultInstance() may expose internal representation by returning Mail.DEFAULT_INSTANCE</LongMessage>
+    <Class classname="sandbox.protobuf.Mail" primary="true">
+      <SourceLine classname="sandbox.protobuf.Mail" start="11" end="505" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java">
+        <Message>At Mail.java:[lines 11-505]</Message>
+      </SourceLine>
+      <Message>In class sandbox.protobuf.Mail</Message>
+    </Class>
+    <Method isStatic="true" classname="sandbox.protobuf.Mail" signature="()Lsandbox/protobuf/Mail;" name="getDefaultInstance" primary="true">
+      <SourceLine endBytecode="27" classname="sandbox.protobuf.Mail" start="469" end="469" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java" startBytecode="0" />
+      <Message>In method sandbox.protobuf.Mail.getDefaultInstance()</Message>
+    </Method>
+    <Field isStatic="true" classname="sandbox.protobuf.Mail" signature="Lsandbox/protobuf/Mail;" name="DEFAULT_INSTANCE" primary="true">
+      <SourceLine classname="sandbox.protobuf.Mail" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java">
+        <Message>In Mail.java</Message>
+      </SourceLine>
+      <Message>Field sandbox.protobuf.Mail.DEFAULT_INSTANCE</Message>
+    </Field>
+    <SourceLine endBytecode="3" classname="sandbox.protobuf.Mail" start="469" end="469" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java" startBytecode="3" primary="true">
+      <Message>At Mail.java:[line 469]</Message>
+    </SourceLine>
+  </BugInstance>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="5f8739425d79654d77c750e43d7c33f3" cweid="543" rank="7" abbrev="SING" category="CORRECTNESS" priority="2" type="SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR" instanceOccurrenceMax="0">
+    <ShortMessage>Class using singleton design pattern has non-private constructor.</ShortMessage>
+    <LongMessage>Class (sandbox.protobuf.Mail) using singleton design pattern has non-private constructor.</LongMessage>
+    <Class classname="sandbox.protobuf.Mail" primary="true">
+      <SourceLine classname="sandbox.protobuf.Mail" start="11" end="505" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java">
+        <Message>At Mail.java:[lines 11-505]</Message>
+      </SourceLine>
+      <Message>In class sandbox.protobuf.Mail</Message>
+    </Class>
+    <Method isStatic="false" classname="sandbox.protobuf.Mail" signature="(Lcom/google/protobuf/GeneratedMessage$Builder;Lsandbox/protobuf/Mail$1;)V" name="&lt;init&gt;" primary="true">
+      <SourceLine endBytecode="67" classname="sandbox.protobuf.Mail" start="12" end="12" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java" startBytecode="0" />
+      <Message>In method new sandbox.protobuf.Mail(GeneratedMessage$Builder, Mail$1)</Message>
+    </Method>
+    <SourceLine synthetic="true" endBytecode="67" classname="sandbox.protobuf.Mail" start="12" end="12" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java" startBytecode="0">
+      <Message>At Mail.java:[line 12]</Message>
+    </SourceLine>
+  </BugInstance>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="fd63519d869f1dabd4b1e7b15ec20c67" cweid="543" rank="7" abbrev="SING" category="CORRECTNESS" priority="2" type="SING_SINGLETON_IMPLEMENTS_SERIALIZABLE" instanceOccurrenceMax="0">
+    <ShortMessage>Class using singleton design pattern directly or indirectly implements Serializable interface.</ShortMessage>
+    <LongMessage>Class (sandbox.protobuf.Mail) using singleton design pattern directly or indirectly implements Serializable interface.</LongMessage>
+    <Class classname="sandbox.protobuf.Mail" primary="true">
+      <SourceLine classname="sandbox.protobuf.Mail" start="11" end="505" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java">
+        <Message>At Mail.java:[lines 11-505]</Message>
+      </SourceLine>
+      <Message>In class sandbox.protobuf.Mail</Message>
+    </Class>
+    <SourceLine synthetic="true" classname="sandbox.protobuf.Mail" start="11" end="505" sourcepath="sandbox/protobuf/Mail.java" sourcefile="Mail.java">
+      <Message>At Mail.java:[lines 11-505]</Message>
+    </SourceLine>
+  </BugInstance>
+  <BugInstance instanceOccurrenceNum="0" instanceHash="510bdc68b99047f1ea1c4267a70dc9c8" cweid="493" rank="18" abbrev="MS" category="MALICIOUS_CODE" priority="2" type="MS_EXPOSE_REP" instanceOccurrenceMax="0">
+    <ShortMessage>Public static method may expose internal representation by returning a mutable object or array</ShortMessage>
+    <LongMessage>Public static sandbox.protobuf.MailStuff.getDescriptor() may expose internal representation by returning MailStuff.descriptor</LongMessage>
+    <Class classname="sandbox.protobuf.MailStuff" primary="true">
+      <SourceLine classname="sandbox.protobuf.MailStuff" start="10" end="57" sourcepath="sandbox/protobuf/MailStuff.java" sourcefile="MailStuff.java">
+        <Message>At MailStuff.java:[lines 10-57]</Message>
+      </SourceLine>
+      <Message>In class sandbox.protobuf.MailStuff</Message>
+    </Class>
+    <Method isStatic="true" classname="sandbox.protobuf.MailStuff" signature="()Lcom/google/protobuf/Descriptors$FileDescriptor;" name="getDescriptor" primary="true">
+      <SourceLine endBytecode="27" classname="sandbox.protobuf.MailStuff" start="37" end="37" sourcepath="sandbox/protobuf/MailStuff.java" sourcefile="MailStuff.java" startBytecode="0" />
+      <Message>In method sandbox.protobuf.MailStuff.getDescriptor()</Message>
+    </Method>
+    <Field isStatic="true" classname="sandbox.protobuf.MailStuff" signature="Lcom/google/protobuf/Descriptors$FileDescriptor;" name="descriptor" primary="true">
+      <SourceLine classname="sandbox.protobuf.MailStuff" sourcepath="sandbox/protobuf/MailStuff.java" sourcefile="MailStuff.java">
+        <Message>In MailStuff.java</Message>
+      </SourceLine>
+      <Message>Field sandbox.protobuf.MailStuff.descriptor</Message>
+    </Field>
+    <SourceLine endBytecode="3" classname="sandbox.protobuf.MailStuff" start="37" end="37" sourcepath="sandbox/protobuf/MailStuff.java" sourcefile="MailStuff.java" startBytecode="3" primary="true">
+      <Message>At MailStuff.java:[line 37]</Message>
+    </SourceLine>
+  </BugInstance>
+</BugCollection>
