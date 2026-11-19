@@ -2,10 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://nbbrd.github.io/sandbox/docs/develop/dashboard/</loc>
+    <loc>https://nbbrd.github.io/sandbox/docs/develop/dashboard/</loc>
   </url><url>
-    <loc>http://nbbrd.github.io/sandbox/docs/develop/</loc>
+    <loc>https://nbbrd.github.io/sandbox/docs/develop/</loc>
   </url><url>
-    <loc>http://nbbrd.github.io/sandbox/docs/develop/tags/</loc>
+    <loc>https://nbbrd.github.io/sandbox/docs/develop/tags/</loc>
   </url>
 </urlset>
