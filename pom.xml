@@ -252,6 +252,11 @@
                     <version>1.13.0</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.echocat.maven.plugins</groupId>
+                    <artifactId>hugo-maven-plugin</artifactId>
+                    <version>0.2.20</version>
+                </plugin>
+                <plugin>
                     <groupId>com.github.nbbrd.nbbrd-maven-tools</groupId>
                     <artifactId>compatibility-maven-plugin</artifactId>
                     <version>${nbbrd-maven-tools.version}</version>

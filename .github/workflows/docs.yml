@@ -26,7 +26,7 @@ jobs:
 
     env:
       DOC_SLUG: ${{ github.ref_name }}
-      DOC_URL: "http://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/${{ github.ref_name }}"
+      DOC_URL: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/docs/${{ github.ref_name }}"
 
     steps:
       - name: Checkout and Setup Maven
@@ -34,16 +34,11 @@ jobs:
 
       - name: Setup docs with Maven
         run: mvn install -DskipTests -P setup-docs
+        env:
+          HUGO_BASEURL: ${{ env.DOC_URL }}
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: 'latest'
-
-      - name: Build pages
-        run: |
-          hugo --source docs -b ${{ env.DOC_URL }}
-          touch ./docs/public/.nojekyll
+      - name: Disable Jekyll
+        run: touch ./docs/public/.nojekyll
 
       - name: Deploy pages
         uses: peaceiris/actions-gh-pages@v4
