@@ -15,7 +15,7 @@ env:
 
 jobs:
   check-job:
-    if: github.event.repository.fork == false && github.ref == 'refs/heads/develop'
+    if: github.event.repository.fork == false
     permissions:
       actions: read
       contents: read
@@ -29,34 +29,68 @@ jobs:
       - name: 🔍 Compare with last snapshot and check CI status
         id: check
         run: |
+          SERVER="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+          decide() { # $1=deploy(true|false) $2=title $3=message
+            echo "deploy=$1" >> "$GITHUB_OUTPUT"
+            echo "::notice title=$2::$3"
+            {
+              echo "### $2"
+              echo "$3"
+              echo
+              echo "| | |"
+              echo "|---|---|"
+              echo "| Current commit | [\`${GITHUB_SHA:0:7}\`]($SERVER/commit/$GITHUB_SHA) |"
+              echo "| Last snapshot | ${LAST_LINK:-not checked} |"
+              echo "| CI on current commit | ${CI_LINK:-not checked} |"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          }
+
           LAST=""
+          if [ "$GITHUB_REF" != "refs/heads/develop" ]; then
+            decide false "Snapshot skipped" "Workflow must run on develop, not $GITHUB_REF."
+          fi
           for ID in $(gh run list -R "$GITHUB_REPOSITORY" -w snapshot.yml -b develop -s success -L 50 --json databaseId -q '.[].databaseId'); do
-            if [ -n "$(gh run view "$ID" -R "$GITHUB_REPOSITORY" --json jobs -q '.jobs[] | select(.name == "🚀 Snapshot on develop" and .conclusion == "success") | .name')" ]; then
-              LAST=$(gh run view "$ID" -R "$GITHUB_REPOSITORY" --json headSha -q '.headSha')
+            RUN=$(gh run view "$ID" -R "$GITHUB_REPOSITORY" --json jobs,headSha,url)
+            if [ -n "$(jq -r '.jobs[] | select(.name == "🚀 Snapshot on develop" and .conclusion == "success") | .name' <<< "$RUN")" ]; then
+              LAST=$(jq -r '.headSha' <<< "$RUN")
+              LAST_LINK="[\`${LAST:0:7}\`]($SERVER/commit/$LAST) ([run]($(jq -r '.url' <<< "$RUN")))"
               break
             fi
           done
+          LAST_LINK="${LAST_LINK:-none in last 50 successful runs}"
           echo "Current: $GITHUB_SHA"
           echo "Last snapshot: ${LAST:-none}"
+
           if [ "$LAST" = "$GITHUB_SHA" ]; then
-            echo "No change since last snapshot" >> $GITHUB_STEP_SUMMARY
-            echo "deploy=false" >> $GITHUB_OUTPUT
-            exit 0
+            decide false "Snapshot skipped" "No change on develop since last snapshot."
           fi
-          CI=$(gh run list -R "$GITHUB_REPOSITORY" -w java-maven.yml -b develop -c "$GITHUB_SHA" -s success -L 1 --json databaseId -q 'length')
-          if [ "$CI" = "0" ]; then
-            echo "CI has not succeeded on $GITHUB_SHA" >> $GITHUB_STEP_SUMMARY
-            echo "deploy=false" >> $GITHUB_OUTPUT
-            exit 0
+
+          CI=$(gh run list -R "$GITHUB_REPOSITORY" -w java-maven.yml -b develop -c "$GITHUB_SHA" -e push -L 1 --json status,conclusion,url -q '.[0] // empty')
+          echo "CI: ${CI:-none}"
+          if [ -z "$CI" ]; then
+            decide false "Snapshot skipped" "No CI run (java-maven.yml) found for this commit on develop."
           fi
-          echo "Deploying snapshot of $GITHUB_SHA" >> $GITHUB_STEP_SUMMARY
-          echo "deploy=true" >> $GITHUB_OUTPUT
+          CI_STATUS=$(jq -r '.status' <<< "$CI")
+          CI_CONCLUSION=$(jq -r '.conclusion' <<< "$CI")
+          CI_LINK="${CI_CONCLUSION:-$CI_STATUS} ([run]($(jq -r '.url' <<< "$CI")))"
+          if [ "$CI_STATUS" != "completed" ]; then
+            decide false "Snapshot skipped" "CI is still $CI_STATUS on this commit; will retry on next schedule."
+          fi
+          if [ "$CI_CONCLUSION" != "success" ]; then
+            decide false "Snapshot skipped" "CI concluded '$CI_CONCLUSION' on this commit."
+          fi
+
+          decide true "Snapshot scheduled" "New commit with successful CI; deploying snapshot."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   snapshot-job:
     needs: check-job
     if: needs.check-job.outputs.deploy == 'true'
+
+    permissions:
+      contents: read
 
     name: 🚀 Snapshot on develop
     runs-on: ubuntu-latest
@@ -70,7 +104,16 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
 
       - name: ☕ Deploy snapshot with Maven if settings defined
-        run: test ! -f ci.settings.xml || mvn deploy -DskipTests -Dmaven.repository.credentialScope=id -s ci.settings.xml -P base-deploy,snapshot-deploy
+        run: |
+          if [ ! -f ci.settings.xml ]; then
+            echo "::warning title=Snapshot not deployed::ci.settings.xml not found"
+            echo "### ⚠️ Snapshot not deployed: ci.settings.xml not found" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          mvn deploy -DskipTests -Dmaven.repository.credentialScope=id -s ci.settings.xml -P base-deploy,snapshot-deploy
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "::notice title=Snapshot deployed::$VERSION from ${GITHUB_SHA:0:7}"
+          echo "### ✅ Snapshot deployed: \`$VERSION\` from \`${GITHUB_SHA:0:7}\`" >> "$GITHUB_STEP_SUMMARY"
         env:
           CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
           CENTRAL_PORTAL_TOKEN: ${{ secrets.CENTRAL_PORTAL_TOKEN }}
