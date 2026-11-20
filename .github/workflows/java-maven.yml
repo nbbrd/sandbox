@@ -106,6 +106,32 @@ jobs:
             out/jreleaser/trace.log
             out/jreleaser/output.properties
 
+  mark-tested-job:
+    needs: dry-run-job
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    permissions:
+      contents: write
+    concurrency:
+      group: mark-tested
+
+    name: 🏷️ Mark as tested
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: 🏷️ Move ci/tested tag
+        run: |
+          if git rev-parse -q --verify refs/tags/ci/tested >/dev/null && ! git merge-base --is-ancestor ci/tested HEAD; then
+            echo "::notice::ci/tested is ahead of $GITHUB_SHA; not moved"
+            exit 0
+          fi
+          git tag -f ci/tested
+          git push -f origin refs/tags/ci/tested
+
   release-job:
     needs: build-and-test-job
     if: github.event.repository.fork == false && startsWith(github.ref, 'refs/tags/v')

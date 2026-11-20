@@ -1,5 +1,8 @@
 name: 🌙 Nightly snapshot
 
+# Deploys the commit pointed by tag ci/tested (moved by java-maven.yml after a successful dry-run on develop)
+# unless it was already deployed (tag ci/snapshotted).
+
 on:
   workflow_dispatch:
   schedule:
@@ -17,105 +20,74 @@ jobs:
   check-job:
     if: github.event.repository.fork == false
     permissions:
-      actions: read
       contents: read
 
-    name: 🔍 Check changes on develop
+    name: 🔍 Check for new tested commit
     runs-on: ubuntu-latest
     outputs:
-      deploy: ${{ steps.check.outputs.deploy }}
+      sha: ${{ steps.check.outputs.sha }}
 
     steps:
-      - name: 🔍 Compare with last snapshot and check CI status
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Compare ci/tested with ci/snapshotted
         id: check
         run: |
-          SERVER="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
-          decide() { # $1=deploy(true|false) $2=title $3=message
-            echo "deploy=$1" >> "$GITHUB_OUTPUT"
-            echo "::notice title=$2::$3"
-            {
-              echo "### $2"
-              echo "$3"
-              echo
-              echo "| | |"
-              echo "|---|---|"
-              echo "| Current commit | [\`${GITHUB_SHA:0:7}\`]($SERVER/commit/$GITHUB_SHA) |"
-              echo "| Last snapshot | ${LAST_LINK:-not checked} |"
-              echo "| CI on current commit | ${CI_LINK:-not checked} |"
-            } >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          }
-
-          LAST=""
-          if [ "$GITHUB_REF" != "refs/heads/develop" ]; then
-            decide false "Snapshot skipped" "Workflow must run on develop, not $GITHUB_REF."
+          TESTED=$(git rev-parse -q --verify 'refs/tags/ci/tested^{commit}' || true)
+          SNAPSHOTTED=$(git rev-parse -q --verify 'refs/tags/ci/snapshotted^{commit}' || true)
+          if [ -z "$TESTED" ]; then
+            echo "::notice title=Snapshot skipped::No ci/tested tag yet"
+          elif [ "$TESTED" = "$SNAPSHOTTED" ]; then
+            echo "::notice title=Snapshot skipped::Nothing new since last snapshot (${TESTED:0:7})"
+          else
+            echo "::notice title=Snapshot scheduled::Deploying ${TESTED:0:7}"
+            echo "sha=$TESTED" >> "$GITHUB_OUTPUT"
           fi
-          for ID in $(gh run list -R "$GITHUB_REPOSITORY" -w snapshot.yml -b develop -s success -L 50 --json databaseId -q '.[].databaseId'); do
-            RUN=$(gh run view "$ID" -R "$GITHUB_REPOSITORY" --json jobs,headSha,url)
-            if [ -n "$(jq -r '.jobs[] | select(.name == "🚀 Snapshot on develop" and .conclusion == "success") | .name' <<< "$RUN")" ]; then
-              LAST=$(jq -r '.headSha' <<< "$RUN")
-              LAST_LINK="[\`${LAST:0:7}\`]($SERVER/commit/$LAST) ([run]($(jq -r '.url' <<< "$RUN")))"
-              break
-            fi
-          done
-          LAST_LINK="${LAST_LINK:-none in last 50 successful runs}"
-          echo "Current: $GITHUB_SHA"
-          echo "Last snapshot: ${LAST:-none}"
-
-          if [ "$LAST" = "$GITHUB_SHA" ]; then
-            decide false "Snapshot skipped" "No change on develop since last snapshot."
-          fi
-
-          CI=$(gh run list -R "$GITHUB_REPOSITORY" -w java-maven.yml -b develop -c "$GITHUB_SHA" -e push -L 1 --json status,conclusion,url -q '.[0] // empty')
-          echo "CI: ${CI:-none}"
-          if [ -z "$CI" ]; then
-            decide false "Snapshot skipped" "No CI run (java-maven.yml) found for this commit on develop."
-          fi
-          CI_STATUS=$(jq -r '.status' <<< "$CI")
-          CI_CONCLUSION=$(jq -r '.conclusion' <<< "$CI")
-          CI_LINK="${CI_CONCLUSION:-$CI_STATUS} ([run]($(jq -r '.url' <<< "$CI")))"
-          if [ "$CI_STATUS" != "completed" ]; then
-            decide false "Snapshot skipped" "CI is still $CI_STATUS on this commit; will retry on next schedule."
-          fi
-          if [ "$CI_CONCLUSION" != "success" ]; then
-            decide false "Snapshot skipped" "CI concluded '$CI_CONCLUSION' on this commit."
-          fi
-
-          decide true "Snapshot scheduled" "New commit with successful CI; deploying snapshot."
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   snapshot-job:
     needs: check-job
-    if: needs.check-job.outputs.deploy == 'true'
-
+    if: needs.check-job.outputs.sha != ''
     permissions:
       contents: read
 
-    name: 🚀 Snapshot on develop
+    name: 🚀 Snapshot
     runs-on: ubuntu-latest
 
     steps:
       - name: ⚙️ Checkout and Setup Maven
         uses: s4u/setup-maven-action@v1.22.0
         with:
+          checkout-ref: ${{ needs.check-job.outputs.sha }}
           checkout-submodules: true
           checkout-fetch-depth: 0
           java-version: ${{ env.JAVA_VERSION }}
 
       - name: ☕ Deploy snapshot with Maven if settings defined
-        run: |
-          if [ ! -f ci.settings.xml ]; then
-            echo "::warning title=Snapshot not deployed::ci.settings.xml not found"
-            echo "### ⚠️ Snapshot not deployed: ci.settings.xml not found" >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
-          mvn deploy -DskipTests -Dmaven.repository.credentialScope=id -s ci.settings.xml -P base-deploy,snapshot-deploy
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "::notice title=Snapshot deployed::$VERSION from ${GITHUB_SHA:0:7}"
-          echo "### ✅ Snapshot deployed: \`$VERSION\` from \`${GITHUB_SHA:0:7}\`" >> "$GITHUB_STEP_SUMMARY"
+        run: test ! -f ci.settings.xml || mvn deploy -DskipTests -Dmaven.repository.credentialScope=id -s ci.settings.xml -P base-deploy,snapshot-deploy
         env:
           CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
           CENTRAL_PORTAL_TOKEN: ${{ secrets.CENTRAL_PORTAL_TOKEN }}
           MAVEN_GPG_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+
+  mark-snapshotted-job:
+    needs: [ check-job, snapshot-job ]
+    permissions:
+      contents: write
+
+    name: 🏷️ Mark as snapshotted
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⚙️ Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.check-job.outputs.sha }}
+
+      - name: 🏷️ Move ci/snapshotted tag
+        run: |
+          git tag -f ci/snapshotted
+          git push -f origin refs/tags/ci/snapshotted
