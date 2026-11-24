@@ -59,7 +59,7 @@
         <heylogs.version>0.19.1</heylogs.version>
 
         <!-- plugin versions -->
-        <nbbrd-maven-tools.version>1.5.0</nbbrd-maven-tools.version>
+        <nbbrd-maven-tools.version>1.6.0</nbbrd-maven-tools.version>
     </properties>
 
     <dependencies>
@@ -225,6 +225,11 @@
                     <version>1.5.0</version>
                 </plugin>
                 <plugin>
+                    <groupId>com.github.nbbrd.nbbrd-maven-tools</groupId>
+                    <artifactId>actionlint-maven-plugin</artifactId>
+                    <version>${nbbrd-maven-tools.version}</version>
+                </plugin>
+                <plugin>
                     <groupId>com.diffplug.spotless</groupId>
                     <artifactId>spotless-maven-plugin</artifactId>
                     <version>3.11.0</version>
@@ -315,6 +320,18 @@
                         <phase>validate</phase>
                         <goals>
                             <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.nbbrd.nbbrd-maven-tools</groupId>
+                <artifactId>actionlint-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>lint</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -846,6 +863,7 @@
                 <heylogs.skip>true</heylogs.skip>
                 <tidy.skip>true</tidy.skip>
                 <spotless.skip>true</spotless.skip>
+                <actionlint.skip>true</actionlint.skip>
             </properties>
         </profile>
     </profiles>
